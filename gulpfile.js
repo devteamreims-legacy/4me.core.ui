@@ -24,9 +24,18 @@ var cachebust = new CacheBuster();
 
 var config = {
     appFolder:      'app/**/*', 
-    sassFolder:     'app/styles/**/*',
-    jsFolder:       'app/scripts/**/*',
-    viewsFolder:    'app/views/**/*',
+    sassFolder:     [
+        'app/styles/**/*',
+        'modules/styles/**/*'
+    ],
+    jsFolder:       [
+        'app/scripts/**/*',
+        'modules/scripts/**/*'
+    ],
+    viewsFolder:    [
+        'app/views/**/*',
+        'modules/views/**/*'
+    ],
     testFolder:     'test/**/*',
     fontsFolder:    'fonts',
     destFolder:     'dist',
@@ -74,8 +83,7 @@ gulp.task('build-css', function() {
         .pipe(sourcemaps.init())
         .pipe(sass({
             includePaths: [
-                config.sassFolder,
-                config.bowerFolder
+                config.sassFolder
             ],
             errLogToConsole: true
         }))
@@ -163,7 +171,7 @@ gulp.task('build-js', function() {
         .pipe(gulp.dest(config.destFolder + '/scripts/'));
 
     var b = browserify({
-        entries: 'app/scripts/app.js',
+        entries: 'app/scripts/main.js',
         debug: true,
         paths: [config.jsFolder],
         transform: [ngAnnotate]
