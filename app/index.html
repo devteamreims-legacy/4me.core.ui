@@ -22,10 +22,16 @@
       </div>
     </md-toolbar>
     <section layout="row" flex>
-      <md-sidenav class="md-sidenav-left md-white-frame-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+      <md-sidenav class="md-sidenav-left md-white-frame-z2" md-component-id="left" md-is-locked-open="true">
         <md-list>
           <md-list-item ng-click="alert('Navigate to module 1 !')">
-            <p>Module name</p>
+            <p>Module 1</p>
+          </md-list-item>
+          <md-list-item ng-click="alert('bla')">
+            <p>Module 2</p>
+            <md-chips>
+              <md-chip>2</md-chip>
+            </md-chips>
           </md-list-item>
         </md-list>
       </md-sidenav>
