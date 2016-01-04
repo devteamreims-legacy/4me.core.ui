@@ -1,5 +1,4 @@
 describe('4me.core.cwp.services', function() {
-  beforeEach(module('4me.core.bootstrap'));
   beforeEach(module('4me.core.cwp.services'));
 
   describe('myCwp', function() {

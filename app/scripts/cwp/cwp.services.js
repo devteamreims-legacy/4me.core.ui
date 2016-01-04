@@ -3,12 +3,13 @@
 
 /**
  * @ngdoc function
- * @name 4me.core.ui.cwp
+ * @name 4me.core.cwp
  * @description
- * # CWP module
- * Meta module to include cwp components
+ * # CWP Services
+ * CWP Services
  */
 var cwpServices = angular.module('4me.core.cwp.services', [
+  '4me.core.lodash'
 ]);
 
 cwpServices.factory('myCwp', myCwp);

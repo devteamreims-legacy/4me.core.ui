@@ -17,12 +17,11 @@ var m = angular
       'ngMaterial',
       'ui.router',
       '4me.core.partials',
-      '4me.core.bootstrap',
       '4me.core.cwp'
   ]);
 
 
-angular.module('4me.core.bootstrap', [])
+angular.module('4me.core.lodash', [])
   // Inject Lodash dependancy
   .constant('_', window._);
 
