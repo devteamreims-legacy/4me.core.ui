@@ -2,10 +2,11 @@
 'use strict';
 
 /**
- * @ngdoc function
- * @name 4me.core.ui.cwp
+ * @ngdoc overview
+ * @name 4me.core.cwp
  * @description
  * # CWP module
+ *
  * Meta module to include cwp components
  */
 angular.module('4me.core.cwp', [
