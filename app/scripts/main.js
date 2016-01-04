@@ -8,14 +8,22 @@
  *
  * Main module of the application.
  */
-angular
-.module('4me.core.ui', [
-    'ngAnimate',
-    'ngCookies',
-    'ngMessages',
-    'ngSanitize',
-    'ngMaterial',
-    'ui.router'
-]);
+var m = angular
+  .module('4me.core', [
+      'ngAnimate',
+      'ngCookies',
+      'ngMessages',
+      'ngSanitize',
+      'ngMaterial',
+      'ui.router',
+      '4me.core.partials',
+      '4me.core.bootstrap',
+      '4me.core.cwp'
+  ]);
+
+
+angular.module('4me.core.bootstrap', [])
+  // Inject Lodash dependancy
+  .constant('_', window._);
 
 }());

@@ -13,11 +13,12 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['browserify', 'mocha'],
+    frameworks: ['browserify', 'source-map-support', 'mocha'],
 
 
     // list of files / patterns to load in the browser
     files: bowerFiles.concat([
+      'test/function-bind-polyfill.js', // Workaround for PhantomJS 1.9
       'test/unit/setup.js',
       'app/scripts/**/*.js',
       'dist/scripts/template*.js',
@@ -72,6 +73,11 @@ module.exports = function(config) {
     // Concurrency level
     // how many browser should be started simultanous
     concurrency: Infinity,
+
+    // Include source maps
+    browserify: {
+      debug: true // include inline source maps 
+    }
 
   })
 }

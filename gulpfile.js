@@ -34,6 +34,7 @@ var config = {
     ],
     viewsFolder:    [
         'app/views/**/*',
+        'app/**/views/**/*',
         'modules/views/**/*'
     ],
     testFolder:     'test/**/*',
@@ -146,10 +147,10 @@ gulp.task('build-template-cache', function() {
     
     return gulp.src(config.viewsFolder)
         .pipe(ngHtml2Js({
-            moduleName: "4meCdsPartials",
+            moduleName: "4me.core.partials",
             prefix: "views/"
         }))
-        //.pipe(debug())
+        .pipe(debug())
         .pipe(concat("templateCachePartials.js"))
         .pipe(cachebust.resources())
         .pipe(gulp.dest(config.destFolder + '/scripts/'))
