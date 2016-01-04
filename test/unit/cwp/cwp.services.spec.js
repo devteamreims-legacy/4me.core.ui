@@ -28,7 +28,25 @@ describe('4me.core.cwp.services', function() {
         
         $rootScope.$apply(); // Flush $q defer
       });
+
+      it('should return a properly formatted result', function(done) {
+        Promise.all([
+          myCwp.get().should.eventually
+            .have.keys('id', 'name'),
+          myCwp.get().then(function(res) {
+            return [
+              res.id.should.be.a('number'),
+              res.name.should.be.a('string')
+            ]
+          })
+        ])
+        .then(function() {
+          done();
+        });
+        $rootScope.$apply();
+      });
     });
+
 
   });
 });

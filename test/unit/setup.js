@@ -13,4 +13,5 @@ var sinonAsPromised = require('sinon-as-promised');
 global.sinon = sinon;
 global.expect = chai.expect;
 global.sinonAsPromised = sinonAsPromised;
+global.Promise = require('bluebird');
 chai.should();

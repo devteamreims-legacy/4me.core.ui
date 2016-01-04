@@ -27,19 +27,18 @@ function myCwp(_, $q) {
     } else {
       // TODO : load from backend
       var def = $q.defer();
-      loadingPromise = def.promise;
-      /*.then(function(res) {
+
+      loadingPromise = def.promise
+      .then(function(res) {
         myCwp = res;
         return myCwp;
       });
-*/
+
       def.resolve({
         id: 34,
         name: 'CDS'
       });
 
-      console.log('Returning :');
-      console.log(loadingPromise);
       return loadingPromise;
     }
   }
