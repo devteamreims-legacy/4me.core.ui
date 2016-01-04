@@ -21,7 +21,16 @@
         </div>
       </div>
     </md-toolbar>
-    <md-content layout="column" ui-view flex></md-content>
+    <section layout="row" flex>
+      <md-sidenav class="md-sidenav-left md-white-frame-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+        <md-list>
+          <md-list-item ng-click="alert('Navigate to module 1 !')">
+            <p>Module name</p>
+          </md-list-item>
+        </md-list>
+      </md-sidenav>
+      <md-content layout="column" ui-view flex></md-content>
+    </section>
     </body>
     <script src="scripts/vendor.js"></script>
     <script src="scripts/bundle.js"></script>
