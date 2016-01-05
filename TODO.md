@@ -8,9 +8,10 @@ Creer un "stub module" qui utilise les hooks de 4me.core.ui pour s'enregistrer, 
 
 Choses à créer :
  * Service qui contient la liste des modules (?)
- * Service qui permet au module d'enregistrer/supprimer des notifications (avec lien direct)
+ * Service qui permet au module d'enregistrer/supprimer des notifications (avec lien direct vers contenu)
  * Voir ui-router et comment articuler les choses
  * Voir dashboard et enregistrement d'un widget (?)
  * Connaitre le statut de la position, envoyer un event lors du changement de secteurs
   * Chercher position depuis backend, si rien, alors afficher une erreur
   * Afficher "position fermée"
+ * Gestion d'erreurs, par module et/ou globalement
