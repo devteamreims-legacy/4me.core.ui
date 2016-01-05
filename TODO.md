@@ -15,3 +15,6 @@ Choses à créer :
   * Chercher position depuis backend, si rien, alors afficher une erreur
   * Afficher "position fermée"
  * Gestion d'erreurs, par module et/ou globalement
+  * http://odetocode.com/blogs/scott/archive/2014/04/21/better-error-handling-in-angularjs.aspx
+  * http://www.bennadel.com/blog/2773-handling-top-level-errors-in-a-promise-workflow-in-angularjs.htm
+  * https://egghead.io/lessons/angularjs-catching-errors-with-exceptionhandler
