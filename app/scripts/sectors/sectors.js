@@ -10,6 +10,7 @@
  * Meta module to include sectors components/services
  */
 angular.module('4me.core.sectors', [
+  '4me.core.sectors.services'
 ]);
 
 }());
