@@ -6,12 +6,25 @@ describe('4me.core.cwp.services', function() {
     var $httpBackend;
     var $rootScope;
     var $q;
+    var ApiUrls;
 
-    beforeEach(inject(function(_myCwp_, _$httpBackend_, _$rootScope_, _$q_) {
+    var resultsFromBackend = {
+      getMine: {
+        id: 34,
+        name: 'P34'
+      }
+    };
+
+    beforeEach(inject(function(_myCwp_, _$httpBackend_, _$rootScope_, _$q_, _ApiUrls_) {
       myCwp = _myCwp_;
       $httpBackend = _$httpBackend_;
       $rootScope = _$rootScope_;
       $q = _$q_;
+      ApiUrls = _ApiUrls_;
+
+      $httpBackend
+        .when('GET', ApiUrls.mapping.rootPath + ApiUrls.mapping.cwp.getMine)
+        .respond(resultsFromBackend.getMine);
     }));
 
     afterEach(function() {
@@ -26,7 +39,7 @@ describe('4me.core.cwp.services', function() {
           .be.fulfilled
           .and.notify(done);
         
-        $rootScope.$apply(); // Flush $q defer
+        $httpBackend.flush(); // Flush $q defer
       });
 
       it('should return a properly formatted result', function(done) {
@@ -43,7 +56,7 @@ describe('4me.core.cwp.services', function() {
         .then(function() {
           done();
         });
-        $rootScope.$apply();
+        $httpBackend.flush();
       });
     });
 

@@ -17,7 +17,9 @@ var m = angular
       'ngMaterial',
       'ui.router',
       '4me.core.partials',
-      '4me.core.cwp'
+      '4me.core.config',
+      '4me.core.cwp',
+      '4me.core.sectors'
   ]);
 
 

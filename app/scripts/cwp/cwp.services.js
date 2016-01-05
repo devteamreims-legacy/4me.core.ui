@@ -9,34 +9,40 @@
  * CWP Services
  */
 var cwpServices = angular.module('4me.core.cwp.services', [
-  '4me.core.lodash'
+  '4me.core.lodash',
+  '4me.core.config'
 ]);
 
 cwpServices.factory('myCwp', myCwp);
 
-myCwp.$inject = ['_', '$q'];
-function myCwp(_, $q) {
+myCwp.$inject = ['_', '$q', 'ApiUrls', '$http'];
+function myCwp(_, $q, ApiUrls, $http) {
   var myCwp = {};
   var loadingPromise;
   var service = {};
+  var endpoints = {};
+
+  // This belongs in a separate service
+  function _prepareUrl() {
+    endpoints.getMine = ApiUrls.mapping.rootPath + ApiUrls.mapping.cwp.getMine;
+    return endpoints;
+  }
 
   function _getFromBackend() {
+    if(_.isEmpty(endpoints)) {
+      _prepareUrl();
+    }
     if(loadingPromise !== undefined) {
       // Already loading from backend, return promise
       return loadingPromise;
     } else {
-      // TODO : load from backend
-      var def = $q.defer();
-
-      loadingPromise = def.promise
+      loadingPromise = $http({
+        method: 'GET',
+        url: endpoints.getMine
+      })
       .then(function(res) {
-        myCwp = res;
+        myCwp = res.data;
         return myCwp;
-      });
-
-      def.resolve({
-        id: 34,
-        name: 'CDS'
       });
 
       return loadingPromise;
