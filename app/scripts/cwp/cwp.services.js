@@ -2,8 +2,8 @@
 'use strict';
 
 /**
- * @ngdoc function
- * @name 4me.core.cwp
+ * @ngdoc overview
+ * @name 4me.core.cwp.services
  * @description
  * # CWP Services
  * CWP Services
