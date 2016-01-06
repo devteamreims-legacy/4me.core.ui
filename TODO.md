@@ -3,7 +3,6 @@ Utiliser blocks angular.module().run() (block de code executé après l'instanci
 
 Voir ici : https://docs.angularjs.org/guide/module
 
-
 Creer un "stub module" qui utilise les hooks de 4me.core.ui pour s'enregistrer, utiliser ce module pour tester les hooks
 
 Choses à créer :
