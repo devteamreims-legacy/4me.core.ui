@@ -87,4 +87,26 @@ describe('4me.core.errors', function() {
     });
   });
 
+  describe('unread count', function() {
+    it('should have proper methods', function() {
+      errors.getUnreadCount.should.be.a('function');
+      errors.clearUnreadCount.should.be.a('function');
+    });
+
+    it('should increment unread count', function() {
+      var a = errors.getUnreadCount();
+      errors.add();
+      errors.getUnreadCount().should.eql(a+1);
+    });
+
+    it('should clear unread count', function() {
+      var a = errors.getUnreadCount();
+      errors.add();
+      errors.add();
+      errors.add();
+      errors.getUnreadCount().should.eql(3);
+      errors.clearUnreadCount();
+      errors.getUnreadCount().should.eql(0);
+    })
+  });
 });

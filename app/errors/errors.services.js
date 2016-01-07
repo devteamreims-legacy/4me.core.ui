@@ -31,6 +31,7 @@ function errors($q) {
 
   var errors = [];
   var service = {};
+  var unreadCount = 0;
 
   // Promise version of our error catcher
   service.catch = function(sender, type, message) {
@@ -50,13 +51,22 @@ function errors($q) {
       reason: reason || {}
     };
     errors.unshift(e);
+    unreadCount++;
     return e;
   };
 
   // Get all errors
   service.get = function() {
     return errors;
-  }
+  };
+
+  service.getUnreadCount = function() {
+    return unreadCount;
+  };
+
+  service.clearUnreadCount = function() {
+    unreadCount = 0;
+  };
 
   return service;
 
