@@ -29,13 +29,12 @@ var config = {
         'modules/styles/**/*'
     ],
     jsFolder:       [
-        'app/scripts/**/*.js',
-        'modules/scripts/**/*.js'
+        'app/**/*.js',
+        'modules/**/*.js'
     ],
     viewsFolder:    [
-        'app/views/**/*.html',
-        'app/**/views/**/*.html',
-        'modules/views/**/*.html'
+        'app/**/*.html',
+        'modules/**/*.html'
     ],
     testFolder:     'test/**/*',
     fontsFolder:    'fonts',
