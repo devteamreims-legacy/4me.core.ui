@@ -29,10 +29,19 @@ function fmeErrorListController(errors) {
   self.errors = errors.get();
 }
 
-fmeErrorButtonController.$inject = ['errors'];
-function fmeErrorButtonController(errors) {
-  var self = this;
-  self.unreadCount = errors.getUnreadCount();
+fmeErrorButtonController.$inject = ['errors', '$mdDialog'];
+function fmeErrorButtonController(errors, $mdDialog) {
+  var fmeErrorButton = this;
+  fmeErrorButton.unreadCount = errors.getUnreadCount();
+
+  fmeErrorButton.showDialog = function(ev) {
+    $mdDialog.show({
+      template: '<fme-error-list></fme-error-list>',
+      parent: angular.element(document.body),
+      targetEvent: ev,
+      clickOutsideToClose: true
+    });
+  }
 }
 
 }());
