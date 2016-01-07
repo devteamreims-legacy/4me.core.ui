@@ -16,6 +16,7 @@
           4ME (P<my-cwp></my-cwp>)
         </h1>
         <div flex layout="row" class="md-toolbar-tools" layout-align="end center">
+          <fme-error-button></fme-error-button>
           <crna-help-button><md-button aria-label="Help" class="md-icon-button"><i class="mdi mdi-help"></i></md-button></crna-help-button>
           <md-button aria-label="Reload app" class="md-icon-button" onclick="window.location.reload(true)"><i class="mdi mdi-refresh"></i></md-button>
         </div>
@@ -36,7 +37,7 @@
         </md-list>
       </md-sidenav>
       <md-content layout="column" flex>
-        <fmeError></fmeError>
+        <fme-error-list></fme-error-list>
       </md-content>
     </section>
     </body>
