@@ -1,10 +1,13 @@
 describe('4me.core.errors', function() {
-  beforeEach(module('4me.core.errors'));
+  beforeEach(module('4me.core.errors.services'));
 
   var errors;
+  var $q;
 
-  beforeEach(inject(function(_errors_) {
+  beforeEach(inject(function(_errors_, _$q_, _$rootScope_) {
     errors = _errors_;
+    $q = _$q_;
+    $rootScope = _$rootScope_;
   }));
 
   it('should have a proper API', function() {
@@ -31,8 +34,11 @@ describe('4me.core.errors', function() {
 
       var r = errors.add('core', 'critical', 'Error', {message: 'test error'});
 
-      r.should.eql(e);
-      errors.get().should.eql([e]);
+      r.sender.should.eql(e.sender);
+      r.type.should.eql(e.type);
+      r.message.should.eql(e.message);
+      r.reason.should.eql(e.reason);
+      errors.get().should.eql([r]);
     });
 
     it('should add errors in the correct order', function() {
@@ -65,22 +71,19 @@ describe('4me.core.errors', function() {
   describe('catch', function() {
     it('should add a correctly formatted error via a promise chain', function(done) {
       // Setup a failing promise
-      var p = function() {
-        return new Promise(function(resolve, reject) {
-          reject(new Error('bla'));
-        });
-      };
+      var p = $q.reject('root error');
 
-      p()
-      .then(function() {
-        (true).should.eql(0); // This should never happen
-      })
-      .catch(errors.catch('core', 'critical', 'Promise failed'))
+      Promise.all([
+        p.catch(errors.catch('core', 'critical', 'Promise failed'))
+        .should.be.rejected
+      ])
       .then(function() {
         errors.get().length.should.eql(1);
         errors.get()[0].message.should.eql('Promise failed');
-      })
-      .should.notify(done);
+        done();
+      });
+
+      $rootScope.$digest(); // Flush $q promises
     });
   });
 
