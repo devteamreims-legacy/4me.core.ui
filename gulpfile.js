@@ -23,25 +23,25 @@ var gulp = require('gulp'),
 var cachebust = new CacheBuster();
 
 var config = {
-    appFolder:      'app/**/*', 
+    appFolder:      'app/**/*',
     sassFolder:     [
         'app/styles/**/*',
         'modules/styles/**/*'
     ],
     jsFolder:       [
-        'app/scripts/**/*',
-        'modules/scripts/**/*'
+        'app/scripts/**/*.js',
+        'modules/scripts/**/*.js'
     ],
     viewsFolder:    [
-        'app/views/**/*',
-        'app/**/views/**/*',
-        'modules/views/**/*'
+        'app/views/**/*.html',
+        'app/**/views/**/*.html',
+        'modules/views/**/*.html'
     ],
     testFolder:     'test/**/*',
     fontsFolder:    'fonts',
     destFolder:     'dist',
     mapsFolder:     'maps',
-    bowerFolder:    'bower_components', 
+    bowerFolder:    'bower_components',
 };
 
 
@@ -144,7 +144,7 @@ gulp.task('build-template-cache', function() {
 
     var ngHtml2Js = require("gulp-ng-html2js"),
         concat = require("gulp-concat");
-    
+
     return gulp.src(config.viewsFolder)
         .pipe(ngHtml2Js({
             moduleName: "4me.core.partials",
