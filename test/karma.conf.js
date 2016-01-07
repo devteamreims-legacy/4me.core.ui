@@ -20,7 +20,7 @@ module.exports = function(config) {
     files: bowerFiles.concat([
       'test/function-bind-polyfill.js', // Workaround for PhantomJS 1.9
       'test/unit/setup.js',
-      'app/scripts/**/*.js',
+      'app/**/*.js',
       'dist/scripts/template*.js',
       'test/unit/**/*.js'
     ]),
@@ -76,7 +76,7 @@ module.exports = function(config) {
 
     // Include source maps
     browserify: {
-      debug: true // include inline source maps 
+      debug: true // include inline source maps
     }
 
   })
