@@ -23,8 +23,6 @@ describe('4me.core.cwp.services', function() {
       $q = _$q_;
       ApiUrls = _ApiUrls_;
       errors = _errors_;
-
-
     }));
 
     describe('get', function() {
