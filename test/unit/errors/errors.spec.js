@@ -34,6 +34,32 @@ describe('4me.core.errors', function() {
       r.should.eql(e);
       errors.get().should.eql([e]);
     });
+
+    it('should add errors in the correct order', function() {
+      var e1 = {
+        when: Date.now(),
+        sender: 'core',
+        type: 'critical',
+        message: 'Error',
+        reason: {message: 'test error'}
+      };
+
+      var e2 = {
+        when: Date.now(),
+        sender: 'core',
+        type: 'critical',
+        message: 'Error2',
+        reason: {message: 'test error2'}
+      };
+
+      errors.add(e1.sender, e1.type, e1.message, e1.reason);
+      errors.add(e2.sender, e2.type, e2.message, e2.reason);
+
+      errors.get().length.should.eql(2);
+      ([errors.get()[0].message, errors.get()[1].message])
+        .should.eql([e2.message, e1.message]);
+
+    });
   });
 
   describe('catch', function() {

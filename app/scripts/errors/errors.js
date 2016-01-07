@@ -46,7 +46,7 @@ function errors() {
       message: message || 'Unknown message',
       reason: reason || {}
     };
-    errors.push(e);
+    errors.unshift(e);
     return e;
   };
 
