@@ -87,7 +87,7 @@ describe('4me.core.errors', function() {
     });
   });
 
-  describe('unread count', function() {
+  describe('unread block', function() {
     it('should have proper methods', function() {
       errors.getUnreadCount.should.be.a('function');
       errors.clearUnreadCount.should.be.a('function');
@@ -100,13 +100,24 @@ describe('4me.core.errors', function() {
     });
 
     it('should clear unread count', function() {
-      var a = errors.getUnreadCount();
       errors.add();
       errors.add();
       errors.add();
       errors.getUnreadCount().should.eql(3);
       errors.clearUnreadCount();
       errors.getUnreadCount().should.eql(0);
-    })
+    });
+
+    it('should get unread errors', function() {
+      errors.getUnread().should.eql([]);
+      errors.add();
+      errors.add();
+      errors.getUnread().length.should.eql(2);
+      errors.clearUnreadCount();
+      errors.getUnread().length.should.eql(0);
+      errors.add();
+      errors.get().length.should.eql(3);
+      errors.getUnread().length.should.eql(1);
+    });
   });
 });

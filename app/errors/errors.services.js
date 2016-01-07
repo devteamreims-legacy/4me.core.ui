@@ -16,8 +16,8 @@ angular.module('4me.core.errors.services', [
 ])
 .factory('errors', errors);
 
-errors.$inject = ['$q'];
-function errors($q) {
+errors.$inject = ['_', '$q'];
+function errors(_, $q) {
   // Array to hold our errors
   /** Error object prototype :
    * {
@@ -66,6 +66,10 @@ function errors($q) {
 
   service.clearUnreadCount = function() {
     unreadCount = 0;
+  };
+
+  service.getUnread = function() {
+    return _.take(errors, unreadCount) || [];
   };
 
   return service;
