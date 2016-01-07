@@ -19,6 +19,7 @@ function errors() {
   // Array to hold our errors
   /** Error object prototype :
    * {
+   *   when: Date.now() // Timestamp of the error
    *   sender: 'core' // String to hold our sender module
    *   type: 'error' // String to hold our error type (critical, warning, info)
    *   message: 'Invalid info from backend' // String to hold our user friendly info
@@ -39,6 +40,7 @@ function errors() {
   // Add an error
   service.add = function(sender, type, message, reason) {
     var e = {
+      when: Date.now(),
       sender: sender || 'Unknown',
       type: type || 'warning',
       message: message || 'Unknown message',

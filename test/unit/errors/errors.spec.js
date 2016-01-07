@@ -22,14 +22,16 @@ describe('4me.core.errors', function() {
   describe('add', function() {
     it('should add a correctly formatted error', function() {
       var e = {
+        when: Date.now(),
         sender: 'core',
         type: 'critical',
         message: 'Error',
         reason: {message: 'test error'}
       };
 
-      errors.add('core', 'critical', 'Error', {message: 'test error'})
-      .should.eql(e);
+      var r = errors.add('core', 'critical', 'Error', {message: 'test error'});
+
+      r.should.eql(e);
       errors.get().should.eql([e]);
     });
   });
