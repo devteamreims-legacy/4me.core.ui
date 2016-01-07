@@ -13,10 +13,10 @@ var errorComponents = angular.module('4me.core.errors.components', [
   '4me.core.errors'
 ]);
 
-errorComponents.component('fmeError', {
+errorComponents.component('fmeErrorList', {
   restrict: 'E',
   controller: fmeErrorController,
-  templateUrl: 'errors/views/errorList.html'
+  templateUrl: 'views/errors/errorList.html'
 });
 
 fmeErrorController.$inject = ['errors'];
