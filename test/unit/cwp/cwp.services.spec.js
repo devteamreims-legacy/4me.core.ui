@@ -7,6 +7,7 @@ describe('4me.core.cwp.services', function() {
     var $rootScope;
     var $q;
     var ApiUrls;
+    var errors;
 
     var resultsFromBackend = {
       getMine: {
@@ -15,30 +16,36 @@ describe('4me.core.cwp.services', function() {
       }
     };
 
-    beforeEach(inject(function(_myCwp_, _$httpBackend_, _$rootScope_, _$q_, _ApiUrls_) {
+    beforeEach(inject(function(_myCwp_, _$httpBackend_, _$rootScope_, _$q_, _ApiUrls_, _errors_) {
       myCwp = _myCwp_;
       $httpBackend = _$httpBackend_;
       $rootScope = _$rootScope_;
       $q = _$q_;
       ApiUrls = _ApiUrls_;
+      errors = _errors_;
 
-      $httpBackend
-        .when('GET', ApiUrls.mapping.rootPath + ApiUrls.mapping.cwp.getMine)
-        .respond(resultsFromBackend.getMine);
+
     }));
 
-    afterEach(function() {
-      $httpBackend.verifyNoOutstandingExpectation();
-      $httpBackend.verifyNoOutstandingRequest();
-    });
-
     describe('get', function() {
+      // Prepare our backend
+      beforeEach(function() {
+        $httpBackend
+          .when('GET', ApiUrls.mapping.rootPath + ApiUrls.mapping.cwp.getMine)
+          .respond(resultsFromBackend.getMine);
+      });
+
+      afterEach(function() {
+        $httpBackend.verifyNoOutstandingExpectation();
+        $httpBackend.verifyNoOutstandingRequest();
+      });
+
       it('should return a promise', function(done) {
         myCwp.get()
           .should
           .be.fulfilled
           .and.notify(done);
-        
+
         $httpBackend.flush(); // Flush $q defer
       });
 
@@ -60,6 +67,25 @@ describe('4me.core.cwp.services', function() {
       });
     });
 
+    describe('without backend', function() {
+      beforeEach(function() {
+        errors.catch = sinon.spy();
+        $httpBackend
+          .when('GET', ApiUrls.mapping.rootPath + ApiUrls.mapping.cwp.getMine)
+          .respond(404, '');
+      });
+
+      it('should handle failure gracefully', function(done) {
+        Promise.all([
+          myCwp.get().should.be.rejected,
+          errors.catch.should.have.been.calledWith('core.cwp', sinon.match.any, sinon.match.any)
+        ])
+        .then(function() {
+          done();
+        });
+        $httpBackend.flush();
+      });
+    });
 
   });
 });
