@@ -9,35 +9,44 @@
  * Sectors Services
  */
 var sectorsServices = angular.module('4me.core.sectors.services', [
-  '4me.core.lodash'
+  '4me.core.lodash',
+  '4me.core.config',
+  '4me.core.errors'
 ]);
 
 sectorsServices.factory('mySectors', mySectors);
 
-mySectors.$inject = ['_', '$q'];
-function mySectors(_, $q) {
+mySectors.$inject = ['_', '$q', 'ApiUrls', '$http', 'errors'];
+function mySectors(_, $q, ApiUrls, $http, errors) {
   var mySectors = {};
   var loadingPromise;
   var service = {};
+  var endpoints = {};
+
+  // This belongs in a separate service
+  function _prepareUrl() {
+    endpoints.getMine = ApiUrls.mapping.rootPath + ApiUrls.mapping.sectors.getMine;
+    return endpoints;
+  }
 
   function _getFromBackend() {
+    if(_.isEmpty(endpoints)) {
+      _prepareUrl();
+    }
     if(loadingPromise !== undefined) {
       // Already loading from backend, return promise
       return loadingPromise;
     } else {
-      // TODO : load from backend
-      var def = $q.defer();
-
-      loadingPromise = def.promise
+      loadingPromise = $http({
+        method: 'GET',
+        url: endpoints.getMine,
+        timeout: 200
+      })
       .then(function(res) {
-        mySectors = res;
+        mySectors = res.data;
         return mySectors;
-      });
-
-      def.resolve({
-        sectors: ['UR', 'XR'],
-        name: 'UXR'
-      });
+      })
+      .catch(errors.catch('core.sectors', 'critical', 'Could not load our sectors from backend'));
 
       return loadingPromise;
     }
