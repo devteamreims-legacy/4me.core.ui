@@ -1,4 +1,18 @@
-<h2>POUET</h2>
-<div ng-repeat="e in fmeErrorList.errors">
-    {{e.sender}}
-</div>
+<md-dialog-content>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Errors list</h2>
+    </div>
+  </md-toolbar>
+  <div class="md-dialog-content">
+  <md-list>
+    <md-list-item class="md-3-line" ng-repeat="e in fmeErrorList.errors">
+      <md-icon md-svg-icon="alert" class="md-warn md-avatar"></md-icon>
+      <div class="md-list-item-text" layout="column">
+        <h3>{{e.sender}}</h3>
+        <h4>{{e.message}}</h4>
+        <p>{{e.when | date : 'medium'}}</p>
+      </div>
+    </md-list-item>
+  </md-list>
+</md-dialog-content>

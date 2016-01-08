@@ -25,14 +25,18 @@ errorComponents.component('fmeErrorList', {
 
 fmeErrorListController.$inject = ['errors'];
 function fmeErrorListController(errors) {
-  var self = this;
-  self.errors = errors.get();
+  var fmeErrorList = this;
+  fmeErrorList.errors = errors.get();
+  fmeErrorList.addError = function() {
+    errors.add('test', 'test');
+  };
 }
 
 fmeErrorButtonController.$inject = ['errors', '$mdDialog'];
 function fmeErrorButtonController(errors, $mdDialog) {
   var fmeErrorButton = this;
-  fmeErrorButton.unreadCount = errors.getUnreadCount();
+  
+  fmeErrorButton.getUnreadCount = errors.getUnreadCount;
 
   fmeErrorButton.showDialog = function(ev) {
     $mdDialog.show({
