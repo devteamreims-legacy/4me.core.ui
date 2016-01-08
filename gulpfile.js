@@ -23,18 +23,21 @@ var gulp = require('gulp'),
 var cachebust = new CacheBuster();
 
 var config = {
-    appFolder:      'app/**/*',
+    appFolder:      [
+        'app/**/*',
+        'organs/**/*'
+    ],
     sassFolder:     [
         'app/styles/**/*',
-        'modules/styles/**/*'
+        'organs/styles/**/*'
     ],
     jsFolder:       [
         'app/**/*.js',
-        'modules/**/*.js'
+        'organs/**/*.js'
     ],
     viewsFolder:    [
         'app/**/*.html',
-        'modules/**/*.html'
+        'organs/**/*.html'
     ],
     sourceIconsFolder:[
         'app/icons/**.svg',
