@@ -9,7 +9,9 @@
  * Configuration module of the application
  */
 
-angular.module('4me.core.config', [])
+angular.module('4me.core.config', [
+  'ngMaterial'
+])
   // Object to map microservices URLs
   .constant('ApiUrls', {
     mapping: {

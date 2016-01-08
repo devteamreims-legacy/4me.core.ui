@@ -36,6 +36,9 @@ var config = {
         'app/**/*.html',
         'modules/**/*.html'
     ],
+    sourceIconsFolder:[
+        'app/icons/**.svg',
+    ], 
     testFolder:     'test/**/*',
     fontsFolder:    'fonts',
     destFolder:     'dist',
@@ -213,10 +216,13 @@ gulp.task('build-bower-js', function() {
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-gulp.task('build-bower-fonts', function() {
-    return gulp.src(mainBowerFiles({
-        filter: /.*\.(woff2|eot|woff|ttf|svg)$/
-    }))
+gulp.task('build-fonts', function() {
+    return gulp.src(
+        mainBowerFiles({
+            filter: /.*\.(woff2|eot|woff|ttf|svg)$/
+        })
+        .concat(config.sourceIconsFolder)
+    )
         .pipe(debug())
         .pipe(gulp.dest(config.destFolder + '/fonts/'))
         .pipe(connect.reload());
@@ -311,7 +317,7 @@ gulp.task('build', function(cb) {
         'install-bower',
         [
             'build-css', 'build-bower-css',
-            'build-bower-fonts',
+            'build-fonts',
             'build-template-cache', 'jshint',
             'build-js', 'build-bower-js'
         ],
