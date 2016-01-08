@@ -21,7 +21,8 @@ var m = angular
       '4me.core.errors',
       '4me.core.organs',
       '4me.core.cwp',
-      '4me.core.sectors'
+      '4me.core.sectors',
+      '4me.ui.stub'
   ]);
 
 

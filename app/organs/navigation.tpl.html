@@ -1,6 +1,9 @@
 <md-list>
   <md-list-item ng-repeat="o in organNavigation.organs" ng-click="o.navigateTo()">
     <p>{{o.name}}</p>
+    <md-chips ng-if="o.getNotifications().length > 0">
+      <md-chip>{{o.getNotifications().length}}</md-chip>
+    </md-chips>
   </md-list-item>
   <md-list-item ng-click="alert('bla')">
     <p>Module 2</p>
