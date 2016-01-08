@@ -7,3 +7,5 @@ npm-debug.log
 *.swp
 .idea
 coverage
+organs/*
+!organs/stub/
