@@ -18,6 +18,11 @@ angular.module('4me.core.config', [])
       cwp: {getMine: '/cwp/getMine'},
       sectors: {getMine: '/sectors/getMine'}
     }
-  });
+  })
+  .config(mdiToAngularMaterial);
 
+mdiToAngularMaterial.$inject = ['$mdIconProvider'];
+function mdiToAngularMaterial($mdIconProvider) {
+  $mdIconProvider.defaultIconSet('fonts/mdi.svg');
+}
 }());
