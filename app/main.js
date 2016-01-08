@@ -19,6 +19,7 @@ var m = angular
       '4me.core.partials',
       '4me.core.config',
       '4me.core.errors',
+      '4me.core.organs',
       '4me.core.cwp',
       '4me.core.sectors'
   ]);

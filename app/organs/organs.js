@@ -11,6 +11,8 @@
  * Organs are 4me submodules that wire into this framework
  */
 angular.module('4me.core.organs', [
+  '4me.core.organs.services',
+  '4me.core.organs.components'
 ]);
 
 }());
