@@ -17,8 +17,8 @@
         </h1>
         <div flex layout="row" class="md-toolbar-tools" layout-align="end center">
           <fme-error-button></fme-error-button>
-          <crna-help-button><md-button aria-label="Help" class="md-icon-button"><i class="mdi mdi-help"></i></md-button></crna-help-button>
-          <md-button aria-label="Reload app" class="md-icon-button" onclick="window.location.reload(true)"><i class="mdi mdi-refresh"></i></md-button>
+          <crna-help-button><md-button aria-label="Help" class="md-icon-button"><md-icon md-svg-icon="help"></md-icon></md-button></crna-help-button>
+          <md-button aria-label="Reload app" class="md-icon-button" onclick="window.location.reload(true)"><md-icon md-svg-icon="refresh"></md-icon></md-button>
         </div>
       </div>
     </md-toolbar>
@@ -36,8 +36,7 @@
           </md-list-item>
         </md-list>
       </md-sidenav>
-      <md-content layout="column" flex>
-        <fme-error-list></fme-error-list>
+      <md-content layout="column" ui-view flex>
       </md-content>
     </section>
     </body>
