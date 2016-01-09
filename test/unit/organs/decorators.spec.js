@@ -38,6 +38,46 @@ describe('4me.ui.stub', function() {
     coreNotifications.add.should.have.been.calledWith('stub');
   });
 
+  describe('decorated notifications', function() {
+    beforeEach(function() {
+      // Add a notification coming from the core
+      coreNotifications.add('core');
+    });
+
+    it('should get filtered notifications', function() {
+      notifications.get().should.be.empty;
+      notifications.add('warn', 'Test title');
+      notifications.get().length.should.eql(1);
+
+      var n = notifications.get()[0];
+      n.priority.should.eql('warn');
+      n.title.should.eql('Test title');
+    });
+
+    describe('unread block', function() {
+      beforeEach(function() {
+        // Add a second notification
+        coreNotifications.add('core');
+
+        // Add 2 unread namespaced notifications
+        notifications.add();
+        notifications.add();
+      });
+
+      it('should count namespaced notifications only', function() {
+        coreNotifications.getUnread().length.should.eql(4); // 2 from core, 2 from stub
+        notifications.getUnread().length.should.eql(2);
+      });
+
+      it('should only mark as read namespaced notifications', function() {
+        notifications.markAllAsRead();
+        notifications.getUnread().length.should.eql(0);
+        coreNotifications.getUnread().length.should.eql(2);
+      });
+    });
+
+  });
+
 
 
 });
