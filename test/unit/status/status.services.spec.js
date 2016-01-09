@@ -21,21 +21,21 @@ describe('4me.core.status.services', function() {
     });
 
     it('should be able to escalate', function() {
-      coreStatusService.escalate('core.stub', 'warn', 'User message');
+      coreStatusService.escalate('core.stub', 'warning', 'User message');
 
       var s = coreStatusService.get();
-      s.status.should.eql('warn');
+      s.status.should.eql('warning');
       s.reasons.length.should.eql(1);
 
       var r = s.reasons[0];
       r.sender.should.eql('core.stub');
-      r.criticity.should.eql('warn');
+      r.criticity.should.eql('warning');
       r.message.should.eql('User message');
 
     });
 
     it('should be able to resume to a normal status', function() {
-      coreStatusService.escalate('core.stub', 'warn', 'User message');
+      coreStatusService.escalate('core.stub', 'warning', 'User message');
 
       coreStatusService.recover('core.stub');
 
@@ -46,17 +46,17 @@ describe('4me.core.status.services', function() {
 
     describe('multiple escalations', function() {
       beforeEach(function() {
-        coreStatusService.escalate('stub.stub', 'warn', 'User message');
+        coreStatusService.escalate('stub.stub', 'warning', 'User message');
       });
 
       it('should be able to register multiple escalations', function() {
-        coreStatusService.escalate('core.stub', 'warn', 'User message');
+        coreStatusService.escalate('core.stub', 'warning', 'User message');
         coreStatusService.get().reasons.length.should.eql(2);
       });
 
       it('should set the global status as the worst status of all the reasons', function() {
         coreStatusService.escalate('core.stub1', 'critical');
-        coreStatusService.escalate('core.stub2', 'warn');
+        coreStatusService.escalate('core.stub2', 'warning');
         coreStatusService.get().status.should.eql('critical');
       });
 

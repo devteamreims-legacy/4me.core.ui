@@ -34,7 +34,7 @@ function fmeNotificationListController(notifications, $mdDialog) {
   fmeNotificationList.getIcon = function(n) {
     if(n.priority === 'critical') {
       return 'close-circle';
-    } else if(n.priority.type === 'warning') {
+    } else if(n.priority === 'warning') {
       return 'alert';
     } else {
       return 'information';
@@ -70,10 +70,17 @@ function fmeNotificationButtonController(notifications, $mdDialog) {
   };
 
   fmeNotificationButton.getClass = function() {
-    if(fmeNotificationButton.getUnreadCount() === 0) {
-      return ''; // Nothing to see here
+    switch(notifications.getUnreadHighestPriority()) {
+      case false:
+      default:
+        return '';
+      case 'info':
+        return 'md-primary';
+      case 'warning':
+        return 'md-warn';
+      case 'critical':
+        return 'md-accent';
     }
-    return 'md-primary';
   };
 
   fmeNotificationButton.getIcon = function() {

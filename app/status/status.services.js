@@ -37,11 +37,11 @@ function coreStatusService(_) {
   function _reevaluateGlobalStatus() {
     var newStatus = 'normal';
     _.each(status.reasons, function(r) {
-      if(r.criticity === 'warn') {
+      if(r.criticity === 'warning') {
         if(newStatus === 'critical') {
           return;
         }
-        newStatus = 'warn';
+        newStatus = 'warning';
       }
       if(r.criticity === 'critical') {
         newStatus = 'critical';
@@ -67,7 +67,7 @@ function coreStatusService(_) {
     var reason = {};
     reason.when = Date.now();
     reason.sender = sender;
-    reason.criticity = criticity || 'warn';
+    reason.criticity = criticity || 'warning';
     reason.message = message || 'Unknown reason !';
 
     status.reasons.unshift(reason);

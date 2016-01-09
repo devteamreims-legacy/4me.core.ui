@@ -105,6 +105,8 @@ function stubNotifications(_, notifications) {
   return _.defaults(service, notifications);
 }
 
+
+
 stubController.$inject = ['stub.errors', 'stub.notifications', '$state'];
 function stubController(errors, notifications, $state) {
   var stub = this;
@@ -113,13 +115,13 @@ function stubController(errors, notifications, $state) {
     errors.add('warning', 'info', 'test');
   };
 
-  stub.addNotification = function() {
+  stub.addNotification = function(priority) {
     var navigateTo = function() {
       console.log('Going to stub via notification');
       $state.go('stub');
     }
     var randomString = Math.random().toString(36).substring(7);
-    notifications.add('info', 'Test notification ' + randomString, {message: 'Test message', navigateTo: navigateTo});
+    notifications.add(priority || 'info', 'Test notification ' + randomString, {message: 'Test message', navigateTo: navigateTo});
   };
 }
 }());

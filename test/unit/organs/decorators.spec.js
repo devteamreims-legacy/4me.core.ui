@@ -31,6 +31,8 @@ describe('4me.ui.stub', function() {
     notifications.getUnread.should.be.a('Function');
     notifications.getUnreadCount.should.be.a('Function');
     notifications.markAllAsRead.should.be.a('Function');
+    notifications.getUnreadHighestPriority.should.be.a('Function');
+
 
     coreNotifications.add = sinon.stub();
     notifications.add();
@@ -46,22 +48,22 @@ describe('4me.ui.stub', function() {
 
     it('should get filtered notifications', function() {
       notifications.get().should.be.empty;
-      notifications.add('warn', 'Test title');
+      notifications.add('warning', 'Test title');
       notifications.get().length.should.eql(1);
 
       var n = notifications.get()[0];
-      n.priority.should.eql('warn');
+      n.priority.should.eql('warning');
       n.title.should.eql('Test title');
     });
 
     describe('unread block', function() {
       beforeEach(function() {
         // Add a second notification
-        coreNotifications.add('core');
+        coreNotifications.add('core', 'critical');
 
         // Add 2 unread namespaced notifications
-        notifications.add();
-        notifications.add();
+        notifications.add('warning');
+        notifications.add('info');
       });
 
       it('should count namespaced notifications only', function() {
@@ -74,7 +76,13 @@ describe('4me.ui.stub', function() {
         notifications.getUnread().length.should.eql(0);
         coreNotifications.getUnread().length.should.eql(2);
       });
+
+      it('should filter highest priority', function() {
+        notifications.getUnreadHighestPriority().should.eql('warning');
+      });
     });
+
+
 
   });
 

@@ -96,8 +96,8 @@ function notifications(_, $q) {
       if(n.priority === 'critical') {
         ret = 'critical';
       }
-      if(n.priority === 'warn' && (ret === false || ret === 'info')) {
-        ret = 'warn';
+      if(n.priority === 'warning' && (ret === false || ret === 'info')) {
+        ret = 'warning';
       }
       if(n.priority === 'info' && ret === false) {
         ret = 'info';

@@ -36,7 +36,7 @@ function fmeStatusButtonController(coreStatusService) {
     switch (fmeStatusButton.getStatus().status) {
       case 'normal':
         return 'check';
-      case 'warn':
+      case 'warning':
         return 'alert';
       default:
       case 'critical':
@@ -49,7 +49,7 @@ function fmeStatusButtonController(coreStatusService) {
     switch (fmeStatusButton.getStatus().status) {
       case 'normal':
         return '';
-      case 'warn':
+      case 'warning':
         return 'md-warn';
       default:
       case 'critical':
