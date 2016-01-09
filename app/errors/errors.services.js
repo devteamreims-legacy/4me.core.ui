@@ -31,12 +31,12 @@ function errors(_, $q) {
 
   var errors = [];
   var service = {};
-  var unreadCount = 0;
 
   // Promise version of our error catcher
   service.catch = function(sender, type, message) {
+    var self = this;
     return function(reason) {
-      var e = service.add(sender, type, message, reason);
+      var e = self.add(sender, type, message, reason);
       return $q.reject(new Error(e));
     };
   };
@@ -51,25 +51,12 @@ function errors(_, $q) {
       reason: reason || {}
     };
     errors.unshift(e);
-    unreadCount++;
     return e;
   };
 
   // Get all errors
   service.get = function() {
     return errors;
-  };
-
-  service.getUnreadCount = function() {
-    return unreadCount;
-  };
-
-  service.clearUnreadCount = function() {
-    unreadCount = 0;
-  };
-
-  service.getUnread = function() {
-    return _.take(errors, unreadCount) || [];
   };
 
   return service;

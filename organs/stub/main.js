@@ -39,17 +39,13 @@ function stubConfig($stateProvider) {
   });
 };
 
-stubRegistration = ['mainOrganService'];
-function stubRegistration(mainOrganService) {
-
-  var getNotifications = function() {
-    return [];
-  };
+stubRegistration = ['mainOrganService', 'stub.notifications'];
+function stubRegistration(mainOrganService, notifications) {
 
   mainOrganService.register({
     name: 'stub',
     rootState: 'stub',
-    getNotifications: getNotifications
+    getNotifications: notifications.get
   });
 }
 
@@ -70,24 +66,43 @@ m.factory('stub.errors', stubErrors);
 stubErrors.$inject = ['_', 'errors'];
 function stubErrors(_, errors) {
   var service = {};
+
   service.add = function(type, message, reason) {
     return errors.add('stub', type, message, reason);
-  };
-
-  service.catch = function(type, message) {
-    return errors.catch('stub', type, message);
   };
 
   return _.defaults(service, errors);
 }
 
+m.factory('stub.notifications', stubNotifications);
 
-stubController.$inject = ['stub.errors'];
-function stubController(errors) {
+stubNotifications.$inject = ['_', 'notifications'];
+function stubNotifications(_, notifications) {
+  var service = {};
+  
+  service.add = function(priority, title, props) {
+    return notifications.add('stub', priority, title, props);
+  };
+
+  service.get = function() {
+    return _.filter(notifications.get(), function(n) {
+      return n.sender === 'stub';
+    })
+  };
+
+  return _.defaults(service, notifications);
+}
+
+stubController.$inject = ['stub.errors', 'stub.notifications'];
+function stubController(errors, notifications) {
   var stub = this;
 
   stub.addError = function() {
     errors.add('warning', 'info', 'test');
+  };
+
+  stub.addNotification = function() {
+    notifications.add('info', 'Test notification', {message: 'Test message'});
   };
 }
 }());

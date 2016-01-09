@@ -54,10 +54,6 @@ function notifications(_, $q) {
       message: '',
       read: false,
       markAsRead: function() {
-        if(this.read === false) {
-          // We don't need to decrease unreadCount if this was already read
-          unreadCount--;
-        }
         this.read = true;
         return this;
       },
@@ -71,7 +67,6 @@ function notifications(_, $q) {
       n.navigateTo = props.navigateTo;
     }
     notifications.unshift(n);
-    unreadCount++;
     return n;
   };
 
@@ -81,21 +76,20 @@ function notifications(_, $q) {
   };
 
   service.getUnreadCount = function() {
-    return unreadCount;
-  };
-
-  service.clearUnreadCount = function() {
-    unreadCount = 0;
+    var s = this;
+    return s.getUnread().length;
   };
 
   service.getUnread = function() {
-    return _.filter(notifications, function(n) {
+    var s = this;
+    return _.filter(s.get(), function(n) {
       return n.read === false;
     }) || [];
   };
 
   service.markAllAsRead = function() {
-    _.each(notifications, function(n) {
+    var s = this;
+    _.each(s.getUnread(), function(n) {
       n.markAsRead();
     });
   };

@@ -87,38 +87,4 @@ describe('4me.core.errors', function() {
       $rootScope.$digest(); // Flush $q promises
     });
   });
-
-  describe('unread block', function() {
-    it('should have proper methods', function() {
-      errors.getUnreadCount.should.be.a('function');
-      errors.clearUnreadCount.should.be.a('function');
-    });
-
-    it('should increment unread count', function() {
-      var a = errors.getUnreadCount();
-      errors.add();
-      errors.getUnreadCount().should.eql(a+1);
-    });
-
-    it('should clear unread count', function() {
-      errors.add();
-      errors.add();
-      errors.add();
-      errors.getUnreadCount().should.eql(3);
-      errors.clearUnreadCount();
-      errors.getUnreadCount().should.eql(0);
-    });
-
-    it('should get unread errors', function() {
-      errors.getUnread().should.eql([]);
-      errors.add();
-      errors.add();
-      errors.getUnread().length.should.eql(2);
-      errors.clearUnreadCount();
-      errors.getUnread().length.should.eql(0);
-      errors.add();
-      errors.get().length.should.eql(3);
-      errors.getUnread().length.should.eql(1);
-    });
-  });
 });

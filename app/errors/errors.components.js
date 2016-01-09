@@ -55,7 +55,9 @@ fmeErrorButtonController.$inject = ['errors', '$mdDialog'];
 function fmeErrorButtonController(errors, $mdDialog) {
   var fmeErrorButton = this;
   
-  fmeErrorButton.getUnreadCount = errors.getUnreadCount;
+  fmeErrorButton.getUnreadCount = function() {
+    return errors.getUnreadCount();
+  };
 
   fmeErrorButton.showDialog = function(ev) {
     $mdDialog.show({
