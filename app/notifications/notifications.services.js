@@ -18,15 +18,6 @@ angular.module('4me.core.notifications.services', [
 
 notifications.$inject = ['_', '$q'];
 function notifications(_, $q) {
-  // Array to hold our notifications
-        var e = {
-        when: Date.now(),
-        sender: 'core',
-        priority: 'critical',
-        title: 'Error in XMAN',
-        message: 'A longer message',
-        read: false
-      };
   /** Notification object prototype :
    * {
    *   when: Date.now() // Timestamp of the notification
