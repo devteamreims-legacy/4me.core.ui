@@ -39,13 +39,18 @@ function stubConfig($stateProvider) {
   });
 };
 
-stubRegistration = ['mainOrganService', 'stub.notifications'];
-function stubRegistration(mainOrganService, notifications) {
+stubRegistration = ['mainOrganService', 'stub.notifications', '$state'];
+function stubRegistration(mainOrganService, notifications, $state) {
 
   mainOrganService.register({
     name: 'stub',
-    rootState: 'stub',
-    getNotifications: notifications.get
+    navigateTo: function() {
+      $state.go('stub');
+      notifications.markAllAsRead();
+    },
+    getNotifications: function() {
+      return notifications.getUnread();
+    }
   });
 }
 

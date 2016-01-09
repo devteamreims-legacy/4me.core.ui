@@ -1,4 +1,5 @@
 <md-list>
+  <single-organ-navigation ng-repeat="o in organNavigation.organs track by $index" organ="o"></single-organ-navigation>
   <md-list-item ng-repeat="o in organNavigation.organs" ng-click="o.navigateTo()">
     <p>{{o.name}}</p>
     <md-chips ng-if="o.getNotifications().length > 0">

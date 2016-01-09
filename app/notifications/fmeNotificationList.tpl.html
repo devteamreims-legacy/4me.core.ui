@@ -3,7 +3,7 @@
   <md-list-item class="md-3-line" ng-repeat="n in fmeNotificationList.notifications track by $index">
     <md-icon md-theme="info-warn-crit" md-svg-icon="{{ fmeNotificationList.getIcon(n) }}" ng-class="fmeNotificationList.getClass(n)"></md-icon>
     <div class="md-list-item-text" layout="column">
-      <h3 ng-style="$index < fmeNotificationList.unreadCount && {'font-weight': 'bold'}"><b>[{{n.sender}}]</b> : {{n.title}}</h3>
+      <h3 ng-style="$index < fmeNotificationList.unreadCount && {'font-weight': 'bold'}">[{{n.sender}}] : {{n.title}}</h3>
       <h4 ng-style="$index < fmeNotificationList.unreadCount && {'font-weight': 'bold'}">{{n.message}}</h4>
       <p>{{n.when | date : 'medium'}}</p>
     </div>
