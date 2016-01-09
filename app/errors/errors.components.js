@@ -29,6 +29,26 @@ function fmeErrorListController(errors) {
   fmeErrorList.errors = errors.get();
   fmeErrorList.unreadCount = errors.getUnreadCount();
   errors.clearUnreadCount();
+
+  fmeErrorList.getIcon = function(error) {
+    if(error.type === 'critical') {
+      return 'close-circle';
+    } else if(error.type === 'warning') {
+      return 'alert';
+    } else {
+      return 'information';
+    }
+  };
+
+  fmeErrorList.getClass = function(error) {
+    if(error.type === 'critical') {
+      return 'md-accent';
+    } else if(error.type === 'warning') {
+      return 'md-warn';
+    } else {
+      return 'md-primary';
+    }
+  }
 }
 
 fmeErrorButtonController.$inject = ['errors', '$mdDialog'];
