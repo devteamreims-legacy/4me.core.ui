@@ -7,11 +7,11 @@
   <div class="md-dialog-content">
   {{fmeErrorList.unreadCount}}
   <md-list>
-    <md-list-item class="md-3-line" ng-repeat="e in fmeErrorList.errors track by $index">
-      <md-icon md-svg-icon="alert" class="md-warn md-avatar"></md-icon>
+    <md-list-item class="md-3-line" ng-repeat="e in fmeErrorList.errors track by $index" class="md-hover">
+      <md-icon md-svg-icon="alert" class="md-avatar-icon md-warn"></md-icon>
       <div class="md-list-item-text" layout="column">
-        <h3><span ng-if="$index < fmeErrorList.unreadCount">UNREAD</span> {{e.sender}}</h3>
-        <h4>{{e.message}}</h4>
+        <h3 ng-style="$index < fmeErrorList.unreadCount && {'font-weight': 'bold'}">{{e.message}}</h3>
+        <h4 ng-style="$index < fmeErrorList.unreadCount && {'font-weight': 'bold'}">{{e.sender}}</h4>
         <p>{{e.when | date : 'medium'}}</p>
       </div>
     </md-list-item>
