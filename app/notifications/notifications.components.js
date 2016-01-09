@@ -70,7 +70,10 @@ function fmeNotificationButtonController(notifications, $mdDialog) {
   };
 
   fmeNotificationButton.getClass = function() {
-    return '';
+    if(fmeNotificationButton.getUnreadCount() === 0) {
+      return ''; // Nothing to see here
+    }
+    return 'md-primary';
   };
 
   fmeNotificationButton.getIcon = function() {

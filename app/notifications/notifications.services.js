@@ -89,6 +89,23 @@ function notifications(_, $q) {
     });
   };
 
+  service.getUnreadHighestPriority = function() {
+    var s = this;
+    var ret = false;
+    _.each(s.getUnread(), function(n) {
+      if(n.priority === 'critical') {
+        ret = 'critical';
+      }
+      if(n.priority === 'warn' && (ret === false || ret === 'info')) {
+        ret = 'warn';
+      }
+      if(n.priority === 'info' && ret === false) {
+        ret = 'info';
+      }
+    });
+    return ret;
+  };
+
   return service;
 
 }
