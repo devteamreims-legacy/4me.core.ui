@@ -1,0 +1,107 @@
+(function() {
+'use strict';
+
+/**
+ * @ngdoc overview
+ * @name 4me.core.notifications.services
+ * @description
+ * # notifications Services
+ *
+ * notifications Services
+ */
+
+angular.module('4me.core.notifications.services', [
+  '4me.core.config',
+  '4me.core.lodash'
+])
+.factory('notifications', notifications);
+
+notifications.$inject = ['_', '$q'];
+function notifications(_, $q) {
+  // Array to hold our notifications
+        var e = {
+        when: Date.now(),
+        sender: 'core',
+        priority: 'critical',
+        title: 'Error in XMAN',
+        message: 'A longer message',
+        read: false
+      };
+  /** Notification object prototype :
+   * {
+   *   when: Date.now() // Timestamp of the notification
+   *   sender: 'core' // String to hold our sender module
+   *   priority: 'critical' // String to hold our notification priority (critical, warning, info)
+   *   title: 'Invalid info from backend' // String to hold our notification title
+   *   message: 'A longer message' // String to hold our notification text content
+   *   navigateTo: function || undefined // A function to respond to click ($state.go('somewhere'))
+   *   read: false // A boolean indicating wether this notification has been read or not
+   *   markAsRead: function // A function to mark this notification read
+   * }
+   */
+
+  var notifications = [];
+  var service = {};
+  var unreadCount = 0;
+
+  // Add an error
+  service.add = function(sender, priority, title, props) {
+    var n = {
+      when: Date.now(),
+      sender: sender || 'Unknown',
+      priority: priority || 'info',
+      title: title || 'Unknown title',
+      message: '',
+      read: false,
+      markAsRead: function() {
+        if(this.read === false) {
+          // We don't need to decrease unreadCount if this was already read
+          unreadCount--;
+        }
+        this.read = true;
+        return this;
+      },
+      navigateTo: false
+    };
+
+    if(props && props.message) {
+      n.message = props.message;
+    }
+    if(props && props.navigateTo) {
+      n.navigateTo = props.navigateTo;
+    }
+    notifications.unshift(n);
+    unreadCount++;
+    return n;
+  };
+
+  // Get all notifications
+  service.get = function() {
+    return notifications;
+  };
+
+  service.getUnreadCount = function() {
+    return unreadCount;
+  };
+
+  service.clearUnreadCount = function() {
+    unreadCount = 0;
+  };
+
+  service.getUnread = function() {
+    return _.filter(notifications, function(n) {
+      return n.read === false;
+    }) || [];
+  };
+
+  service.markAllAsRead = function() {
+    _.each(notifications, function(n) {
+      n.markAsRead();
+    });
+  };
+
+  return service;
+
+}
+
+}());
