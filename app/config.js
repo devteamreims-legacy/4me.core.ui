@@ -23,7 +23,7 @@ angular.module('4me.core.config', [
     }
   })
   .config(mdiToAngularMaterial)
-  .config(applyTheme)
+  .config(applyThemes)
   .config(addDefaultStates);
 
 
@@ -34,8 +34,8 @@ function mdiToAngularMaterial($mdIconProvider) {
   $mdIconProvider.defaultIconSet('fonts/mdi.svg');
 }
 
-applyTheme.$inject = ['$mdThemingProvider'];
-function applyTheme($mdThemingProvider) {
+applyThemes.$inject = ['$mdThemingProvider'];
+function applyThemes($mdThemingProvider) {
   // We should define a dark theme here, but this is not working consistently with ngMaterial
   $mdThemingProvider.theme('default')
     .primaryPalette('indigo')

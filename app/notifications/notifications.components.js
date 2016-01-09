@@ -69,6 +69,23 @@ function fmeNotificationButtonController(notifications, $mdDialog) {
     return notifications.getUnreadCount();
   };
 
+  fmeNotificationButton.getClass = function() {
+    return '';
+  };
+
+  fmeNotificationButton.getIcon = function() {
+    var c = fmeNotificationButton.getUnreadCount();
+    if(c === 0) {
+      // No notification
+      return 'message';
+    }
+    if(c > 9) {
+      c = '9-plus';
+    }
+
+    return 'numeric-' + c + '-box';
+  };
+
   fmeNotificationButton.showDialog = function(ev) {
     $mdDialog.show({
       templateUrl: 'views/notifications/fmeNotificationDialog.tpl.html',

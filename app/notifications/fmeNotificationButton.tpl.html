@@ -1,3 +1,11 @@
-<md-chips>
-  <md-chip ng-click="fmeNotificationButton.showDialog()">{{fmeNotificationButton.getUnreadCount()}}</md-chip>
-</md-chips>
+<md-button 
+  ng-click="fmeNotificationButton.showDialog()"
+  md-theme="success-warning"
+  class="md-icon-button"
+  ng-class="fmeNotificationButton.getClass()"
+>
+  <md-icon
+    md-svg-icon="{{fmeNotificationButton.getIcon()}}"
+  >
+  </md-icon>
+</md-button>
