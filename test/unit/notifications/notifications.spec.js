@@ -134,4 +134,25 @@ describe('4me.core.notifications', function() {
       notifications.getUnreadCount().should.eql(1);
     });
   });
+
+  describe('navigateTo', function() {
+    it('should expose the navigateTo callback', function() {
+      var s = sinon.stub();
+      notifications.add('core', 'warn', 'Title', {navigateTo: s});
+      var n = notifications.get()[0];
+      n.navigateTo.should.be.a('Function');
+      n.navigateTo();
+      s.should.have.been.called;
+    });
+
+    it('should mark as read when calling navigateTo', function() {
+      var markAsRead = sinon.stub();
+      var s = sinon.stub();
+      notifications.add('core', 'warn', 'Title', {navigateTo: s});
+      var n = notifications.get()[0];
+      n.markAsRead = markAsRead;
+      n.navigateTo();
+      markAsRead.should.have.been.called;
+    })
+  });
 });
