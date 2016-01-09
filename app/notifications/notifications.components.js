@@ -55,6 +55,10 @@ function fmeNotificationListController(notifications, $mdDialog) {
     $mdDialog.hide();
     callback();
   };
+
+  fmeNotificationList.markAllAsRead = function() {
+    notifications.markAllAsRead();
+  };
 }
 
 fmeNotificationButtonController.$inject = ['notifications', '$mdDialog'];
