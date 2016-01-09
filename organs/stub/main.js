@@ -13,6 +13,7 @@ var m = angular
   .module('4me.ui.stub', [
       'ui.router',
       '4me.core.config',
+      '4me.core.notifications',
       '4me.core.errors',
       '4me.core.organs.services'
   ]);
