@@ -24,29 +24,6 @@ function mainOrganService(_, $state) {
 
   service.getAll = function() {
     return organs;
-    return [
-      {
-        name: 'XMAN',
-        navigateTo: function() {
-          console.log('Navigating to xman');
-          $state.go('xman');
-        }
-      },
-      {
-        name: 'ARCID',
-        navigateTo: function() {
-          console.log('Navigating to arcid');
-          $state.go('arcid');
-        }
-      },
-      {
-        name: 'STUB',
-        navigateTo: function() {
-          console.log('Navigating to stub');
-          $state.go('stub');
-        }
-      }
-    ];
   };
 
   service.register = function(organ) {
