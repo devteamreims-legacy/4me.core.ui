@@ -2,8 +2,8 @@
     <md-list-item class="md-3-line" ng-repeat="e in fmeErrorList.errors track by $index" class="md-hover">
       <md-icon md-theme="info-warn-crit" md-svg-icon="{{ fmeErrorList.getIcon(e) }}" ng-class="fmeErrorList.getClass(e)"></md-icon>
       <div class="md-list-item-text" layout="column">
-        <h3 ng-style="$index < fmeErrorList.unreadCount && {'font-weight': 'bold'}">{{e.message}}</h3>
-        <h4 ng-style="$index < fmeErrorList.unreadCount && {'font-weight': 'bold'}">{{e.sender}}</h4>
+        <h3>{{e.message}}</h3>
+        <h4>{{e.sender}}</h4>
         <p>{{e.when | date : 'medium'}}</p>
       </div>
     </md-list-item>

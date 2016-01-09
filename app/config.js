@@ -68,6 +68,14 @@ function addDefaultStates($stateProvider, $urlRouterProvider) {
   .state('dashboard', {
     url: '/',
     templateUrl: "views/dashboard/index.html"
+  })
+  .state('errors', {
+    url: '/errors',
+    templateUrl: "views/errors/index.html"
+  })
+  .state('notifications', {
+    url: '/notifications',
+    templateUrl: "views/notifications/index.html"
   });
 }
 }());

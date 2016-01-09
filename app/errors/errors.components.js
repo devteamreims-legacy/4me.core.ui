@@ -27,8 +27,6 @@ fmeErrorListController.$inject = ['errors'];
 function fmeErrorListController(errors) {
   var fmeErrorList = this;
   fmeErrorList.errors = errors.get();
-  fmeErrorList.unreadCount = errors.getUnreadCount();
-  errors.clearUnreadCount();
 
   fmeErrorList.getIcon = function(error) {
     if(error.type === 'critical') {
