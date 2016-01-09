@@ -10,7 +10,8 @@
  */
 
 angular.module('4me.core.config', [
-  'ngMaterial'
+  'ngMaterial',
+  'ui.router'
 ])
   // Object to map microservices URLs
   .constant('ApiUrls', {
