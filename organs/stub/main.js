@@ -52,7 +52,10 @@ function stubRegistration(mainOrganService, notifications, $state) {
       return notifications.getUnread();
     },
     getStatus: function() {
-      return 'normal';
+      return {
+        status: 'normal',
+        since: Date.now()
+      };
     }
   });
 }
