@@ -46,7 +46,7 @@ describe('4me.core.organs.services', function() {
       var o = _.clone(stubOrgan);
       o.navigateTo = stubFunc;
       var r = mainOrganService.register(o);
-      o.navigateTo();
+      r.navigateTo();
       stubFunc.should.have.been.called;
     });
 
