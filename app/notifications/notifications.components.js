@@ -25,8 +25,8 @@ notificationComponents.component('fmeNotificationList', {
 })
 
 
-fmeNotificationListController.$inject = ['notifications'];
-function fmeNotificationListController(notifications) {
+fmeNotificationListController.$inject = ['notifications', '$mdDialog'];
+function fmeNotificationListController(notifications, $mdDialog) {
   var fmeNotificationList = this;
   fmeNotificationList.notifications = notifications.get();
   fmeNotificationList.unreadCount = notifications.getUnreadCount();
@@ -49,6 +49,11 @@ function fmeNotificationListController(notifications) {
     } else {
       return 'md-primary';
     }
+  };
+
+  fmeNotificationList.click = function(callback) {
+    $mdDialog.hide();
+    callback();
   };
 }
 

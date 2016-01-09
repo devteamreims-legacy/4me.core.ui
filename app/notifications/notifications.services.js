@@ -54,6 +54,7 @@ function notifications(_, $q) {
       message: '',
       read: false,
       markAsRead: function() {
+        console.log('Marking as read ' + this.title);
         this.read = true;
         return this;
       },
@@ -64,7 +65,10 @@ function notifications(_, $q) {
       n.message = props.message;
     }
     if(props && props.navigateTo) {
-      n.navigateTo = props.navigateTo;
+      n.navigateTo = function() {
+        n.markAsRead();
+        props.navigateTo();
+      };
     }
     notifications.unshift(n);
     return n;
