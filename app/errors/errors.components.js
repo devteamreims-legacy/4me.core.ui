@@ -48,7 +48,7 @@ function fmeErrorListController(errors) {
     } else {
       return 'md-primary';
     }
-  }
+  };
 }
 
 fmeErrorButtonController.$inject = ['errors', '$mdDialog'];
@@ -59,7 +59,7 @@ function fmeErrorButtonController(errors, $mdDialog) {
 
   fmeErrorButton.showDialog = function(ev) {
     $mdDialog.show({
-      template: '<fme-error-list></fme-error-list>',
+      templateUrl: 'views/errors/fmeErrorDialog.tpl.html',
       parent: angular.element(document.body),
       targetEvent: ev,
       clickOutsideToClose: true
