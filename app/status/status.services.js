@@ -28,25 +28,51 @@ function coreStatusService(_) {
 
   var _normalStatus = {
     status: 'normal', // normal, warn, critical
-    message: '',
     reasons: []
   };
 
+  // Initialize with normal status
   var status = _.clone(_normalStatus);
+
+  function _reevaluateGlobalStatus() {
+    var newStatus = 'normal';
+    _.each(status.reasons, function(r) {
+      if(r.criticity === 'warn') {
+        if(newStatus === 'critical') {
+          return;
+        }
+        newStatus = 'warn';
+      }
+      if(r.criticity === 'critical') {
+        newStatus = 'critical';
+      }
+    });
+
+    status.status = newStatus;
+  }
 
   service.get = function() {
     return status;
   };
 
-  service.recover = function() {
-    status = _.clone(_normalStatus);
+  service.recover = function(sender) {
+    _.remove(status.reasons, function(r) {
+      return r.sender === sender;
+    });
+    _reevaluateGlobalStatus();
     return this.get();
   };
 
-  service.escalate = function(newStatus, message, reasons) {
-    status.status = newStatus || 'warn';
-    status.message = message || 'Unknown reason !';
-    status.reasons = reasons || [];
+  service.escalate = function(sender, criticity, message, reasons) {
+    var reason = {};
+    reason.when = Date.now();
+    reason.sender = sender;
+    reason.criticity = criticity || 'warn';
+    reason.message = message || 'Unknown reason !';
+
+    status.reasons.unshift(reason);
+    _reevaluateGlobalStatus();
+
     return this.get();
   };
 
