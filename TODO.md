@@ -8,3 +8,5 @@
   * 3 states : normal, warning, critical
   * Global status, what to do in case of failure
   * Organ status
+* Websocket stuff
+  * Unit test : see sockMock object here : https://github.com/hackify/hackify-server/blob/master/test/controllers.test.js
