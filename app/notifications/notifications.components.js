@@ -22,7 +22,7 @@ notificationComponents.component('fmeNotificationList', {
   restrict: 'E',
   controller: fmeNotificationListController,
   templateUrl: 'views/notifications/fmeNotificationList.tpl.html'
-})
+});
 
 
 fmeNotificationListController.$inject = ['notifications', '$mdDialog'];
