@@ -301,6 +301,7 @@ gulp.task('test:unit:coverage', function(done) {
         configFile: __dirname + '/test/karma.conf.js',
         singleRun: true,
         preprocessors: {
+            'test/unit/setup.js': ['browserify'],
             'app/**/*.js': ['coverage']
         },
         reporters: ['progress', 'coverage'],
