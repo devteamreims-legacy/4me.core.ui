@@ -6,8 +6,66 @@ describe('4me.core.organs.services', function() {
     var errors;
     var notifications;
 
-    it('should pass', function() {
-      (true).should.be.true;
+    var stubOrgan = {
+      name: 'stub',
+      navigateTo: function() {
+        // TODO : Replace by a sinon.stub
+        console.log('Navigating');
+      },
+      getNotifications: function() {
+        console.log('Getting notifications');
+      }
+    };
+
+    beforeEach(inject(function(_mainOrganService_) {
+      mainOrganService = _mainOrganService_;
+    }));
+
+    it('should provide a proper API', function() {
+      mainOrganService.getAll.should.be.a('function');
+      mainOrganService.register.should.be.a('function');
+    });
+
+    it('should allow a valid organ to register', function() {
+      var r = mainOrganService.register(stubOrgan);
+      r.should.have.keys('name', 'navigateTo', 'getNotifications', 'getStatus');
+    });
+
+    it('should not allow two organs with the same name', function() {
+      var r = mainOrganService.register(stubOrgan);
+      mainOrganService.register(stubOrgan).should.be.false;
+    });
+
+    it('should list all organs', function() {
+      var r = mainOrganService.register(stubOrgan);
+      mainOrganService.getAll().should.eql([r]);
+    });
+
+    it('should decorate the navigateTo callback', function() {
+      var stubFunc = sinon.stub();
+      var o = _.clone(stubOrgan);
+      o.navigateTo = stubFunc;
+      var r = mainOrganService.register(o);
+      o.navigateTo();
+      stubFunc.should.have.been.called;
+    });
+
+    it('should decorate the getNotifications callback', function() {
+      var stubFunc = sinon.stub();
+      var o = _.clone(stubOrgan);
+      o.getNotifications = stubFunc;
+      var r = mainOrganService.register(o);
+      o.getNotifications();
+      stubFunc.should.have.been.called;
+    });
+
+    it('should decorate the getStatus callback', function() {
+      var stubFunc = sinon.stub();
+      var o = _.clone(stubOrgan);
+      o.getStatus = stubFunc;
+      var r = mainOrganService.register(o);
+      o.getStatus();
+      stubFunc.should.have.been.called;
     });
 
 

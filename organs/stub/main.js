@@ -50,6 +50,9 @@ function stubRegistration(mainOrganService, notifications, $state) {
     },
     getNotifications: function() {
       return notifications.getUnread();
+    },
+    getStatus: function() {
+      return 'normal';
     }
   });
 }

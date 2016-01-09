@@ -60,12 +60,13 @@ function mainOrganService(_, $state) {
      */
     if(_.findIndex(organs, { name: organ.name }) !== -1) {
       console.log('Organ ' + organ.name + ' already registered !');
-      return;
+      return false;
     }
 
     var o = {};
     o.name = organ.name;
     o.getNotifications = organ.getNotifications;
+    o.getStatus = organ.getStatus;
     o.navigateTo = function() {
       console.log('Navigating to organ : ' + organ.name);
       organ.navigateTo();
