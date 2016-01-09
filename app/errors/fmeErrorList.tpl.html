@@ -5,11 +5,12 @@
     </div>
   </md-toolbar>
   <div class="md-dialog-content">
+  {{fmeErrorList.unreadCount}}
   <md-list>
-    <md-list-item class="md-3-line" ng-repeat="e in fmeErrorList.errors">
+    <md-list-item class="md-3-line" ng-repeat="e in fmeErrorList.errors track by $index">
       <md-icon md-svg-icon="alert" class="md-warn md-avatar"></md-icon>
       <div class="md-list-item-text" layout="column">
-        <h3>{{e.sender}}</h3>
+        <h3><span ng-if="$index < fmeErrorList.unreadCount">UNREAD</span> {{e.sender}}</h3>
         <h4>{{e.message}}</h4>
         <p>{{e.when | date : 'medium'}}</p>
       </div>

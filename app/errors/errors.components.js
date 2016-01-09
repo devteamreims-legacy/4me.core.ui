@@ -27,9 +27,8 @@ fmeErrorListController.$inject = ['errors'];
 function fmeErrorListController(errors) {
   var fmeErrorList = this;
   fmeErrorList.errors = errors.get();
-  fmeErrorList.addError = function() {
-    errors.add('test', 'test');
-  };
+  fmeErrorList.unreadCount = errors.getUnreadCount();
+  errors.clearUnreadCount();
 }
 
 fmeErrorButtonController.$inject = ['errors', '$mdDialog'];
