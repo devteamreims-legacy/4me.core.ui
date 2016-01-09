@@ -3,6 +3,7 @@ describe('4me.core.errors', function() {
 
   var errors;
   var $q;
+  var $rootScope;
 
   beforeEach(inject(function(_errors_, _$q_, _$rootScope_) {
     errors = _errors_;
