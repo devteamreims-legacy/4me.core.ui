@@ -14,6 +14,9 @@ describe('4me.core.notifications', function() {
   it('should have a proper API', function() {
     notifications.add.should.be.a('Function');
     notifications.get.should.be.a('Function');
+    notifications.getUnread.should.be.a('Function');
+    notifications.getUnreadCount.should.be.a('Function');
+    notifications.markAllAsRead.should.be.a('Function');
   });
 
   describe('get', function() {
