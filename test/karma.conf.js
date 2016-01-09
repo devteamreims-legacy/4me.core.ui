@@ -21,6 +21,7 @@ module.exports = function(config) {
       'test/function-bind-polyfill.js', // Workaround for PhantomJS 1.9
       'test/unit/setup.js',
       'app/**/*.js',
+      'organs/**/*.js',
       'dist/scripts/template*.js',
       'test/unit/**/*.js'
     ]),
