@@ -22,7 +22,8 @@ angular.module('4me.core.config', [
     }
   })
   .config(mdiToAngularMaterial)
-  .config(applyTheme);
+  .config(applyTheme)
+  .config(addDefaultStates);
 
 
 
@@ -57,5 +58,16 @@ function applyTheme($mdThemingProvider) {
     .primaryPalette('blue')
     .accentPalette('red')
     .warnPalette('orange');
+}
+
+addDefaultStates.$inject = ['$stateProvider', '$urlRouterProvider'];
+function addDefaultStates($stateProvider, $urlRouterProvider) {
+  $urlRouterProvider.otherwise("/");
+
+  $stateProvider
+  .state('dashboard', {
+    url: '/',
+    templateUrl: "views/dashboard/index.html"
+  });
 }
 }());
