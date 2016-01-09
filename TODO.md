@@ -8,5 +8,6 @@
   * 3 states : normal, warning, critical
   * Global status, what to do in case of failure
   * Organ status
+  * Use a provider, organ status and global status use the same logic. See here for unit test : http://stackoverflow.com/questions/14771810/how-to-test-angularjs-custom-provider
 * Websocket stuff
   * Unit test : see sockMock object here : https://github.com/hackify/hackify-server/blob/master/test/controllers.test.js
