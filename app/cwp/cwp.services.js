@@ -43,6 +43,8 @@ function myCwp(_, $q, ApiUrls, $http, errors) {
         timeout: 200
       })
       .then(function(res) {
+        console.log('Got data from backend');
+        console.log(res.data);
         myCwp = res.data;
         return myCwp;
       })
