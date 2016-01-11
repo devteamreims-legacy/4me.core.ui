@@ -41,6 +41,16 @@ describe('4me.core.organs.services', function() {
       mainOrganService.getAll().should.eql([r]);
     });
 
+    it('should be able to find an organ', function() {
+      var r = mainOrganService.register(stubOrgan);
+      mainOrganService.find('stub').should.eql(r);
+    });
+
+    it('should return an empty object if unable to find said organ', function() {
+      expect(mainOrganService.find('stub')).to.be.undefined;
+      expect(mainOrganService.find()).to.be.undefined;
+    });
+
     it('should decorate the navigateTo callback', function() {
       var stubFunc = sinon.stub();
       var o = _.clone(stubOrgan);
