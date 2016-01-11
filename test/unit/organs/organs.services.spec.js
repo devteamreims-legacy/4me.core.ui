@@ -47,8 +47,12 @@ describe('4me.core.organs.services', function() {
     });
 
     it('should return an empty object if unable to find said organ', function() {
+<<<<<<< HEAD
       expect(mainOrganService.find('stub')).to.be.undefined;
       expect(mainOrganService.find()).to.be.undefined;
+=======
+      mainOrganService.find('stub').should.eql({});
+>>>>>>> 532eccef22f343ccf9632e6ab06b2d4be8d057d1
     });
 
     it('should decorate the navigateTo callback', function() {
