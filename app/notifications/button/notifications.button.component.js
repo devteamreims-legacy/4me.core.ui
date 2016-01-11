@@ -27,14 +27,26 @@ notificationButton.component('fmeNotificationButton', {
   templateUrl: 'views/notifications/button/button.tpl.html'
 });
 
+notificationButton.component('fmeNotificationIcon', {
+  restrict: 'E',
+  bindings: {
+    organName: '@'
+  },
+  controller: fmeNotificationIconController,
+  templateUrl: 'views/notifications/button/icon.tpl.html'
+});
 
-fmeNotificationButtonController.$inject = ['notifications', '$mdDialog', 'mainOrganService'];
-function fmeNotificationButtonController(notifications, $mdDialog, mainOrganService) {
-  var fmeNotificationButton = this;
 
-  fmeNotificationButton.getUnreadCount = function() {
-    if(fmeNotificationButton.organName !== undefined) { // We have a
-      var o = mainOrganService.find(fmeNotificationButton.organName);
+fmeNotificationIconController.$inject = ['notifications', 'mainOrganService'];
+function fmeNotificationIconController(notifications, mainOrganService) {
+  var fmeNotificationIcon = this;
+
+  fmeNotificationIcon.getUnreadCount = function() {
+    if(
+      fmeNotificationIcon.organName !== undefined
+      && fmeNotificationIcon.organName !== ''
+    ) { // We have a
+      var o = mainOrganService.find(fmeNotificationIcon.organName);
       if(o !== undefined) {
         return o.getNotificationService().getUnreadCount();
       }
@@ -45,7 +57,7 @@ function fmeNotificationButtonController(notifications, $mdDialog, mainOrganServ
     return notifications.getUnreadCount();
   };
 
-  fmeNotificationButton.getClass = function() {
+  fmeNotificationIcon.getClass = function() {
     switch(notifications.getUnreadHighestPriority()) {
       case false:
       default:
@@ -59,8 +71,8 @@ function fmeNotificationButtonController(notifications, $mdDialog, mainOrganServ
     }
   };
 
-  fmeNotificationButton.getIcon = function() {
-    var c = fmeNotificationButton.getUnreadCount();
+  fmeNotificationIcon.getIcon = function() {
+    var c = fmeNotificationIcon.getUnreadCount();
     if(c === 0) {
       // No notification
       return 'message';
@@ -71,6 +83,11 @@ function fmeNotificationButtonController(notifications, $mdDialog, mainOrganServ
 
     return 'numeric-' + c + '-box';
   };
+}
+
+fmeNotificationButtonController.$inject = ['$mdDialog'];
+function fmeNotificationButtonController($mdDialog) {
+  var fmeNotificationButton = this;
 
   fmeNotificationButton.showDialog = function(ev) {
     if(fmeNotificationButton.noDialog !== undefined) {

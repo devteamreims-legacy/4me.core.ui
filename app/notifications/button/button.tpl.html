@@ -1,11 +1,6 @@
-<md-button 
+<md-button
   ng-click="fmeNotificationButton.showDialog()"
-  md-theme="info-warn-crit"
   class="md-icon-button"
-  ng-class="fmeNotificationButton.getClass()"
 >
-  <md-icon
-    md-svg-icon="{{fmeNotificationButton.getIcon()}}"
-  >
-  </md-icon>
+  <fme-notification-icon organ-name="{{fmeNotificationButton.organName}}"></fme-notification-icon>
 </md-button>
