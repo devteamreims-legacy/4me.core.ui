@@ -54,6 +54,7 @@ function stubRegistration(mainOrganService, notifications, $state) {
     },
     getStatusService: function() {
       return {
+
         status: 'normal',
         since: Date.now()
       };
@@ -105,6 +106,58 @@ function stubNotifications(_, notifications) {
   return _.defaults(service, notifications);
 }
 
+m.factory('stub.notifications', stubNotifications);
+
+stubNotifications.$inject = ['_', 'notifications'];
+function stubNotifications(_, notifications) {
+  var service = {};
+
+  service.add = function(priority, title, props) {
+    return notifications.add('stub', priority, title, props);
+  };
+
+  service.get = function() {
+    return _.filter(notifications.get(), function(n) {
+      return n.sender === 'stub';
+    })
+  };
+
+  return _.defaults(service, notifications);
+}
+
+m.factory('stub.status', stubStatus);
+
+stubStatus.$inject = ['_', 'coreStatusService'];
+function stubStatus(_, coreStatusService) {
+  var service = {};
+
+  function _getPrefixed(sender) {
+    if(sender && sender !== '') {
+      return 'stub.' + sender;
+    } else {
+      return 'stub';
+    }
+  }
+
+  service.get = function(sender) {
+    var s = _getPrefixed(sender);
+    return _.filter(coreStatusService.get(), function(s) {
+      return s.sender === 'stub';
+    })
+  };
+
+  service.escalate = function(sender, criticity, message, reasons) {
+    var s = _getPrefixed(sender);
+    return coreStatusService.escalate(s, criticity, message, reasons);
+  };
+
+  service.recover = function(sender) {
+    var s = _getPrefixed(sender);
+    return coreStatusService.recover(s);
+  };
+
+  return _.defaults(service, coreStatusService);
+}
 
 
 stubController.$inject = ['stub.errors', 'stub.notifications', '$state'];
@@ -124,4 +177,5 @@ function stubController(errors, notifications, $state) {
     notifications.add(priority || 'info', 'Test notification ' + randomString, {message: 'Test message', navigateTo: navigateTo});
   };
 }
+
 }());
