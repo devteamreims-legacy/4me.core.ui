@@ -10,14 +10,11 @@
  */
 var notificationComponents = angular.module('4me.core.notifications.components', [
   '4me.core.lodash',
-  '4me.core.notifications'
+  '4me.core.organs',
+  '4me.core.notifications',
+  '4me.core.notifications.button'
 ]);
 
-notificationComponents.component('fmeNotificationButton', {
-  restrict: 'E',
-  controller: fmeNotificationButtonController,
-  templateUrl: 'views/notifications/fmeNotificationButton.tpl.html'
-});
 notificationComponents.component('fmeNotificationList', {
   restrict: 'E',
   controller: fmeNotificationListController,
@@ -25,8 +22,8 @@ notificationComponents.component('fmeNotificationList', {
 });
 
 
-fmeNotificationListController.$inject = ['notifications', '$mdDialog'];
-function fmeNotificationListController(notifications, $mdDialog) {
+fmeNotificationListController.$inject = ['notifications', '$mdDialog', 'mainOrganService'];
+function fmeNotificationListController(notifications, $mdDialog, mainOrganService) {
   var fmeNotificationList = this;
   fmeNotificationList.notifications = notifications.get();
   fmeNotificationList.unreadCount = notifications.getUnreadCount();
@@ -58,51 +55,6 @@ function fmeNotificationListController(notifications, $mdDialog) {
 
   fmeNotificationList.markAllAsRead = function() {
     notifications.markAllAsRead();
-  };
-}
-
-fmeNotificationButtonController.$inject = ['notifications', '$mdDialog'];
-function fmeNotificationButtonController(notifications, $mdDialog) {
-  var fmeNotificationButton = this;
-  
-  fmeNotificationButton.getUnreadCount = function() {
-    return notifications.getUnreadCount();
-  };
-
-  fmeNotificationButton.getClass = function() {
-    switch(notifications.getUnreadHighestPriority()) {
-      case false:
-      default:
-        return '';
-      case 'info':
-        return 'md-primary';
-      case 'warning':
-        return 'md-warn';
-      case 'critical':
-        return 'md-accent';
-    }
-  };
-
-  fmeNotificationButton.getIcon = function() {
-    var c = fmeNotificationButton.getUnreadCount();
-    if(c === 0) {
-      // No notification
-      return 'message';
-    }
-    if(c > 9) {
-      c = '9-plus';
-    }
-
-    return 'numeric-' + c + '-box';
-  };
-
-  fmeNotificationButton.showDialog = function(ev) {
-    $mdDialog.show({
-      templateUrl: 'views/notifications/fmeNotificationDialog.tpl.html',
-      parent: angular.element(document.body),
-      targetEvent: ev,
-      clickOutsideToClose: true
-    });
   };
 }
 
