@@ -54,6 +54,10 @@ function mainOrganService(_, $state) {
 
   };
 
+  service.find = function(name) {
+    return _.find(organs, { name: name }) || {};
+  };
+
   return service;
 }
 
