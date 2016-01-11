@@ -28,7 +28,7 @@ describe('4me.core.organs.services', function() {
 
     it('should allow a valid organ to register', function() {
       var r = mainOrganService.register(stubOrgan);
-      r.should.have.keys('name', 'navigateTo', 'getNotifications', 'getStatus');
+      r.should.have.keys('name', 'navigateTo', 'getNotificationService', 'getStatusService');
     });
 
     it('should not allow two organs with the same name', function() {
@@ -60,21 +60,21 @@ describe('4me.core.organs.services', function() {
       stubFunc.should.have.been.called;
     });
 
-    it('should decorate the getNotifications callback', function() {
+    it('should decorate the getNotificationService callback', function() {
       var stubFunc = sinon.stub();
       var o = _.clone(stubOrgan);
-      o.getNotifications = stubFunc;
+      o.getNotificationService = stubFunc;
       var r = mainOrganService.register(o);
-      o.getNotifications();
+      o.getNotificationService();
       stubFunc.should.have.been.called;
     });
 
-    it('should decorate the getStatus callback', function() {
+    it('should decorate the getStatusService callback', function() {
       var stubFunc = sinon.stub();
       var o = _.clone(stubOrgan);
-      o.getStatus = stubFunc;
+      o.getStatusService = stubFunc;
       var r = mainOrganService.register(o);
-      o.getStatus();
+      o.getStatusService();
       stubFunc.should.have.been.called;
     });
 

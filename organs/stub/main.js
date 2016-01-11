@@ -49,10 +49,10 @@ function stubRegistration(mainOrganService, notifications, $state) {
       $state.go('stub');
       notifications.markAllAsRead();
     },
-    getNotifications: function() {
-      return notifications.getUnread();
+    getNotificationService: function() {
+      return notifications;
     },
-    getStatus: function() {
+    getStatusService: function() {
       return {
         status: 'normal',
         since: Date.now()
@@ -91,7 +91,7 @@ m.factory('stub.notifications', stubNotifications);
 stubNotifications.$inject = ['_', 'notifications'];
 function stubNotifications(_, notifications) {
   var service = {};
-  
+
   service.add = function(priority, title, props) {
     return notifications.add('stub', priority, title, props);
   };

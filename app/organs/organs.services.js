@@ -42,8 +42,8 @@ function mainOrganService(_, $state) {
 
     var o = {};
     o.name = organ.name;
-    o.getNotifications = organ.getNotifications;
-    o.getStatus = organ.getStatus;
+    o.getNotificationService = organ.getNotificationService;
+    o.getStatusService = organ.getStatuService;
     o.navigateTo = function() {
       console.log('Navigating to organ : ' + organ.name);
       organ.navigateTo();
