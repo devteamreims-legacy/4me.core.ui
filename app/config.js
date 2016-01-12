@@ -50,10 +50,10 @@ function applyThemes($mdThemingProvider) {
     .primaryPalette('green', {
       'default': '600'
     })
-    .accentPalette('orange', {
+    .warnPalette('orange', {
       'default': '800'
     })
-    .warnPalette('red')
+    .accentPalette('red')
     ;
   $mdThemingProvider.theme('info-warn-crit')
     .primaryPalette('blue')
