@@ -56,6 +56,10 @@ function fmeNotificationListController(notifications, $mdDialog, mainOrganServic
   fmeNotificationList.markAllAsRead = function() {
     notifications.markAllAsRead();
   };
+
+  fmeNotificationList.addCoreNotification = function() {
+    notifications.add('core', 'warning');
+  };
 }
 
 }());

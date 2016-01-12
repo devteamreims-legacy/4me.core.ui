@@ -30,6 +30,7 @@ describe('4me.core.status.services', function() {
 
       s.name.should.eql('core');
       s2.name.should.eql('stub');
+      s.should.not.eql(s2);
 
       s.escalate('core.test', 'critical');
       s2.get().status.should.eql('normal');

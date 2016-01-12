@@ -5,13 +5,15 @@ describe('4me.ui.stub', function() {
   var coreErrors;
   var errors;
   var notifications;
+  var mainOrganService;
 
   beforeEach(inject(
-    ['notifications', 'errors', 'stub.notifications', 'stub.errors', 
-    function(_coreNotifications_, _coreErrors_, _notifications_, _errors_) {
+    ['notifications', 'errors', 'stub.notifications', 'stub.errors', 'mainOrganService',
+    function(_coreNotifications_, _coreErrors_, _notifications_, _errors_, _mainOrganService_) {
       coreNotifications = _coreNotifications_;
       coreErrors = _coreErrors_;
-      notifications = _notifications_;
+      mainOrganService = _mainOrganService_;
+      notifications = mainOrganService.find('stub').getNotificationService();
       errors = _errors_;
     }]
   ));

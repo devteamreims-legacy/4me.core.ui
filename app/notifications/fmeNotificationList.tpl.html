@@ -1,7 +1,8 @@
 <md-button ng-click="fmeNotificationList.markAllAsRead()">Mark as read</md-button>
+<md-button ng-click="fmeNotificationList.addCoreNotification()">Add core notification</md-button>
 <md-list>
-  <md-list-item 
-    class="md-3-line" 
+  <md-list-item
+    class="md-3-line"
     ng-repeat="n in fmeNotificationList.notifications track by $index"
     ng-click="fmeNotificationList.click(n.navigateTo)"
   >

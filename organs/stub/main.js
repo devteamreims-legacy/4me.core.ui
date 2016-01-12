@@ -41,21 +41,24 @@ function stubConfig($stateProvider) {
   });
 };
 
-stubRegistration = ['mainOrganService', 'stub.notifications', 'stub.status', '$state'];
-function stubRegistration(mainOrganService, notifications, status, $state) {
+stubRegistration = ['mainOrganService', '$state', '$injector', 'stub.notifications'];
+function stubRegistration(mainOrganService, $state, $injector, notifications) {
 
-  mainOrganService.register({
+  console.log('Notifications');
+  console.log(notifications);
+  var r = mainOrganService.register({
     name: 'stub',
     navigateTo: function() {
       $state.go('stub');
-      notifications.markAllAsRead();
+      this.getNotificationService().markAllAsRead();
     },
     getNotificationService: function() {
-      return notifications;
+      return $injector.get('stub.notifications');
     },
     getStatusService: function() {
-      return status;
-    }
+      return $injector.get('stub.status');
+    },
+    notifications: $injector.get('stub.notifications')
   });
 }
 
@@ -100,7 +103,7 @@ function stubNotifications(_, notifications) {
     })
   };
 
-  return _.defaults(service, notifications);
+  return _.defaults(service, _.clone(notifications));
 }
 
 
@@ -109,8 +112,8 @@ m.factory('stub.status', stubStatus);
 
 stubStatus.$inject = ['statusFactory'];
 function stubStatus(statusFactory) {
-  console.log('Getting status stub');
-  return statusFactory.get('stub');
+  var service = statusFactory.get('stub');
+  return service;
 }
 
 

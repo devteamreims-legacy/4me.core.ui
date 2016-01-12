@@ -39,8 +39,9 @@ describe('4me.ui.stub.status', function() {
     it('should get filtered status', function() {
       status.get().reasons.should.be.empty;
       status.get().status.should.eql('normal');
-      status.escalate('stub', 'warning', 'Test title');
-      status.get().reasons.length.should.eql(1);
+      status.escalate('stub', 'critical', 'Test title');
+      status.get().status.should.eql('critical');
+      coreStatus.get().status.should.eql('warning');
     });
 
   });

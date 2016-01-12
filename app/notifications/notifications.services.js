@@ -52,6 +52,7 @@ function notifications(_, $q) {
       navigateTo: false
     };
 
+
     if(props && props.message) {
       n.message = props.message;
     }
@@ -77,7 +78,7 @@ function notifications(_, $q) {
 
   service.getUnread = function() {
     var s = this;
-    return _.filter(s.get(), function(n) {
+    return _.filter(service.get(), function(n) {
       return n.read === false;
     }) || [];
   };

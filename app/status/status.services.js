@@ -23,18 +23,12 @@ statusServices.factory('status', coreStatusFactory);
 
 statusFactoryFactory.$inject = ['_'];
 function statusFactoryFactory(_) {
-  /**
-   * Structure :
-   * var statuses = [];
-   * statuses['core'] = statusFactory('core', ...);
-   * statuses['organ1'] = statusFactory('organ1', ...);
-   */
-
   var statuses = [];
   var service = {};
 
 
-  function factory(_) {
+  // Service constructor
+  function factory(_, namespace) {
     var service = {};
 
     var _normalStatus = {
@@ -61,6 +55,8 @@ function statusFactoryFactory(_) {
 
       status.status = newStatus;
     }
+
+    service.name = namespace;
 
     service.get = function() {
       return status;
@@ -94,14 +90,14 @@ function statusFactoryFactory(_) {
     if(namespace === undefined) {
       throw new Error('argument error');
     }
-    if(statuses[namespace] === undefined) {
-      statuses[namespace] = factory(_);
+    var s = _.find(statuses, {name: namespace});
+    console.log('looking for status with namespace :' + namespace);
+    if(s === undefined) {
+      console.log('Not found !');
+      s = factory(_, namespace);
+      statuses.push(s);
     }
-    return statuses[namespace];
-  };
-
-  service.getAll = function() {
-    return statuses;
+    return s;
   };
 
   return service;

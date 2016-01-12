@@ -48,7 +48,7 @@ function fmeNotificationIconController(notifications, mainOrganService) {
     ) { // We have a
       var o = mainOrganService.find(fmeNotificationIcon.organName);
       if(o !== undefined) {
-        return o.getNotificationService().getUnreadCount();
+        return o.notifications.getUnreadCount();
       }
       else {
         return 0;
