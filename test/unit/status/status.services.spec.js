@@ -1,6 +1,31 @@
 describe('4me.core.status.services', function() {
   beforeEach(module('4me.core.status.services'));
 
+  describe('statusFactory', function() {
+    var statusFactory;
+
+    beforeEach(inject(function(_statusFactory_) {
+      statusFactory = _statusFactory_;
+    }));
+
+    it('should have a proper API', function() {
+      statusFactory.get.should.be.a('Function');
+      statusFactory.getAll.should.be.a('Function');
+    });
+
+    it('should create status service', function() {
+      var s = statusFactory.get('core');
+      s.get.should.be.a('Function');
+      s.escalate.should.be.a('Function');
+      s.recover.should.be.a('Function');
+    });
+
+    it('should not recreate status services', function() {
+      var s = statusFactory.get('core');
+      statusFactory.get('core').should.eql(s);
+    });
+  });
+
   describe('status', function() {
     var coreStatusService;
 

@@ -100,6 +100,10 @@ function statusFactoryFactory(_) {
     return statuses[namespace];
   };
 
+  service.getAll = function() {
+    return statuses;
+  };
+
   return service;
 }
 
