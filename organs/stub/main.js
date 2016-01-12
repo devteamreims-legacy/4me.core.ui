@@ -41,8 +41,8 @@ function stubConfig($stateProvider) {
   });
 };
 
-stubRegistration = ['mainOrganService', 'stub.notifications', '$state'];
-function stubRegistration(mainOrganService, notifications, $state) {
+stubRegistration = ['mainOrganService', 'stub.notifications', 'stub.status', '$state'];
+function stubRegistration(mainOrganService, notifications, status, $state) {
 
   mainOrganService.register({
     name: 'stub',
@@ -54,11 +54,7 @@ function stubRegistration(mainOrganService, notifications, $state) {
       return notifications;
     },
     getStatusService: function() {
-      return {
-
-        status: 'normal',
-        since: Date.now()
-      };
+      return status;
     }
   });
 }
@@ -111,8 +107,9 @@ function stubNotifications(_, notifications) {
 // We need another full service here, not some proxy status service
 m.factory('stub.status', stubStatus);
 
-stubStatus.$inject = ['_', 'statusFactory'];
-function stubStatus(_, statusFactory) {
+stubStatus.$inject = ['statusFactory'];
+function stubStatus(statusFactory) {
+  console.log('Getting status stub');
   return statusFactory.get('stub');
 }
 
