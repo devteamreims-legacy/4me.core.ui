@@ -19,12 +19,12 @@ statusComponents.component('fmeStatusButton', {
   templateUrl: 'views/status/fmeStatusButton.tpl.html'
 });
 
-fmeStatusButtonController.$inject = ['coreStatusService'];
-function fmeStatusButtonController(coreStatusService) {
+fmeStatusButtonController.$inject = ['status'];
+function fmeStatusButtonController(status) {
   var fmeStatusButton = this;
 
   fmeStatusButton.getStatus = function() {
-    return coreStatusService.get();
+    return status.get();
   };
 
   fmeStatusButton.disableClick = function() {

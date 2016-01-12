@@ -1,11 +1,11 @@
 describe('4me.core.status.services', function() {
   beforeEach(module('4me.core.status.services'));
 
-  describe('coreStatusService', function() {
+  describe('status', function() {
     var coreStatusService;
 
-    beforeEach(inject(function(_coreStatusService_) {
-      coreStatusService = _coreStatusService_;
+    beforeEach(inject(function(_status_) {
+      coreStatusService = _status_;
     }));
 
     it('should offer a proper API', function() {
