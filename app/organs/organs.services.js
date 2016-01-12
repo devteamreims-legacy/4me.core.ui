@@ -31,8 +31,9 @@ function mainOrganService(_, $state) {
      * Expects an object with this format :
      * {
      *    name: 'OrganName',
-     *    rootState: 'rootState',
-     *    getNotifications: function (returns an array of notifications)
+     *    navigateTo: function() // Callback to navigate to the organ
+     *    getNotificationService: function() // Callback which returns a notification service for the organ
+     *    getStatusService: function() // Callback which returns the status service for the organ
      * }
      */
     if(_.findIndex(organs, { name: organ.name }) !== -1) {
@@ -43,7 +44,7 @@ function mainOrganService(_, $state) {
     var o = {};
     o.name = organ.name;
     o.getNotificationService = organ.getNotificationService;
-    o.getStatusService = organ.getStatuService;
+    o.getStatusService = organ.getStatusService;
     o.navigateTo = function() {
       console.log('Navigating to organ : ' + organ.name);
       organ.navigateTo();
@@ -57,6 +58,8 @@ function mainOrganService(_, $state) {
   service.find = function(name) {
     return _.find(organs, { name: name });
   };
+
+
 
   return service;
 }
