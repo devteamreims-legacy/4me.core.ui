@@ -19,13 +19,18 @@ statusComponents.component('fmeStatusButton', {
   templateUrl: 'views/status/fmeStatusButton.tpl.html'
 });
 
-fmeStatusButtonController.$inject = ['status'];
-function fmeStatusButtonController(status) {
+fmeStatusButtonController.$inject = ['status', '$state'];
+function fmeStatusButtonController(status, $state) {
   var fmeStatusButton = this;
 
   fmeStatusButton.getStatus = function() {
     return status.get();
   };
+
+  fmeStatusButton.click = function() {
+    $state.go('status');
+    return;
+  }
 
   fmeStatusButton.disableClick = function() {
     return true;

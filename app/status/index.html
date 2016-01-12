@@ -1,2 +1,8 @@
 <h1>Application status</h1>
-{{statuses.statuses}}
+<md-button ng-click="statuses.escalateCore()">Escalate core</md-button>
+<md-button ng-click="statuses.escalateStub()">Escalate stub</md-button>
+<md-button ng-click="statuses.recoverAll()">Recover all</md-button>
+<div ng-repeat="s in statuses.statuses track by $index">
+  <h4>{{s.name}}</h4>
+  <p>{{s.status}}</p>
+</div>

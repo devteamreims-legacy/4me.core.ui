@@ -73,7 +73,6 @@ function notifications(_, $q) {
 
   service.getUnreadCount = function() {
     var s = this;
-    console.log(this);
     return s.getUnread().length;
   };
 
