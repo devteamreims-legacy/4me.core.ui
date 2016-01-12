@@ -10,7 +10,6 @@ describe('4me.core.status.services', function() {
 
     it('should have a proper API', function() {
       statusFactory.get.should.be.a('Function');
-      statusFactory.getAll.should.be.a('Function');
     });
 
     it('should create status service', function() {
@@ -24,6 +23,19 @@ describe('4me.core.status.services', function() {
       var s = statusFactory.get('core');
       statusFactory.get('core').should.eql(s);
     });
+
+    it('should be able to create two different services', function() {
+      var s = statusFactory.get('core');
+      var s2 = statusFactory.get('stub');
+
+      s.name.should.eql('core');
+      s2.name.should.eql('stub');
+
+      s.escalate('core.test', 'critical');
+      s2.get().status.should.eql('normal');
+      s.get().status.should.eql('critical');
+    });
+
   });
 
   describe('status', function() {
