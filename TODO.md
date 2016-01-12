@@ -7,8 +7,7 @@
 * Status (global and per organ)
   * ~~3 states : normal, warning, critical~~
   * ~~Global status,~~ what to do in case of failure
-  * Organ status
-  * Use a provider, organ status and global status use the same logic. See here for unit test : http://stackoverflow.com/questions/14771810/how-to-test-angularjs-custom-provider
+  * ~~Organ status~~
   * ~~We need to handle multiple escalation reasons. For instance, some part of the app could set the 'warn' status. Some other part of the app could set it to 'critical'. When the 'critical' part is resolved, we need to keep track of the 'warn' part and maitain the 'warn' status~~
 * Websocket stuff
   * Unit test : see sockMock object here : https://github.com/hackify/hackify-server/blob/master/test/controllers.test.js
