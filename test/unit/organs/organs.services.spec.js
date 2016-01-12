@@ -70,7 +70,7 @@ describe('4me.core.organs.services', function() {
       var o = _.clone(stubOrgan);
       o.getNotificationService = stubFunc;
       var r = mainOrganService.register(o);
-      o.getNotificationService();
+      r.getNotificationService();
       stubFunc.should.have.been.called;
     });
 
@@ -79,7 +79,7 @@ describe('4me.core.organs.services', function() {
       var o = _.clone(stubOrgan);
       o.getStatusService = stubFunc;
       var r = mainOrganService.register(o);
-      o.getStatusService();
+      r.getStatusService();
       stubFunc.should.have.been.called;
     });
 
