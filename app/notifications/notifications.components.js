@@ -22,8 +22,8 @@ notificationComponents.component('fmeNotificationList', {
 });
 
 
-fmeNotificationListController.$inject = ['notifications', '$mdDialog', 'mainOrganService'];
-function fmeNotificationListController(notifications, $mdDialog, mainOrganService) {
+fmeNotificationListController.$inject = ['notifications', '$mdDialog'];
+function fmeNotificationListController(notifications, $mdDialog) {
   var fmeNotificationList = this;
   fmeNotificationList.notifications = notifications.get();
   fmeNotificationList.unreadCount = notifications.getUnreadCount();

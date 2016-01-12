@@ -41,24 +41,27 @@ fmeNotificationIconController.$inject = ['notifications', 'mainOrganService'];
 function fmeNotificationIconController(notifications, mainOrganService) {
   var fmeNotificationIcon = this;
 
-  fmeNotificationIcon.getUnreadCount = function() {
+  function getNotificationService() {
     if(
       fmeNotificationIcon.organName !== undefined
       && fmeNotificationIcon.organName !== ''
-    ) { // We have a
+    ) { // We have a supplied organName
       var o = mainOrganService.find(fmeNotificationIcon.organName);
       if(o !== undefined) {
-        return o.notifications.getUnreadCount();
-      }
-      else {
-        return 0;
+        return o.getNotificationService();
       }
     }
-    return notifications.getUnreadCount();
+    return notifications;
+  }
+
+  fmeNotificationIcon.getUnreadCount = function() {
+    var s = getNotificationService();
+    return s.getUnreadCount();
   };
 
   fmeNotificationIcon.getClass = function() {
-    switch(notifications.getUnreadHighestPriority()) {
+    var s = getNotificationService();
+    switch(s.getUnreadHighestPriority()) {
       case false:
       default:
         return '';

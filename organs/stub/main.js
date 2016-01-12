@@ -98,10 +98,13 @@ function stubNotifications(_, notifications) {
   };
 
   service.get = function() {
+    console.log('Called decorated function');
     return _.filter(notifications.get(), function(n) {
       return n.sender === 'stub';
     })
   };
+
+  service.name = 'stub.notifications';
 
   return _.defaults(service, _.clone(notifications));
 }
