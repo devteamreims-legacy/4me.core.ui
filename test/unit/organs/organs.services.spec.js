@@ -12,8 +12,13 @@ describe('4me.core.organs.services', function() {
         // TODO : Replace by a sinon.stub
         console.log('Navigating');
       },
-      getNotifications: function() {
+      getNotificationService: function() {
         console.log('Getting notifications');
+        return {};
+      },
+      getStatusService: function () {
+        console.log('Getting status service');
+        return {};
       }
     };
 
