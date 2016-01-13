@@ -25,24 +25,27 @@ var cachebust = new CacheBuster();
 var config = {
     appFolder:      [
         'app/**/*',
-        'organs/**/*'
+        'organs/*/app/**/*'
     ],
     sassFolder:     [
         'app/styles/**/*',
-        'organs/styles/**/*'
+        'organs/*/app/styles/**/*'
     ],
     jsFolder:       [
         'app/**/*.js',
-        'organs/**/*.js'
+        'organs/*/app/**/*.js'
     ],
     viewsFolder:    [
         'app/**/*.html',
-        'organs/**/*.html'
+        'organs/*/app/**/*.html'
     ],
     sourceIconsFolder:[
         'app/icons/**.svg',
-    ], 
-    testFolder:     'test/**/*',
+    ],
+    testFolder:     [
+      'test/**/*',
+      'organs/*/test/**/*'
+    ],
     fontsFolder:    'fonts',
     destFolder:     'dist',
     mapsFolder:     'maps',
@@ -151,11 +154,11 @@ gulp.task('build-template-cache', function() {
         concat = require("gulp-concat");
 
     return gulp.src(config.viewsFolder)
+        .pipe(debug())
         .pipe(ngHtml2Js({
             moduleName: "4me.core.partials",
             prefix: "views/"
         }))
-        .pipe(debug())
         .pipe(concat("templateCachePartials.js"))
         .pipe(cachebust.resources())
         .pipe(gulp.dest(config.destFolder + '/scripts/'))

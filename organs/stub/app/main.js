@@ -35,7 +35,7 @@ stubConfig.$inject = ['$stateProvider'];
 function stubConfig($stateProvider) {
   $stateProvider.state('stub', {
     url: '/stub',
-    templateUrl: 'views/stub/index.tpl.html',
+    templateUrl: 'views/stub/app/index.tpl.html',
     controller: stubController,
     controllerAs: 'stub'
   });
