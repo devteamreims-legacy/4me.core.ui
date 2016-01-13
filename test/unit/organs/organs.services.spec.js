@@ -9,15 +9,12 @@ describe('4me.core.organs.services', function() {
     var stubOrgan = {
       name: 'stub',
       navigateTo: function() {
-        // TODO : Replace by a sinon.stub
-        console.log('Navigating');
+        return;
       },
       getNotificationService: function() {
-        console.log('Getting notifications');
         return {};
       },
       getStatusService: function () {
-        console.log('Getting status service');
         return {};
       }
     };
