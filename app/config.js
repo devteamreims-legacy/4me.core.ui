@@ -21,6 +21,10 @@ angular.module('4me.core.config', [
       // Api end points relative to the root path
       cwp: {getMine: '/cwp/getMine'},
       sectors: {getMine: '/sectors/getMine'}
+    },
+    sectors: {
+      rootPath: 'http://localhost:3000',
+      tree: '/sectors/tree'
     }
   })
   .config(mdiToAngularMaterial)
