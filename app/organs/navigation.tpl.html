@@ -2,6 +2,6 @@
   <single-organ-navigation ng-repeat="o in organNavigation.organs track by $index" organ="o"></single-organ-navigation>
   <md-list-item ng-repeat="o in organNavigation.organs" ng-click="o.navigateTo()">
     <p>{{o.name}}</p>
-    <fme-notification-icon organ-name="{{o.name}}"></fme-notification-icon>
+    <fme-notification-icon hide-empty="true" organ-name="{{o.name}}"></fme-notification-icon>
   </md-list-item>
 </md-list>

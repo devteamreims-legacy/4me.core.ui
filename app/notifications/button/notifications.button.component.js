@@ -30,7 +30,8 @@ notificationButton.component('fmeNotificationButton', {
 notificationButton.component('fmeNotificationIcon', {
   restrict: 'E',
   bindings: {
-    organName: '@'
+    organName: '@',
+    hideEmpty: '@'
   },
   controller: fmeNotificationIconController,
   templateUrl: 'views/notifications/button/icon.tpl.html'
@@ -53,6 +54,10 @@ function fmeNotificationIconController(notifications, mainOrganService) {
     }
     return notifications;
   }
+
+  fmeNotificationIcon.showIcon = function() {
+    return fmeNotificationIcon.getUnreadCount() !== 0 || !fmeNotificationIcon.hideEmpty;
+  };
 
   fmeNotificationIcon.getUnreadCount = function() {
     var s = getNotificationService();
