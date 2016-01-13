@@ -20,12 +20,12 @@ cwpComponents.component('myCwp', {
 });
 
 myCwpController.$inject = ['myCwp'];
-function myCwpController(myCwp) {
-  var self = this;
-  self.cwp = '';
-  myCwp.get()
+function myCwpController(myCwpService) {
+  var myCwp = this;
+  myCwp.cwp = '';
+  myCwpService.get()
   .then(function(res) {
-    self.cwp = res.name;
+    myCwp.cwp = res.name;
   });
 }
 
