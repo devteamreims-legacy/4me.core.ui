@@ -8,21 +8,26 @@ describe('4me.core.cwp.services', function() {
     var $q;
     var ApiUrls;
     var errors;
+    var cwpInterceptor;
 
     var resultsFromBackend = {
       getMine: {
         id: 34,
-        name: 'P34'
+        name: 'P34',
+        sectors: [],
+        sectorName: ''
       }
     };
 
-    beforeEach(inject(function(_myCwp_, _$httpBackend_, _$rootScope_, _$q_, _ApiUrls_, _errors_) {
+    beforeEach(inject(function(_myCwp_, _$httpBackend_, _$rootScope_, _$q_, _ApiUrls_, _errors_, _cwpInterceptor_) {
       myCwp = _myCwp_;
       $httpBackend = _$httpBackend_;
       $rootScope = _$rootScope_;
       $q = _$q_;
       ApiUrls = _ApiUrls_;
       errors = _errors_;
+      cwpInterceptor = _cwpInterceptor_;
+
     }));
 
     describe('get', function() {
@@ -50,7 +55,7 @@ describe('4me.core.cwp.services', function() {
       it('should return a properly formatted result', function(done) {
         Promise.all([
           myCwp.get().should.eventually
-            .have.keys('id', 'name'),
+            .include.keys('id', 'name'),
           myCwp.get().then(function(res) {
             return [
               res.id.should.be.a('number'),
@@ -61,6 +66,22 @@ describe('4me.core.cwp.services', function() {
         .then(function() {
           done();
         });
+        $httpBackend.flush();
+      });
+
+      it('should set a proper id in cwpInterceptor', function(done) {
+        cwpInterceptor.setId = sinon.stub();
+
+        myCwp.get()
+        .then(function() {
+          cwpInterceptor.setId.should.have.been
+          .calledWith(resultsFromBackend.getMine.id);
+          return;
+        })
+        .then(function() {
+          done();
+        });
+
         $httpBackend.flush();
       });
     });
