@@ -16,7 +16,7 @@ angular.module('4me.core.config', [
   // Object to map microservices URLs
   .constant('ApiUrls', {
     mapping: {
-      rootPath: 'http://localhost:3000', // Root path our this micro service
+      rootPath: 'http://localhost:3000', // Root path
       // Api end points relative to the root path
       cwp: {getMine: '/cwp/getMine'},
       sectors: {getMine: '/sectors/getMine'}
