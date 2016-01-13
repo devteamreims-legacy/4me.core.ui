@@ -29,7 +29,7 @@ var config = {
     ],
     sassFolder:     [
         'app/styles/**/*',
-        'organs/*/app/styles/**/*'
+        'organs/*/styles/**/*'
     ],
     jsFolder:       [
         'app/**/*.js',
@@ -96,6 +96,7 @@ gulp.task('build-css', function() {
             ],
             errLogToConsole: true
         }))
+        .pipe(concat('main.css'))
         .pipe(cachebust.resources())
         .pipe(sourcemaps.write(config.mapsFolder))
         .pipe(gulp.dest(config.destFolder + '/styles/'))
