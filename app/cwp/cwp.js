@@ -12,7 +12,7 @@
 angular.module('4me.core.cwp', [
   '4me.core.cwp.services',
   '4me.core.cwp.components',
-  '4me.core.cwp.http.interceptor'
+  '4me.core.cwp.interceptor'
 ]);
 
 }());
