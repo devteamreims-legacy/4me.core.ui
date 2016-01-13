@@ -11,13 +11,14 @@
 var cwpServices = angular.module('4me.core.cwp.services', [
   '4me.core.lodash',
   '4me.core.config',
+  '4me.core.cwp.interceptor',
   '4me.core.errors'
 ]);
 
 cwpServices.factory('myCwp', myCwp);
 
-myCwp.$inject = ['_', '$q', 'ApiUrls', '$http', 'errors'];
-function myCwp(_, $q, ApiUrls, $http, errors) {
+myCwp.$inject = ['_', '$q', 'ApiUrls', '$http', 'errors', 'cwpInterceptor'];
+function myCwp(_, $q, ApiUrls, $http, errors, cwpInterceptor) {
   var myCwp = {};
   var loadingPromise;
   var service = {};
@@ -46,6 +47,8 @@ function myCwp(_, $q, ApiUrls, $http, errors) {
         console.log('Got data from backend');
         console.log(res.data);
         myCwp = res.data;
+        // Set our cwp Id for future requests
+        cwpInterceptor.setId(res.data.id);
         return myCwp;
       })
       .catch(errors.catch('core.cwp', 'critical', 'Could not load our CWP from backend'));

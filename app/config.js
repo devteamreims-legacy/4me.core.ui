@@ -11,6 +11,7 @@
 
 angular.module('4me.core.config', [
   'ngMaterial',
+  '4me.core.cwp.interceptor',
   'ui.router'
 ])
   // Object to map microservices URLs
@@ -24,7 +25,8 @@ angular.module('4me.core.config', [
   })
   .config(mdiToAngularMaterial)
   .config(applyThemes)
-  .config(addDefaultStates);
+  .config(addDefaultStates)
+  .config(addCwpInterceptor);
 
 
 
@@ -79,4 +81,10 @@ function addDefaultStates($stateProvider, $urlRouterProvider) {
     templateUrl: "views/notifications/index.html"
   });
 }
+
+addCwpInterceptor.$inject = ['$httpProvider'];
+function addCwpInterceptor($httpProvider) {
+  $httpProvider.interceptors.push('cwpInterceptor');
+}
+
 }());
