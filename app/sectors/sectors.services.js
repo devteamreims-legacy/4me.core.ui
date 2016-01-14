@@ -81,8 +81,8 @@ function mySectors(_, $q, ApiUrls, $http, errors, status) {
   return service;
 }
 
-treeSectors.$inject = ['_', 'ApiUrls', '$http', 'errors', '$q'];
-function treeSectors(_, ApiUrls, $http, errors, $q) {
+treeSectors.$inject = ['_', 'ApiUrls', '$http', 'errors', '$q', 'status'];
+function treeSectors(_, ApiUrls, $http, errors, $q, status) {
   var service = {};
   var loadingPromise;
   var tree = [];
