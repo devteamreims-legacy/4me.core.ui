@@ -10,6 +10,7 @@
  * Meta module to include status components/services
  */
 angular.module('4me.core.status', [
+  'ui.router',
   '4me.core.status.services',
   '4me.core.status.components'
 ])
