@@ -121,6 +121,33 @@ function treeSectors(_, ApiUrls, $http, errors, $q) {
     return _.find(tree, {name: s}) || {};
   };
 
+  service.getFromSectors = function(sectors) {
+    if(!sectors) {
+      throw new Error('Argument error');
+    }
+
+    if(!(_.isString(sectors) || _.isArray(sectors))) {
+      throw new Error('Argument error');
+    }
+    var s;
+    if(_.isString(sectors)) {
+      s = [sectors.toUpperCase()];
+    }
+
+    if(_.isArray(sectors)) {
+      s = [];
+      _.each(sectors, function(a) {
+        s.push(a.toUpperCase());
+      });
+    }
+
+    s.sort();
+
+    return _.find(tree, function(t) {
+      return _.isEqual(t.elementarySectors, s);
+    }) || {};
+  };
+
   service.getTree = function() {
     return tree;
   };

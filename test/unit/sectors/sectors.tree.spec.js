@@ -38,6 +38,7 @@ describe('4me.core.sectors.services', function() {
       treeSectors.getTree.should.be.a('function');
       treeSectors.getFromString.should.be.a('function');
       treeSectors.getElementary.should.be.a('function');
+      treeSectors.getFromSectors.should.be.a('function');
     });
 
     it('should return empty stuff when not bootstrapped', function() {
@@ -97,6 +98,52 @@ describe('4me.core.sectors.services', function() {
           var s = treeSectors.getFromString('UXR');
           expect(s).to.be.defined;
           s.should.eql({name: 'UXR', elementarySectors: ['UR', 'XR']});
+        });
+
+        it('should be able to parse lowercase sector groups', function() {
+          treeSectors.getFromString('uxr')
+          .should.not.be.empty;
+        });
+      });
+
+      describe('getFromSectors', function() {
+        it('should raise without an argument', function() {
+          treeSectors.getFromSectors.should.throw();
+        });
+
+        it('should reject invalid arguments', function() {
+          var fn;
+          fn = function() {
+            return treeSectors.getFromSectors(2);
+          };
+          fn.should.throw();
+
+          fn = function() {
+            return treeSectors.getFromSectors({object: true});
+          };
+          fn.should.throw();
+        });
+
+        it('should accept strings as argument', function() {
+
+          console.log(treeSectors.getFromSectors('ur'));
+
+          treeSectors.getFromSectors('ur')
+          .should.not.be.empty;
+
+          treeSectors.getFromSectors('ur')
+          .should.eql({
+            name: 'UR',
+            elementarySectors: ['UR']
+          });
+        });
+
+        it('should accept arrays as arguments', function() {
+          treeSectors.getFromSectors(['ur', 'XR'])
+          .should.eql({
+            name: 'UXR',
+            elementarySectors: ['UR', 'XR']
+          });
         });
       });
     });
