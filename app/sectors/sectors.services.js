@@ -17,8 +17,8 @@ var sectorsServices = angular.module('4me.core.sectors.services', [
 sectorsServices.factory('mySectors', mySectors);
 sectorsServices.factory('treeSectors', treeSectors);
 
-mySectors.$inject = ['_', '$q', 'ApiUrls', '$http', 'errors'];
-function mySectors(_, $q, ApiUrls, $http, errors) {
+mySectors.$inject = ['_', '$q', 'ApiUrls', '$http', 'errors', 'status'];
+function mySectors(_, $q, ApiUrls, $http, errors, status) {
   var mySectors = {};
   var loadingPromise;
   var service = {};
@@ -38,6 +38,7 @@ function mySectors(_, $q, ApiUrls, $http, errors) {
       // Already loading from backend, return promise
       return loadingPromise;
     } else {
+
       loadingPromise = $http({
         method: 'GET',
         url: endpoints.getMine,
@@ -45,15 +46,29 @@ function mySectors(_, $q, ApiUrls, $http, errors) {
       })
       .then(function(res) {
         mySectors = res.data;
+        loadingPromise = undefined;
         return mySectors;
       })
-      .catch(errors.catch('core.sectors', 'critical', 'Could not load our sectors from backend'));
+      .catch(function(err) {
+        var e = errors.add('core.sectors', 'critical', 'Could not load our sectors from backend', err);
+        status.escalate('core.sectors', 'critical', 'Could not load our sector data from backend', e);
+        loadingPromise = undefined;
+        return $q.reject(e);
+      });
 
       return loadingPromise;
     }
   }
 
   service.get = function() {
+    return mySectors;
+  };
+
+  service.refresh = function() {
+    return _getFromBackend();
+  };
+
+  service.bootstrap = function() {
     if(_.isEmpty(mySectors)) {
       return _getFromBackend();
     } else {
