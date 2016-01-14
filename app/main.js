@@ -24,7 +24,7 @@ var m = angular
       '4me.core.sectors',
       '4me.core.status',
       '4me.core.notifications',
-      '4me.ui.stub'
+      '4me.core.loadOrgans'
   ]);
 
 

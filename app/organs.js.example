@@ -1,0 +1,18 @@
+(function() {
+'use strict';
+/**
+ * @ngdoc overview
+ * @name 4me.core.loadOrgans
+ * @description
+ * # 4me.core.loadOrgans
+ *
+ * Wrapper module for organs loading
+ */
+var m = angular
+  .module('4me.core.loadOrgans', [
+      // List all organs here
+      '4me.ui.stub',
+      '4me.ui.spvr.mapping'
+  ]);
+
+}());
