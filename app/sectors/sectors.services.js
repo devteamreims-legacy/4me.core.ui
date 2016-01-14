@@ -96,9 +96,15 @@ function treeSectors(_, ApiUrls, $http, errors, $q) {
       })
       .then(function(res) {
         tree = res.data;
+        loadingPromise = undefined;
         return tree;
       })
-      .catch(errors.catch('core.sectors.treeSectors', 'critical', 'Could not load tree sectors data from backend'));
+      .catch(function(err) {
+        var e = errors.add('core.sectors.treeSectors', 'critical', 'Could not load tree sectors from backend', err);
+        status.escalate('core.sectors.treeSectors', 'critical', 'Could not load tree sectors data from backend', e);
+        loadingPromise = undefined;
+        return $q.reject(err);
+      });
 
       return loadingPromise;
     }
@@ -150,6 +156,10 @@ function treeSectors(_, ApiUrls, $http, errors, $q) {
 
   service.getTree = function() {
     return tree;
+  };
+
+  service.refresh = function() {
+    return _getFromBackend();
   };
 
   service.bootstrap = function() {
