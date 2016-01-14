@@ -53,10 +53,6 @@ describe('4me.core.cwp.services', function() {
       $httpBackend.flush();
     });
 
-    it('should return an empty object when not bootstrapped', function() {
-      myCwp.get().should.eql({});
-    });
-
     describe('get', function() {
       // Prepare our backend
       beforeEach(function() {
@@ -89,7 +85,6 @@ describe('4me.core.cwp.services', function() {
         cwpInterceptor.setId
         .should.have.been
         .calledWith(resultsFromBackend.getMine.id);
-
       });
 
     });
