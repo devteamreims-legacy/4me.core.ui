@@ -70,7 +70,10 @@ treeSectors.$inject = ['_', 'ApiUrls', '$http', 'errors', '$q'];
 function treeSectors(_, ApiUrls, $http, errors, $q) {
   var service = {};
   var loadingPromise;
-  var tree;
+  var tree = [];
+  var elementary;
+
+  var endpoints = {};
 
   // This belongs in a separate service
   function _prepareUrl() {
@@ -102,14 +105,27 @@ function treeSectors(_, ApiUrls, $http, errors, $q) {
   }
 
   service.getElementary = function() {
-    return ['UR', 'XR'];
+    if(_.isEmpty(elementary)) {
+      elementary = _.filter(tree, function(s) {
+        return s.elementarySectors.length === 1;
+      });
+    }
+    return elementary;
   };
 
   service.getFromString = function(sectorString) {
-
+    if(!sectorString) {
+      throw new Error('Argument error');
+    }
+    var s = sectorString.toUpperCase();
+    return _.find(tree, {name: s}) || {};
   };
 
   service.getTree = function() {
+    return tree;
+  };
+
+  service.bootstrap = function() {
     if(_.isEmpty(tree)) {
       return _getFromBackend();
     } else {

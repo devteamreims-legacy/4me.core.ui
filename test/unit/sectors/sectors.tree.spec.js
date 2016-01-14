@@ -34,9 +34,71 @@ describe('4me.core.sectors.services', function() {
     }));
 
     it('should present a proper API', function() {
+      treeSectors.bootstrap.should.be.a('function');
       treeSectors.getTree.should.be.a('function');
       treeSectors.getFromString.should.be.a('function');
       treeSectors.getElementary.should.be.a('function');
+    });
+
+    it('should return empty stuff when not bootstrapped', function() {
+      treeSectors.getTree().should.eql([]);
+      treeSectors.getFromString('bla').should.eql({});
+      treeSectors.getElementary().should.eql([]);
+    });
+
+    it('should be able to be bootstrapped', function(done) {
+      $httpBackend
+        .when('GET', ApiUrls.sectors.rootPath + ApiUrls.sectors.tree)
+        .respond(resultsFromBackend.tree);
+
+      treeSectors.bootstrap()
+        .should.be.fulfilled
+        .and.notify(done);
+
+      $httpBackend.flush();
+    });
+
+
+    describe('bootstrapped', function() {
+      beforeEach(function() {
+        $httpBackend
+          .when('GET', ApiUrls.sectors.rootPath + ApiUrls.sectors.tree)
+          .respond(resultsFromBackend.tree);
+
+        treeSectors.bootstrap()
+          .should.be.fulfilled;
+
+        $httpBackend.flush();
+      });
+
+      afterEach(function() {
+        $httpBackend.verifyNoOutstandingExpectation();
+        $httpBackend.verifyNoOutstandingRequest();
+      });
+
+      it('should return a proper tree', function() {
+        var tree = treeSectors.getTree();
+        tree.should.be.a('array');
+        tree.length.should.eql(resultsFromBackend.tree.length);
+      });
+
+      it('should be able to filter non-elementary sectors', function() {
+        var elementary = treeSectors.getElementary();
+        elementary.should.be.a('array');
+        elementary.length.should.eql(2); // UR + XR
+      });
+
+      describe('getFromString', function() {
+        it('should raise without argument', function() {
+          treeSectors.getFromString.should.throw();
+        });
+
+        it('should get the proper sector group', function() {
+          var s = treeSectors.getFromString('UXR');
+          expect(s).to.be.defined;
+          s.should.eql({name: 'UXR', elementarySectors: ['UR', 'XR']});
+        });
+      });
     });
 
   });
