@@ -12,13 +12,14 @@ var cwpServices = angular.module('4me.core.cwp.services', [
   '4me.core.lodash',
   '4me.core.config',
   '4me.core.cwp.interceptor',
-  '4me.core.errors'
+  '4me.core.errors',
+  '4me.core.status'
 ]);
 
 cwpServices.factory('myCwp', myCwp);
 
-myCwp.$inject = ['_', '$q', 'ApiUrls', '$http', 'errors', 'cwpInterceptor'];
-function myCwp(_, $q, ApiUrls, $http, errors, cwpInterceptor) {
+myCwp.$inject = ['_', '$q', 'ApiUrls', '$http', 'errors', 'cwpInterceptor', 'status'];
+function myCwp(_, $q, ApiUrls, $http, errors, cwpInterceptor, status) {
   var myCwp = {};
   var loadingPromise;
   var service = {};
@@ -40,31 +41,38 @@ function myCwp(_, $q, ApiUrls, $http, errors, cwpInterceptor) {
     } else {
       loadingPromise = $http({
         method: 'GET',
-        url: endpoints.getMine,
-        timeout: 200
+        url: endpoints.getMine
       })
       .then(function(res) {
         console.log('Got data from backend');
-        console.log(res.data);
         myCwp = res.data;
         // Set our cwp Id for future requests
         cwpInterceptor.setId(res.data.id);
+        loadingPromise = undefined;
         return myCwp;
       })
-      .catch(errors.catch('core.cwp', 'critical', 'Could not load our CWP from backend'));
+      .catch(function(err) {
+        loadingPromise = undefined;
+        console.log('Catching error');
+        var e = errors.add('core.cwp', 'critical', 'Could not load our CWP from backend', err);
+        status.escalate('core.cwp', 'critical', 'Could not load our CWP from backend', e);
+        return $q.reject(err);
+      });
 
       return loadingPromise;
     }
   }
 
   service.get = function() {
-    if(_.isEmpty(myCwp)) {
-      return _getFromBackend();
-    } else {
-      var def = $q.defer();
-      def.resolve(myCwp);
-      return def.promise;
-    }
+    return myCwp;
+  };
+
+  service.bootstrap = function() {
+    return _getFromBackend();
+  };
+
+  service.refresh = function() {
+    return _getFromBackend();
   };
 
   return service;

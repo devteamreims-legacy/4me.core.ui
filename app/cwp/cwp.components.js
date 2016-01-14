@@ -23,9 +23,9 @@ myCwpController.$inject = ['myCwp'];
 function myCwpController(myCwpService) {
   var myCwp = this;
   myCwp.cwp = '';
-  myCwpService.get()
-  .then(function(res) {
-    myCwp.cwp = res.name;
+  myCwpService.bootstrap()
+  .then(function() {
+    myCwp.cwp = myCwpService.get().name;
   });
 }
 

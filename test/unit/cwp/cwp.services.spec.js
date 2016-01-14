@@ -8,6 +8,7 @@ describe('4me.core.cwp.services', function() {
     var $q;
     var ApiUrls;
     var errors;
+    var status;
     var cwpInterceptor;
 
     var resultsFromBackend = {
@@ -19,7 +20,7 @@ describe('4me.core.cwp.services', function() {
       }
     };
 
-    beforeEach(inject(function(_myCwp_, _$httpBackend_, _$rootScope_, _$q_, _ApiUrls_, _errors_, _cwpInterceptor_) {
+    beforeEach(inject(function(_myCwp_, _$httpBackend_, _$rootScope_, _$q_, _ApiUrls_, _errors_, _cwpInterceptor_, _status_) {
       myCwp = _myCwp_;
       $httpBackend = _$httpBackend_;
       $rootScope = _$rootScope_;
@@ -27,15 +28,47 @@ describe('4me.core.cwp.services', function() {
       ApiUrls = _ApiUrls_;
       errors = _errors_;
       cwpInterceptor = _cwpInterceptor_;
-
+      status = _status_;
     }));
+
+    it('should present a proper API', function() {
+      myCwp.bootstrap.should.be.a('function');
+      myCwp.get.should.be.a('function');
+      myCwp.refresh.should.be.a('function');
+    });
+
+    it('should return empty stuff when not bootstrapped', function() {
+      myCwp.get().should.eql({});
+    });
+
+    it('should be able to be bootstrapped', function(done) {
+      $httpBackend
+        .when('GET', ApiUrls.mapping.rootPath + ApiUrls.mapping.cwp.getMine)
+        .respond(resultsFromBackend.getMine);
+
+      myCwp.bootstrap()
+        .should.be.fulfilled
+        .and.notify(done);
+
+      $httpBackend.flush();
+    });
+
+    it('should return an empty object when not bootstrapped', function() {
+      myCwp.get().should.eql({});
+    });
 
     describe('get', function() {
       // Prepare our backend
       beforeEach(function() {
+        cwpInterceptor.setId = sinon.stub();
         $httpBackend
           .when('GET', ApiUrls.mapping.rootPath + ApiUrls.mapping.cwp.getMine)
           .respond(resultsFromBackend.getMine);
+
+        myCwp.bootstrap()
+        .should.be.fulfilled;
+
+        $httpBackend.flush();
       });
 
       afterEach(function() {
@@ -43,65 +76,47 @@ describe('4me.core.cwp.services', function() {
         $httpBackend.verifyNoOutstandingRequest();
       });
 
-      it('should return a promise', function(done) {
-        myCwp.get()
-          .should
-          .be.fulfilled
-          .and.notify(done);
 
-        $httpBackend.flush(); // Flush $q defer
+
+      it('should return a properly formatted result', function() {
+        var c = myCwp.get();
+        c.should.include.keys('id', 'name');
+        c.id.should.be.a('number');
+        c.name.should.be.a('string');
       });
 
-      it('should return a properly formatted result', function(done) {
-        Promise.all([
-          myCwp.get().should.eventually
-            .include.keys('id', 'name'),
-          myCwp.get().then(function(res) {
-            return [
-              res.id.should.be.a('number'),
-              res.name.should.be.a('string')
-            ]
-          })
-        ])
-        .then(function() {
-          done();
-        });
-        $httpBackend.flush();
+      it('should set a proper id in cwpInterceptor', function() {
+        cwpInterceptor.setId
+        .should.have.been
+        .calledWith(resultsFromBackend.getMine.id);
+
       });
 
-      it('should set a proper id in cwpInterceptor', function(done) {
-        cwpInterceptor.setId = sinon.stub();
-
-        myCwp.get()
-        .then(function() {
-          cwpInterceptor.setId.should.have.been
-          .calledWith(resultsFromBackend.getMine.id);
-          return;
-        })
-        .then(function() {
-          done();
-        });
-
-        $httpBackend.flush();
-      });
     });
 
     describe('without backend', function() {
       beforeEach(function() {
-        errors.catch = sinon.spy();
         $httpBackend
           .when('GET', ApiUrls.mapping.rootPath + ApiUrls.mapping.cwp.getMine)
           .respond(404, '');
+
+        status.escalate = sinon.stub();
+        errors.add = sinon.stub().returns({});
       });
 
       it('should handle failure gracefully', function(done) {
-        Promise.all([
-          myCwp.get().should.be.rejected,
-          errors.catch.should.have.been.calledWith('core.cwp', sinon.match.any, sinon.match.any)
-        ])
-        .then(function() {
+        myCwp.bootstrap()
+        .then(function(res) {
+          // This should not happen
+          (true).should.eql(false);
+          done();
+        })
+        .catch(function(err) {
+          errors.add.should.have.been.called;
+          status.escalate.should.have.been.called;
           done();
         });
+
         $httpBackend.flush();
       });
     });
