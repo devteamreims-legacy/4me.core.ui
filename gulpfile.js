@@ -264,11 +264,19 @@ gulp.task('watch', function() {
 // Serve (and watch)
 //
 /////////////////////////////////////////////////////////////////////////////////////
+var cors = function(req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', '*');
+  next();
+};
 gulp.task('serve', ['build', 'watch'], function() {
     connect.server({
         root: config.destFolder,
         livereload: true,
-        port: 4000
+        port: 4000,
+        middleware: function() {
+          return [cors];
+        }
     });
 });
 
