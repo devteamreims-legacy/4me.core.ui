@@ -70,6 +70,7 @@ function applyThemes($mdThemingProvider) {
 addDefaultStates.$inject = ['$stateProvider', '$urlRouterProvider'];
 function addDefaultStates($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("/");
+  // See here : http://stackoverflow.com/questions/28237952/angularjs-ui-router-how-to-resolve-typical-data-globally-for-all-routes
 
   $stateProvider
   .state('dashboard', {
