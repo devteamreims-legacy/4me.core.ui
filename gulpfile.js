@@ -314,7 +314,8 @@ gulp.task('test:unit:coverage', function(done) {
         singleRun: true,
         preprocessors: {
             'test/unit/setup.js': ['browserify'],
-            'app/**/*.js': ['coverage']
+            'app/**/*.js': ['coverage'],
+            'organs/**/app/**/*.js': ['coverage']
         },
         reporters: ['progress', 'coverage'],
         browsers: ['PhantomJS']
