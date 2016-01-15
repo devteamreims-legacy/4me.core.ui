@@ -25,6 +25,8 @@ var cachebust = new CacheBuster();
 var config = {
     appFolder:      [
         'app/**/*',
+        'styles/**/*',
+        'organs/*/styles/**/*',
         'organs/*/app/**/*'
     ],
     sassFolder:     [
