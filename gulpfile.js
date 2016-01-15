@@ -28,7 +28,7 @@ var config = {
         'organs/*/app/**/*'
     ],
     sassFolder:     [
-        'app/styles/**/*',
+        'styles/**/*',
         'organs/*/styles/**/*'
     ],
     jsFolder:       [
