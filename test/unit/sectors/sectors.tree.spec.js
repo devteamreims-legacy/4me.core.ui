@@ -116,6 +116,8 @@ describe('4me.core.sectors.services', function() {
         var elementary = treeSectors.getElementary();
         elementary.should.be.a('array');
         elementary.length.should.eql(2); // UR + XR
+        elementary.should.contain('UR');
+        elementary.should.contain('XR');
       });
 
       describe('getFromString', function() {

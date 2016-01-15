@@ -86,7 +86,7 @@ function treeSectors(_, ApiUrls, $http, errors, $q, status) {
   var service = {};
   var loadingPromise;
   var tree = [];
-  var elementary;
+  var elementary = [];
 
   var endpoints = {};
 
@@ -127,8 +127,10 @@ function treeSectors(_, ApiUrls, $http, errors, $q, status) {
 
   service.getElementary = function() {
     if(_.isEmpty(elementary)) {
-      elementary = _.filter(tree, function(s) {
-        return s.elementarySectors.length === 1;
+      _.each(tree, function(s) {
+        if(s.elementarySectors.length === 1) {
+          elementary.push(s.name);
+        }
       });
     }
     return elementary;
