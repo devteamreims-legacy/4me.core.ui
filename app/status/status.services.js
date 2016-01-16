@@ -91,9 +91,7 @@ function statusFactoryFactory(_) {
       throw new Error('argument error');
     }
     var s = _.find(statuses, {name: namespace});
-    console.log('looking for status with namespace :' + namespace);
     if(s === undefined) {
-      console.log('Not found !');
       s = factory(_, namespace);
       statuses.push(s);
     }
