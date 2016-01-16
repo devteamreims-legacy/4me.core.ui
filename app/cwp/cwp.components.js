@@ -16,18 +16,26 @@ var cwpComponents = angular.module('4me.core.cwp.components', [
 cwpComponents.component('myCwp', {
   restrict: 'E',
   controller: myCwpController,
-  template: '{{myCwp.cwp}}'
+  template: '{{myCwp.cwp.name}}'
+});
+
+cwpComponents.component('mySectors', {
+  restrict: 'E',
+  controller: myCwpController,
+  controllerAs: 'mySectors',
+  template: '{{mySectors.cwp.sectorName}}'
 });
 
 myCwpController.$inject = ['myCwp'];
 function myCwpController(myCwpService) {
   var myCwp = this;
-  myCwp.cwp = '';
+  myCwp.cwp = {};
   myCwpService.bootstrap()
   .then(function() {
-    myCwp.cwp = myCwpService.get().name;
+    myCwp.cwp = myCwpService.get();
   });
 }
+
 
 
 }());

@@ -11,75 +11,11 @@
 var sectorsServices = angular.module('4me.core.sectors.services', [
   '4me.core.lodash',
   '4me.core.config',
+  '4me.core.status',
   '4me.core.errors'
 ]);
 
-sectorsServices.factory('mySectors', mySectors);
 sectorsServices.factory('treeSectors', treeSectors);
-
-mySectors.$inject = ['_', '$q', 'ApiUrls', '$http', 'errors', 'status'];
-function mySectors(_, $q, ApiUrls, $http, errors, status) {
-  var mySectors = {};
-  var loadingPromise;
-  var service = {};
-  var endpoints = {};
-
-  // This belongs in a separate service
-  function _prepareUrl() {
-    endpoints.getMine = ApiUrls.mapping.rootPath + ApiUrls.mapping.sectors.getMine;
-    return endpoints;
-  }
-
-  function _getFromBackend() {
-    if(_.isEmpty(endpoints)) {
-      _prepareUrl();
-    }
-    if(loadingPromise !== undefined) {
-      // Already loading from backend, return promise
-      return loadingPromise;
-    } else {
-
-      loadingPromise = $http({
-        method: 'GET',
-        url: endpoints.getMine,
-        timeout: 200
-      })
-      .then(function(res) {
-        mySectors = res.data;
-        loadingPromise = undefined;
-        return mySectors;
-      })
-      .catch(function(err) {
-        var e = errors.add('core.sectors', 'critical', 'Could not load our sectors from backend', err);
-        status.escalate('core.sectors', 'critical', 'Could not load our sector data from backend', e);
-        loadingPromise = undefined;
-        return $q.reject(e);
-      });
-
-      return loadingPromise;
-    }
-  }
-
-  service.get = function() {
-    return mySectors;
-  };
-
-  service.refresh = function() {
-    return _getFromBackend();
-  };
-
-  service.bootstrap = function() {
-    if(_.isEmpty(mySectors)) {
-      return _getFromBackend();
-    } else {
-      var def = $q.defer();
-      def.resolve(mySectors);
-      return def.promise;
-    }
-  };
-
-  return service;
-}
 
 treeSectors.$inject = ['_', 'ApiUrls', '$http', 'errors', '$q', 'status'];
 function treeSectors(_, ApiUrls, $http, errors, $q, status) {

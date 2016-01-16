@@ -44,8 +44,12 @@ function myCwp(_, $q, ApiUrls, $http, errors, cwpInterceptor, status) {
         url: endpoints.getMine
       })
       .then(function(res) {
-        console.log('Got data from backend');
-        myCwp = res.data;
+        console.log('Got CWP data from backend');
+        console.log(myCwp);
+        myCwp.id = res.data.id;
+        myCwp.name = res.data.name;
+        myCwp.sectors = res.data.sectors;
+        myCwp.sectorName = res.data.sectorName;
         // Set our cwp Id for future requests
         cwpInterceptor.setId(res.data.id);
         loadingPromise = undefined;
