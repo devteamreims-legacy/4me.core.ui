@@ -10,6 +10,8 @@ describe('4me.core.cwp.services', function() {
     var errors;
     var status;
     var cwpInterceptor;
+    var mainWebSocket;
+    var backendResponse;
 
     var resultsFromBackend = {
       getMine: {
@@ -20,7 +22,7 @@ describe('4me.core.cwp.services', function() {
       }
     };
 
-    beforeEach(inject(function(_myCwp_, _$httpBackend_, _$rootScope_, _$q_, _ApiUrls_, _errors_, _cwpInterceptor_, _status_) {
+    beforeEach(inject(function(_myCwp_, _$httpBackend_, _$rootScope_, _$q_, _ApiUrls_, _errors_, _cwpInterceptor_, _status_, _mainWebSocket_) {
       myCwp = _myCwp_;
       $httpBackend = _$httpBackend_;
       $rootScope = _$rootScope_;
@@ -29,6 +31,7 @@ describe('4me.core.cwp.services', function() {
       errors = _errors_;
       cwpInterceptor = _cwpInterceptor_;
       status = _status_;
+      mainWebSocket = _mainWebSocket_;
     }));
 
     it('should present a proper API', function() {
@@ -42,7 +45,7 @@ describe('4me.core.cwp.services', function() {
     });
 
     it('should be able to be bootstrapped', function(done) {
-      $httpBackend
+      backendResponse = $httpBackend
         .when('GET', ApiUrls.mapping.rootPath + ApiUrls.mapping.cwp.getMine)
         .respond(resultsFromBackend.getMine);
 
@@ -72,11 +75,9 @@ describe('4me.core.cwp.services', function() {
         $httpBackend.verifyNoOutstandingRequest();
       });
 
-
-
       it('should return a properly formatted result', function() {
         var c = myCwp.get();
-        c.should.include.keys('id', 'name');
+        c.should.include.keys('id', 'name', 'sectors', 'sectorName');
         c.id.should.be.a('number');
         c.name.should.be.a('string');
       });
@@ -87,6 +88,18 @@ describe('4me.core.cwp.services', function() {
         .calledWith(resultsFromBackend.getMine.id);
       });
 
+      describe('socket', function() {
+        it('should update with data from socket', function() {
+          $httpBackend.expectGET(ApiUrls.mapping.rootPath + ApiUrls.mapping.cwp.getMine);
+          mainWebSocket.receive('cwp:refresh', {
+            id: 34,
+            name: 'P34',
+            sectors: ['UR'],
+            sectorName: 'UR'
+          });
+          $httpBackend.flush();
+        });
+      });
     });
 
     describe('without backend', function() {

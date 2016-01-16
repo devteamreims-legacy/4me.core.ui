@@ -26,10 +26,37 @@ function myCwp(_, $q, ApiUrls, $http, errors, cwpInterceptor, status, mainWebSoc
   var service = {};
   var endpoints = {};
 
+  mainWebSocket.on('cwp:refresh', function(data) {
+    _getFromBackend();
+    return;
+  });
+
   // This belongs in a separate service
   function _prepareUrl() {
     endpoints.getMine = ApiUrls.mapping.rootPath + ApiUrls.mapping.cwp.getMine;
     return endpoints;
+  }
+
+  function _setFromData(myCwp, data) {
+    if(_.isEmpty(data)) {
+      throw new Error('Argument error');
+    }
+    var validData = (data.id !== undefined 
+                  && data.name !== undefined 
+                  && data.sectors !== undefined
+                  && data.sectorName !== undefined);
+    if(!validData) {
+      throw new Error('Argument error');
+    }
+    // Set internal data
+    myCwp.id = data.id;
+    myCwp.name = data.name;
+    myCwp.sectors = data.sectors;
+    myCwp.sectorName = data.sectorName;
+
+    // Refresh cwpInterceptor
+    cwpInterceptor.setId(myCwp.id);
+    return myCwp;
   }
 
   function _getFromBackend() {
@@ -45,18 +72,14 @@ function myCwp(_, $q, ApiUrls, $http, errors, cwpInterceptor, status, mainWebSoc
         url: endpoints.getMine
       })
       .then(function(res) {
-        console.log('Got CWP data from backend');
-        console.log(myCwp);
-        myCwp.id = res.data.id;
-        myCwp.name = res.data.name;
-        myCwp.sectors = res.data.sectors;
-        myCwp.sectorName = res.data.sectorName;
-        // Set our cwp Id for future requests
-        cwpInterceptor.setId(res.data.id);
+        console.log('Loaded CWP data from backend');
         loadingPromise = undefined;
+        _setFromData(myCwp, res.data);
+        console.log(myCwp);
         return myCwp;
       })
       .catch(function(err) {
+        console.log(err);
         loadingPromise = undefined;
         console.log('Catching error');
         var e = errors.add('core.cwp', 'critical', 'Could not load our CWP from backend', err);
