@@ -27,6 +27,7 @@ function myCwp(_, $q, ApiUrls, $http, errors, cwpInterceptor, status, mainWebSoc
   var endpoints = {};
 
   mainWebSocket.on('cwp:refresh', function(data) {
+    console.log('Got refresh signal from socket');
     _getFromBackend();
     return;
   });

@@ -20,7 +20,7 @@ angular.module('4me.core.socket', [
 
 mainWebSocket.$inject = ['_', 'socketFactory', 'ApiUrls', 'errors', 'status'];
 function mainWebSocket(_, socketFactory, ApiUrls, errors, status) {
-  var myIoSocket = io.connect(ApiUrls.socketPath);
+  var myIoSocket = io.connect(ApiUrls.socket);
 
   var mySocket = socketFactory({ioSocket: myIoSocket});
 
