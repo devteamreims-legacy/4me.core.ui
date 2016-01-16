@@ -13,13 +13,14 @@ var cwpServices = angular.module('4me.core.cwp.services', [
   '4me.core.config',
   '4me.core.cwp.interceptor',
   '4me.core.errors',
-  '4me.core.status'
+  '4me.core.status',
+  '4me.core.socket'
 ]);
 
 cwpServices.factory('myCwp', myCwp);
 
-myCwp.$inject = ['_', '$q', 'ApiUrls', '$http', 'errors', 'cwpInterceptor', 'status'];
-function myCwp(_, $q, ApiUrls, $http, errors, cwpInterceptor, status) {
+myCwp.$inject = ['_', '$q', 'ApiUrls', '$http', 'errors', 'cwpInterceptor', 'status', 'mainWebSocket'];
+function myCwp(_, $q, ApiUrls, $http, errors, cwpInterceptor, status, mainWebSocket) {
   var myCwp = {};
   var loadingPromise;
   var service = {};

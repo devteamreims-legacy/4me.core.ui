@@ -25,7 +25,8 @@ angular.module('4me.core.config', [
     sectors: {
       rootPath: 'http://localhost:3000',
       tree: '/sectors/tree'
-    }
+    },
+    socket: 'http://localhost:3000'
   })
   .config(mdiToAngularMaterial)
   .config(applyThemes)

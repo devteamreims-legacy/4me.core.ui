@@ -208,10 +208,13 @@ gulp.task('build-js', function() {
 /////////////////////////////////////////////////////////////////////////////////////
 
 gulp.task('build-bower-js', function() {
-    return gulp.src(mainBowerFiles({
-        filter: /.*\.js$/
-    }))
-        //.pipe(debug())
+    return gulp.src(
+        mainBowerFiles({
+            filter: /.*\.js$/
+        })
+        .concat(config.bowerFolder + '/socket.io-client/socket.io.js')
+    )
+        .pipe(debug())
         .pipe(concat('vendor.js'))
         .pipe(cachebust.resources())
         .pipe(gulp.dest(config.destFolder + '/scripts/'))
@@ -226,6 +229,7 @@ gulp.task('build-bower-js', function() {
 /////////////////////////////////////////////////////////////////////////////////////
 
 gulp.task('build-fonts', function() {
+
     return gulp.src(
         mainBowerFiles({
             filter: /.*\.(woff2|eot|woff|ttf|svg)$/
