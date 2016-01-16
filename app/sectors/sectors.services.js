@@ -167,7 +167,7 @@ function treeSectors(_, ApiUrls, $http, errors, $q, status) {
     s.sort();
 
     return _.find(tree, function(t) {
-      return _.isEqual(t.elementarySectors, s);
+      return _.isEqual(t.elementarySectors.sort(), s);
     }) || {};
   };
 

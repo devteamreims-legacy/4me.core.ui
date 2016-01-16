@@ -14,7 +14,8 @@ describe('4me.core.sectors.services', function() {
       tree: [
         {
           name: 'UXR',
-          elementarySectors: ['UR', 'XR']
+          // Unsorted array here, don't trust the backend
+          elementarySectors: ['XR', 'UR']
         },{
           name: 'UR',
           elementarySectors: ['UR']
@@ -128,7 +129,8 @@ describe('4me.core.sectors.services', function() {
         it('should get the proper sector group', function() {
           var s = treeSectors.getFromString('UXR');
           expect(s).to.be.defined;
-          s.should.eql({name: 'UXR', elementarySectors: ['UR', 'XR']});
+          s.name.should.eql('UXR');
+          s.elementarySectors.sort().should.eql(['UR', 'XR'].sort());
         });
 
         it('should be able to parse lowercase sector groups', function() {
@@ -171,6 +173,14 @@ describe('4me.core.sectors.services', function() {
 
         it('should accept arrays as arguments', function() {
           treeSectors.getFromSectors(['ur', 'XR'])
+          .should.eql({
+            name: 'UXR',
+            elementarySectors: ['UR', 'XR']
+          });
+        });
+
+        it('should match even with an uncorrect order supplied', function() {
+          treeSectors.getFromSectors(['XR', 'UR'])
           .should.eql({
             name: 'UXR',
             elementarySectors: ['UR', 'XR']
