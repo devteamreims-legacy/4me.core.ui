@@ -23,7 +23,10 @@ module.exports = function(config) {
       'app/**/*.js',
       'organs/**/*.js',
       'dist/scripts/template*.js',
-      'test/unit/**/*.js'
+      'test/unit/**/*.js',
+      // Fuck Socket.io
+      'bower_components/socket.io-client/socket.io.js',
+      'bower_components/angular-socket.io-mock/angular-socket.io-mock.js'
     ]),
 
 
