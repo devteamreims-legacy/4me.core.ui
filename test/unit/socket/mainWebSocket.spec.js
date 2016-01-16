@@ -20,8 +20,8 @@ describe('4me.core.socket', function() {
       status = _status_;
     }));
 
-    it('should fail', function() {
-      (true).should.eql(false);
+    it('should be using a mock socket', function() {
+      mainWebSocket.receive.should.be.a('function');
     });
   });
 });
