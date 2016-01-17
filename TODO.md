@@ -11,3 +11,4 @@
   * ~~We need to handle multiple escalation reasons. For instance, some part of the app could set the 'warn' status. Some other part of the app could set it to 'critical'. When the 'critical' part is resolved, we need to keep track of the 'warn' part and maitain the 'warn' status~~
 * ~~Websocket stuff~~
   * ~~Unit test : see sockMock object here : https://github.com/hackify/hackify-server/blob/master/test/controllers.test.js~~
+  * Use a cookie to identify what cwpId we hold
