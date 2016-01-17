@@ -31,7 +31,8 @@ angular.module('4me.core.config', [
   .config(mdiToAngularMaterial)
   .config(applyThemes)
   .config(addDefaultStates)
-  .config(addCwpInterceptor);
+  .config(addCwpInterceptor)
+  .config(setCookieDefaults);
 
 
 
@@ -91,6 +92,11 @@ function addDefaultStates($stateProvider, $urlRouterProvider) {
 addCwpInterceptor.$inject = ['$httpProvider'];
 function addCwpInterceptor($httpProvider) {
   $httpProvider.interceptors.push('cwpInterceptor');
+}
+
+setCookieDefaults.$inject = ['$cookiesProvider'];
+function setCookieDefaults($cookiesProvider) {
+  return;
 }
 
 }());
