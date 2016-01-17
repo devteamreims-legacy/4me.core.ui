@@ -60,6 +60,7 @@ function myCwp(_, $q, ApiUrls, $http, errors, cwpInterceptor, status, mainWebSoc
     cwpInterceptor.setId(myCwp.id);
 
     // Set a cookie for socket.io requests
+    //$cookies.remove('my-cwp-id');
     $cookies.put('my-cwp-id', myCwp.id);
     return myCwp;
   }
