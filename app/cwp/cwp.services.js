@@ -9,6 +9,7 @@
  * CWP Services
  */
 var cwpServices = angular.module('4me.core.cwp.services', [
+  'ngCookies',
   '4me.core.lodash',
   '4me.core.config',
   '4me.core.cwp.interceptor',
@@ -19,8 +20,8 @@ var cwpServices = angular.module('4me.core.cwp.services', [
 
 cwpServices.factory('myCwp', myCwp);
 
-myCwp.$inject = ['_', '$q', 'ApiUrls', '$http', 'errors', 'cwpInterceptor', 'status', 'mainWebSocket'];
-function myCwp(_, $q, ApiUrls, $http, errors, cwpInterceptor, status, mainWebSocket) {
+myCwp.$inject = ['_', '$q', 'ApiUrls', '$http', 'errors', 'cwpInterceptor', 'status', 'mainWebSocket', '$cookies'];
+function myCwp(_, $q, ApiUrls, $http, errors, cwpInterceptor, status, mainWebSocket, $cookies) {
   var myCwp = {};
   var loadingPromise;
   var service = {};
@@ -57,6 +58,9 @@ function myCwp(_, $q, ApiUrls, $http, errors, cwpInterceptor, status, mainWebSoc
 
     // Refresh cwpInterceptor
     cwpInterceptor.setId(myCwp.id);
+
+    // Set a cookie for socket.io requests
+    $cookies.put('my-cwp-id', myCwp.id);
     return myCwp;
   }
 

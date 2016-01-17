@@ -22,7 +22,7 @@ describe('4me.core.cwp.services', function() {
       }
     };
 
-    beforeEach(inject(function(_myCwp_, _$httpBackend_, _$rootScope_, _$q_, _ApiUrls_, _errors_, _cwpInterceptor_, _status_, _mainWebSocket_) {
+    beforeEach(inject(function(_myCwp_, _$httpBackend_, _$rootScope_, _$q_, _ApiUrls_, _errors_, _cwpInterceptor_, _status_, _mainWebSocket_, _$cookies_) {
       myCwp = _myCwp_;
       $httpBackend = _$httpBackend_;
       $rootScope = _$rootScope_;
@@ -32,6 +32,7 @@ describe('4me.core.cwp.services', function() {
       cwpInterceptor = _cwpInterceptor_;
       status = _status_;
       mainWebSocket = _mainWebSocket_;
+      $cookies = _$cookies_;
     }));
 
     it('should present a proper API', function() {
@@ -60,6 +61,7 @@ describe('4me.core.cwp.services', function() {
       // Prepare our backend
       beforeEach(function() {
         cwpInterceptor.setId = sinon.stub();
+        $cookies.put = sinon.stub();
         $httpBackend
           .when('GET', ApiUrls.mapping.rootPath + ApiUrls.mapping.cwp.getMine)
           .respond(resultsFromBackend.getMine);
@@ -86,6 +88,10 @@ describe('4me.core.cwp.services', function() {
         cwpInterceptor.setId
         .should.have.been
         .calledWith(resultsFromBackend.getMine.id);
+      });
+
+      it('should set a proper my-cwp-id cookie', function() {
+        $cookies.put.should.have.been.calledWith('my-cwp-id', resultsFromBackend.getMine.id);
       });
 
       describe('socket', function() {
