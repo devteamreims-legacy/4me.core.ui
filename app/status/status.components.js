@@ -41,13 +41,15 @@ function fmeStatusButtonController(status, $state) {
     switch (fmeStatusButton.getStatus().status) {
       case 'normal':
         return 'check';
+        break;
       case 'warning':
         return 'alert';
+        break;
       default:
       case 'critical':
         return 'close-circle';
+        break;
     }
-    return 'check';
   };
 
   fmeStatusButton.getClass = function() {
