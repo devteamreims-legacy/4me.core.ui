@@ -51,7 +51,7 @@ function statusController(_, status, organs) {
   };
 
   statuses.recoverAll = function() {
-    status.recover('core');
+    status.recover('*');
     _.each(organs.getAll(), function(o) {
       o.getStatusService().recover(o.name);
     });
