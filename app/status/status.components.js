@@ -84,7 +84,6 @@ function fmeStatusIconController() {
   var fmeStatusIcon = this;
 
   fmeStatusIcon.getIconName = function() {
-    console.log(fmeStatusIcon.props);
     switch (fmeStatusIcon.props.status) {
       case 'normal':
         return 'check';
