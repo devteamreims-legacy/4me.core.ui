@@ -12,6 +12,7 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     gutil = require('gulp-util'),
     concat = require('gulp-concat'),
+    replace = require('gulp-replace'),
     mainBowerFiles = require('main-bower-files'),
     wiredep = require('wiredep').stream,
     ngAnnotate = require('browserify-ngannotate'),
@@ -116,6 +117,9 @@ gulp.task('build-bower-css', function() {
         filter: /.*s?(c|a)ss$/
     }))
 //        .pipe(debug())
+        // Hack for angular material
+        // See here : https://github.com/angular/material/issues/6304#issuecomment-172341605
+        .pipe(replace('screen\\0','screen'))
         .pipe(sourcemaps.init())
         .pipe(sass({
             includePaths: [
