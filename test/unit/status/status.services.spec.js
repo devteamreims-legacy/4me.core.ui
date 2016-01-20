@@ -116,6 +116,17 @@ describe('4me.core.status.services', function() {
         coreStatusService.recover('core.*');
         coreStatusService.get().status.should.eql('warning');
       });
+
+      it('should be able to get reasons', function() {
+        coreStatusService.escalate('core.stub', 'critical');
+        coreStatusService.getReasons().length.should.eql(2);
+      });
+
+      it('should be able to filter reasons', function() {
+        coreStatusService.escalate('core.stub', 'critical');
+        coreStatusService.getReasons('*').length.should.eql(2);
+        coreStatusService.getReasons('core.*').length.should.eql(1);
+      });
     });
   });
 

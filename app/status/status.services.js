@@ -56,18 +56,31 @@ function statusFactoryFactory(_) {
       status.status = newStatus;
     }
 
+    function _globToRegExp(glob) {
+      var regExp = glob || '*';
+      regExp = regExp.replace('.', '\\.');
+      regExp = regExp.replace('*', '.*');
+      return new RegExp(regExp);
+    }
+
     service.name = namespace;
 
     service.get = function() {
       return status;
     };
 
+    service.getReasons = function(filter) {
+      if(!filter) {
+        return status.reasons;
+      }
+      return _.filter(status.reasons, function(r) {
+        return r.sender.match(_globToRegExp(filter)) !== null;
+      });
+    };
+
     service.recover = function(senderGlob) {
-      var regExp = senderGlob || 'core';
-      regExp = regExp.replace('.', '\\.');
-      regExp = regExp.replace('*', '.*');
       _.remove(status.reasons, function(r) {
-        return r.sender.match(new RegExp(regExp)) !== null;
+        return r.sender.match(_globToRegExp(senderGlob)) !== null;
       });
       _reevaluateGlobalStatus();
       return this.get();
