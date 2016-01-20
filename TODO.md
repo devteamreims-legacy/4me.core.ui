@@ -12,3 +12,7 @@
 * ~~Websocket stuff~~
   * ~~Unit test : see sockMock object here : https://github.com/hackify/hackify-server/blob/master/test/controllers.test.js~~
   * Use a cookie to identify what cwpId we hold
+* Polish stuff :
+ * ~~Status page~~
+ * Dark theme
+ * Navigation selected element
