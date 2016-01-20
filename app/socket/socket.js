@@ -35,7 +35,7 @@ function mainWebSocket(_, socketFactory, ApiUrls, errors, status, $timeout) {
 
   mySocket.on('disconnect', function(err) {
     console.log(err);
-    status.escalate('socket', 'critical', 'Could not connect to mapping backend, retrying in ' + reconnectTimeout/1000 + 's');
+    status.escalate('socket', 'critical', 'Disconnected from mapping backend, retrying in ' + reconnectTimeout/1000 + 's');
     if(connectedPromise !== undefined) {
       $timeout.cancel(connectedPromise);
     } 
@@ -64,11 +64,19 @@ function mainWebSocket(_, socketFactory, ApiUrls, errors, status, $timeout) {
       reconnectTimeout = 5000;
     }, 1000);
     return true;
-  })
+  });
 
   mySocket.on('connection', function() {
     //status.recover('socket');
     console.log('connected !');
+    return true;
+  });
+
+  mySocket.on('connect_error', function(err) {
+    console.log('Connection failed !!', err);
+    if(_.isEmpty(status.getReasons('socket'))) {
+      status.escalate('socket', 'critical', 'Could not connect to mapping backend');
+    }
     return true;
   });
 
