@@ -62,9 +62,12 @@ function statusFactoryFactory(_) {
       return status;
     };
 
-    service.recover = function(sender) {
+    service.recover = function(senderGlob) {
+      var regExp = senderGlob || 'core';
+      regExp = regExp.replace('.', '\\.');
+      regExp = regExp.replace('*', '.*');
       _.remove(status.reasons, function(r) {
-        return r.sender === sender;
+        return r.sender.match(new RegExp(regExp)) !== null;
       });
       _reevaluateGlobalStatus();
       return this.get();
@@ -73,7 +76,7 @@ function statusFactoryFactory(_) {
     service.escalate = function(sender, criticity, message, reasons) {
       var reason = {};
       reason.when = Date.now();
-      reason.sender = sender;
+      reason.sender = sender || 'core';
       reason.criticity = criticity || 'warning';
       reason.message = message || 'Unknown reason !';
 

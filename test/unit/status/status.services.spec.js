@@ -104,6 +104,18 @@ describe('4me.core.status.services', function() {
         coreStatusService.get().status.should.eql('critical');
         coreStatusService.get().reasons.length.should.eql(1);
       });
+
+      it('should be able to clear status using a glob matcher', function() {
+        coreStatusService.escalate('core.stub', 'critical');
+        coreStatusService.recover('*.stub');
+        coreStatusService.get().status.should.eql('normal');
+      });
+
+      it('should not clear other errors', function() {
+        coreStatusService.escalate('core.stub', 'critical');
+        coreStatusService.recover('core.*');
+        coreStatusService.get().status.should.eql('warning');
+      });
     });
   });
 
