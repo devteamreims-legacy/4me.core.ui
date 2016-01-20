@@ -68,7 +68,7 @@ function mainWebSocket(_, socketFactory, ApiUrls, errors, status, $timeout) {
 
   mySocket.on('connection', function() {
     //status.recover('socket');
-    console.log('connected !');
+    console.log('Socket to mapping backend connected !');
     return true;
   });
 
