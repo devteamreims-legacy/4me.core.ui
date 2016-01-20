@@ -73,7 +73,6 @@ function mainWebSocket(_, socketFactory, ApiUrls, errors, status, $timeout) {
   });
 
   mySocket.on('connect_error', function(err) {
-    console.log('Connection failed !!', err);
     if(_.isEmpty(status.getReasons('socket'))) {
       status.escalate('socket', 'critical', 'Could not connect to mapping backend');
     }
