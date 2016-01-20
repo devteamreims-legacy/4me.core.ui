@@ -96,7 +96,7 @@ function fmeStatusIconController() {
         return 'close-circle';
         break;
     }
-  }
+  };
 
   fmeStatusIcon.getClass = function() {
     var r = '';
@@ -116,7 +116,7 @@ function fmeStatusIconController() {
         break;
     }
     return r;
-  }
+  };
 }
 
 }());
