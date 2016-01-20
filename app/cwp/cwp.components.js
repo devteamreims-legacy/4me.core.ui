@@ -16,6 +16,7 @@ var cwpComponents = angular.module('4me.core.cwp.components', [
 cwpComponents.component('myCwp', {
   restrict: 'E',
   controller: myCwpController,
+  controllerAs: 'myCwp',
   template: '{{myCwp.cwp.name}}'
 });
 

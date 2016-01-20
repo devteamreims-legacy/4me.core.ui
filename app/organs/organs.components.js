@@ -16,6 +16,7 @@ angular.module('4me.core.organs.components', [
 .component('organNavigation', {
   restrict: 'E',
   controller: organNavigationController,
+  controllerAs: 'organNavigation',
   templateUrl: 'views/organs/navigation.tpl.html'
 });
 

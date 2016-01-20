@@ -15,11 +15,13 @@ var errorComponents = angular.module('4me.core.errors.components', [
 errorComponents.component('fmeErrorButton', {
   restrict: 'E',
   controller: fmeErrorButtonController,
+  controllerAs: 'fmeErrorButton',
   templateUrl: 'views/errors/fmeErrorButton.tpl.html'
 });
 errorComponents.component('fmeErrorList', {
   restrict: 'E',
   controller: fmeErrorListController,
+  controllerAs: 'fmeErrorList',
   templateUrl: 'views/errors/fmeErrorList.tpl.html'
 });
 

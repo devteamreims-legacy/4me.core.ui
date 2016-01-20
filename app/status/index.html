@@ -1,8 +1,19 @@
-<h1>Application status</h1>
-<md-button ng-click="statuses.escalateCore()">Escalate core</md-button>
-<md-button ng-click="statuses.escalateStub()">Escalate stub</md-button>
-<md-button ng-click="statuses.recoverAll()">Recover all</md-button>
-<div ng-repeat="s in statuses.statuses track by $index">
-  <h4>{{s.name}}</h4>
-  <p>{{s.status}}</p>
-</div>
+<md-content layout-padding>
+  <h1>Application status</h1>
+  <md-button ng-click="statuses.escalateCore()">Escalate core</md-button>
+  <md-button ng-click="statuses.escalateStub()">Escalate stub</md-button>
+  <md-button ng-click="statuses.recoverAll()">Recover all</md-button>
+  <div ng-repeat="s in statuses.statuses track by $index">
+    <h4><fme-status-icon props="s.status"></fme-status-icon> {{s.name}}</h4>
+    <md-list>
+      <md-list-item ng-repeat="r in s.status.reasons track by $index" class="md-3-line">
+        <fme-status-icon props="{status: r.criticy, mdAvatar: true}"></fme-status-icon>
+        <div class="md-list-item-text">
+          <h3>{{r.sender}}</h3>
+          <h4>{{r.message}}</h4>
+          <p am-time-ago="r.when"></p>
+        </div>
+      </md-list-item>
+    </md-list>
+  </div>
+</md-content>

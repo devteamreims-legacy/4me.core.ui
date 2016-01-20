@@ -24,6 +24,7 @@ notificationButton.component('fmeNotificationButton', {
     noDialog: '@',
   },
   controller: fmeNotificationButtonController,
+  controllerAs: 'fmeNotificationButton',
   templateUrl: 'views/notifications/button/button.tpl.html'
 });
 
@@ -34,6 +35,7 @@ notificationButton.component('fmeNotificationIcon', {
     hideEmpty: '@'
   },
   controller: fmeNotificationIconController,
+  controllerAs: 'fmeNotificationIcon',
   templateUrl: 'views/notifications/button/icon.tpl.html'
 });
 

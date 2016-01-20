@@ -18,6 +18,7 @@ var notificationComponents = angular.module('4me.core.notifications.components',
 notificationComponents.component('fmeNotificationList', {
   restrict: 'E',
   controller: fmeNotificationListController,
+  controllerAs: 'fmeNotificationList',
   templateUrl: 'views/notifications/fmeNotificationList.tpl.html'
 });
 

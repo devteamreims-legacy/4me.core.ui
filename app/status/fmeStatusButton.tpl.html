@@ -7,8 +7,6 @@
   <md-tooltip>
     <md-icon class="md-primary" md-svg-icon="check"></md-icon> All systems operational
   </md-tooltip>
-  <md-icon
-    md-svg-icon="{{fmeStatusButton.getIcon()}}"
-  >
+  <fme-status-icon props="fmeStatusButton.getStatus()"></fme-status-icon>
   </md-icon>
 </md-button>
