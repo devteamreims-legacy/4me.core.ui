@@ -53,6 +53,7 @@ function applyThemes($mdThemingProvider) {
     .warnPalette('deep-orange', {
       'default': '500'
     })
+    .dark()
     ;
   $mdThemingProvider.theme('success-warning')
     .primaryPalette('green', {
@@ -62,11 +63,14 @@ function applyThemes($mdThemingProvider) {
       'default': '800'
     })
     .accentPalette('red')
+    .dark()
     ;
   $mdThemingProvider.theme('info-warn-crit')
     .primaryPalette('blue')
     .accentPalette('red')
-    .warnPalette('orange');
+    .warnPalette('orange')
+    .dark()
+    ;
 }
 
 addDefaultStates.$inject = ['$stateProvider', '$urlRouterProvider'];
