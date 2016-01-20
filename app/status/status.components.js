@@ -102,7 +102,7 @@ function fmeStatusIconController() {
   fmeStatusIcon.getClass = function() {
     var r = '';
     if(fmeStatusIcon.props.mdAvatar && fmeStatusIcon.props.mdAvatar === true) {
-      r = 'md-avatar ';
+      r = 'md-avatar-icon ';
     }
     switch (fmeStatusIcon.props.status) {
       case 'normal':
