@@ -17,4 +17,4 @@
  * Dark theme
   * Issues : in md-sidenav and md-dialog : codepens & bug reports to angular.material
  * Navigation selected element
-* LICENSE (GPLv3 ?)
+* LICENSE (GPLv3 ?) : http://www.gnu.org/licenses/why-affero-gpl.fr.html
