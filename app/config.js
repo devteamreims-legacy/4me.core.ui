@@ -79,8 +79,12 @@ function addDefaultStates($stateProvider, $urlRouterProvider) {
   // See here : http://stackoverflow.com/questions/28237952/angularjs-ui-router-how-to-resolve-typical-data-globally-for-all-routes
 
   $stateProvider
-  .state('dashboard', {
+  .state('bootstrap-error', {
     url: '/',
+    templateUrl: "views/bootstrap/error.html"
+  })
+  .state('dashboard', {
+    url: '/dashboard',
     templateUrl: "views/dashboard/index.html"
   })
   .state('errors', {
