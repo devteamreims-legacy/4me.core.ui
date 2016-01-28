@@ -33,6 +33,7 @@ function mySectorsController(mySectorService) {
   });
 }
 
+// Transform an array of sectors into a proper sector string
 arrayToSectorString.$inject = ['_', 'treeSectors'];
 function arrayToSectorString(_, treeSectors) {
   return function(input) {
