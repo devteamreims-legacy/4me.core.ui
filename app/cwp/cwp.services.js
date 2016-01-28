@@ -20,18 +20,13 @@ var cwpServices = angular.module('4me.core.cwp.services', [
 
 cwpServices.factory('myCwp', myCwp);
 
+// Pull our CWP from the backend
 myCwp.$inject = ['_', '$q', 'ApiUrls', '$http', 'errors', 'cwpInterceptor', 'status', 'mainWebSocket', '$cookies'];
 function myCwp(_, $q, ApiUrls, $http, errors, cwpInterceptor, status, mainWebSocket, $cookies) {
   var myCwp = {};
   var loadingPromise;
   var service = {};
   var endpoints = {};
-
-  mainWebSocket.on('cwp:refresh', function(data) {
-    console.log('Got refresh signal from socket');
-    _getFromBackend();
-    return;
-  });
 
   // This belongs in a separate service
   function _prepareUrl() {
@@ -41,20 +36,19 @@ function myCwp(_, $q, ApiUrls, $http, errors, cwpInterceptor, status, mainWebSoc
 
   function _setFromData(myCwp, data) {
     if(_.isEmpty(data)) {
-      throw new Error('Argument error');
+      throw new Error('CWP: Invalid data from backend');
     }
-    var validData = (data.id !== undefined 
-                  && data.name !== undefined 
-                  && data.sectors !== undefined
-                  && data.sectorName !== undefined);
+    var validData = (data.id !== undefined
+                  && data.name !== undefined
+                  && data.type !== undefined);
     if(!validData) {
-      throw new Error('Argument error');
+      throw new Error('CWP: Invalid data from backend');
     }
     // Set internal data
     myCwp.id = data.id;
     myCwp.name = data.name;
-    myCwp.sectors = data.sectors;
-    myCwp.sectorName = data.sectorName;
+    myCwp.type = data.type;
+    myCwp.disabled = !!data.disabled;
 
     // Refresh cwpInterceptor
     cwpInterceptor.setId(myCwp.id);

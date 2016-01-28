@@ -20,11 +20,11 @@ angular.module('4me.core.config', [
       rootPath: 'http://localhost:3000', // Root path
       // Api end points relative to the root path
       cwp: {getMine: '/cwp/getMine'},
-      sectors: {getMine: '/sectors/getMine'}
+      sectors: {getMine: '/mapping/cwp/'} // + cwpId
     },
     sectors: {
       rootPath: 'http://localhost:3000',
-      tree: '/sectors/tree'
+      tree: '/sectors/'
     },
     socket: 'http://localhost:3000'
   })

@@ -12,10 +12,12 @@ var sectorsServices = angular.module('4me.core.sectors.services', [
   '4me.core.lodash',
   '4me.core.config',
   '4me.core.status',
-  '4me.core.errors'
+  '4me.core.errors',
+  '4me.core.cwp.services'
 ]);
 
 sectorsServices.factory('treeSectors', treeSectors);
+sectorsServices.factory('mySector', mySector);
 
 treeSectors.$inject = ['_', 'ApiUrls', '$http', 'errors', '$q', 'status'];
 function treeSectors(_, ApiUrls, $http, errors, $q, status) {
@@ -123,6 +125,99 @@ function treeSectors(_, ApiUrls, $http, errors, $q, status) {
       def.resolve(tree);
       return def.promise;
     }
+  };
+
+  return service;
+}
+
+mySector.$inject = ['_', '$q', 'ApiUrls', '$http', 'errors', 'status', 'mainWebSocket', 'myCwp'];
+function mySector(_, $q, ApiUrls, $http, errors, status, mainWebSocket, myCwp) {
+  var mySectors = {};
+  var loadingPromise;
+  var service = {};
+  var endpoints = {};
+
+  mainWebSocket.on('mapping:refresh', function(data) {
+    console.log('Got refresh signal from socket');
+    _getFromBackend();
+    return;
+  });
+
+  // This belongs in a separate service
+  function _prepareUrl() {
+    endpoints.getMine = ApiUrls.mapping.rootPath + ApiUrls.mapping.sectors.getMine;
+    return endpoints;
+  }
+
+  function _setFromData(data) {
+    if(_.isEmpty(data)) {
+      throw new Error('Argument error');
+    }
+    var validData = parseInt(data.cwpId) !== 0
+                    && data.sectors !== undefined;
+
+    if(!validData) {
+      throw new Error('Argument error');
+    }
+    // Set internal data
+    mySectors.sectors = data.sectors;
+    return mySectors;
+  }
+
+  function _getFromBackend() {
+    // myCwp should be bootstrapped
+    if(_.isEmpty(endpoints)) {
+      _prepareUrl();
+    }
+    if(loadingPromise !== undefined) {
+      // Already loading from backend, return promise
+      return loadingPromise;
+    } else {
+      loadingPromise = myCwp.bootstrap().then(function(cwp) {
+        if(cwp.type !== 'cwp') {
+          var res = {
+            data: {
+              cwpId: cwp.id,
+              sectors: []
+            }
+          };
+          return $q.resolve(res);
+        }
+        return $http({
+          method: 'GET',
+          url: endpoints.getMine + cwp.id
+        });
+      })
+      .then(function(res) {
+        console.log('Loaded mySector data from backend');
+        loadingPromise = undefined;
+        _setFromData(res.data);
+        console.log(mySectors);
+        return mySectors;
+      })
+      .catch(function(err) {
+        console.log(err);
+        loadingPromise = undefined;
+        console.log('Catching error');
+        var e = errors.add('core.sectors', 'critical', 'Could not load our sectors from backend', err);
+        status.escalate('core.sectors', 'critical', 'Could not load our sectors from backend', e);
+        return $q.reject(err);
+      });
+
+      return loadingPromise;
+    }
+  }
+
+  service.get = function() {
+    return mySectors;
+  };
+
+  service.bootstrap = function() {
+    return _getFromBackend();
+  };
+
+  service.refresh = function() {
+    return _getFromBackend();
   };
 
   return service;

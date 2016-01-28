@@ -20,13 +20,6 @@ cwpComponents.component('myCwp', {
   template: '{{myCwp.cwp.name}}'
 });
 
-cwpComponents.component('mySectors', {
-  restrict: 'E',
-  controller: myCwpController,
-  controllerAs: 'mySectors',
-  template: '{{mySectors.cwp.sectorName}}'
-});
-
 myCwpController.$inject = ['myCwp'];
 function myCwpController(myCwpService) {
   var myCwp = this;
