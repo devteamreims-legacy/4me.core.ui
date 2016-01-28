@@ -174,6 +174,7 @@ function mySector(_, $q, ApiUrls, $http, errors, status, mainWebSocket, myCwp) {
       // Already loading from backend, return promise
       return loadingPromise;
     } else {
+      // We need to know our cwpId, bootstrap myCwp
       loadingPromise = myCwp.bootstrap()
       .then(function(cwp) {
         // If our type is not cwp, backend won't respond
