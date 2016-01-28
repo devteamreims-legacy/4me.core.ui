@@ -9,18 +9,23 @@ describe('4me.core.sectors.services', function() {
     var ApiUrls;
     var errors;
     var status;
-    var cwpInterceptor;
     var mainWebSocket;
     var backendResponse;
     var myCwp;
+    var endpoints = {};
 
     var resultsFromBackend = {
       getMine: {
         cwpId: 34,
-        name: 'P34',
-        type: 'cwp',
-        disabled: false
+        sectors: ['UR', 'XR']
       }
+    };
+
+    var stubCwp = {
+      id: 34,
+      name: 'P34',
+      type: 'cwp',
+      disabled: false
     };
 
     beforeEach(inject(function(_mySector_, _$httpBackend_, _$rootScope_, _$q_, _ApiUrls_, _errors_, _cwpInterceptor_, _status_, _mainWebSocket_, _$cookies_, _myCwp_) {
@@ -36,7 +41,9 @@ describe('4me.core.sectors.services', function() {
       $cookies = _$cookies_;
       myCwp = _myCwp_;
 
-      myCwp.bootstrap = sinon.stub().resolves({id: 34});
+      endpoints.getMine = ApiUrls.mapping.rootPath + ApiUrls.mapping.sectors.getMine + '34';
+
+      myCwp.bootstrap = function() { return $q.resolve(stubCwp) };
     }));
 
     it('should present a proper API', function() {
@@ -50,14 +57,15 @@ describe('4me.core.sectors.services', function() {
     });
 
     it('should be able to be bootstrapped', function(done) {
-      backendResponse = $httpBackend
-        .when('GET', ApiUrls.mapping.rootPath + ApiUrls.mapping.cwp.getMine)
+      $httpBackend
+        .when('GET', endpoints.getMine)
         .respond(resultsFromBackend.getMine);
 
       mySector.bootstrap()
         .should.be.fulfilled
         .and.notify(done);
 
+      // Resolve $http
       $httpBackend.flush();
     });
 
@@ -65,11 +73,11 @@ describe('4me.core.sectors.services', function() {
       // Prepare our backend
       beforeEach(function() {
         $httpBackend
-          .when('GET', ApiUrls.mapping.rootPath + ApiUrls.mapping.cwp.getMine)
+          .when('GET', endpoints.getMine)
           .respond(resultsFromBackend.getMine);
 
         mySector.bootstrap()
-        .should.be.fulfilled;
+          .should.be.fulfilled;
 
         $httpBackend.flush();
       });
@@ -79,33 +87,19 @@ describe('4me.core.sectors.services', function() {
         $httpBackend.verifyNoOutstandingRequest();
       });
 
-      xit('should return a properly formatted result', function() {
-        var c = myCwp.get();
-        c.should.include.keys('id', 'name', 'type', 'disabled');
-        c.id.should.be.a('number');
-        c.name.should.be.a('string');
-        ['cwp', 'supervisor', 'flow-manager'].should.include(c.type);
-        c.disabled.should.be.a('boolean');
+      it('should return a properly formatted result', function() {
+        var s = mySector.get();
+        s.should.include.keys('sectors');
+        s.sectors.should.be.a('array');
       });
 
-      xit('should set a proper id in cwpInterceptor', function() {
-        cwpInterceptor.setId
-        .should.have.been
-        .calledWith(resultsFromBackend.getMine.id);
-      });
-
-      xit('should set a proper my-cwp-id cookie', function() {
-        $cookies.put.should.have.been.calledWith('my-cwp-id', resultsFromBackend.getMine.id);
-      });
 
       describe('socket', function() {
-        xit('should update with data from socket', function() {
-          $httpBackend.expectGET(ApiUrls.mapping.rootPath + ApiUrls.mapping.cwp.getMine);
-          mainWebSocket.receive('cwp:refresh', {
-            id: 34,
-            name: 'P34',
-            sectors: ['UR'],
-            sectorName: 'UR'
+        it('should update with data from socket', function() {
+          $httpBackend.expectGET(endpoints.getMine);
+          mainWebSocket.receive('mapping:refresh', {
+            cwpId: 34,
+            sectors: ['UR']
           });
           $httpBackend.flush();
         });
@@ -115,15 +109,15 @@ describe('4me.core.sectors.services', function() {
     describe('without backend', function() {
       beforeEach(function() {
         $httpBackend
-          .when('GET', ApiUrls.mapping.rootPath + ApiUrls.mapping.cwp.getMine)
+          .when('GET', endpoints.getMine)
           .respond(404, '');
 
         status.escalate = sinon.stub();
         errors.add = sinon.stub().returns({});
       });
 
-      xit('should handle failure gracefully', function(done) {
-        myCwp.bootstrap()
+      it('should handle failure gracefully', function(done) {
+        mySector.bootstrap()
         .then(function(res) {
           // This should not happen
           (true).should.eql(false);

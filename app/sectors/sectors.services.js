@@ -169,11 +169,14 @@ function mySector(_, $q, ApiUrls, $http, errors, status, mainWebSocket, myCwp) {
     if(_.isEmpty(endpoints)) {
       _prepareUrl();
     }
+
     if(loadingPromise !== undefined) {
       // Already loading from backend, return promise
       return loadingPromise;
     } else {
-      loadingPromise = myCwp.bootstrap().then(function(cwp) {
+      loadingPromise = myCwp.bootstrap()
+      .then(function(cwp) {
+        // If our type is not cwp, backend won't respond
         if(cwp.type !== 'cwp') {
           var res = {
             data: {
@@ -181,12 +184,10 @@ function mySector(_, $q, ApiUrls, $http, errors, status, mainWebSocket, myCwp) {
               sectors: []
             }
           };
+          // Backend won't respond with data, mock response from backend
           return $q.resolve(res);
         }
-        return $http({
-          method: 'GET',
-          url: endpoints.getMine + cwp.id
-        });
+        return $http.get(endpoints.getMine + cwp.id);
       })
       .then(function(res) {
         console.log('Loaded mySector data from backend');
