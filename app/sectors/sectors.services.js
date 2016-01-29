@@ -19,8 +19,8 @@ var sectorsServices = angular.module('4me.core.sectors.services', [
 sectorsServices.factory('treeSectors', treeSectors);
 sectorsServices.factory('mySector', mySector);
 
-treeSectors.$inject = ['_', 'ApiUrls', '$http', 'errors', '$q', 'status'];
-function treeSectors(_, ApiUrls, $http, errors, $q, status) {
+treeSectors.$inject = ['_', '$log', 'ApiUrls', '$http', 'errors', '$q', 'status'];
+function treeSectors(_, $log, ApiUrls, $http, errors, $q, status) {
   var service = {};
   var loadingPromise;
   var tree = [];
@@ -42,17 +42,21 @@ function treeSectors(_, ApiUrls, $http, errors, $q, status) {
       // Already loading from backend, return promise
       return loadingPromise;
     } else {
+      $log.debug('treeSectors: Loading from backend');
       loadingPromise = $http({
         method: 'GET',
         url: endpoints.getTree,
         timeout: 200
       })
       .then(function(res) {
+        $log.debug('treeSectors: Loaded from backend');
         tree = res.data;
         loadingPromise = undefined;
+        status.recover('core.sectors.treeSectors');
         return tree;
       })
       .catch(function(err) {
+        $log.debug('treeSectors: Loading from backend failed');
         var e = errors.add('core.sectors.treeSectors', 'critical', 'Could not load tree sectors from backend', err);
         status.escalate('core.sectors.treeSectors', 'critical', 'Could not load tree sectors data from backend', e);
         loadingPromise = undefined;
@@ -118,6 +122,7 @@ function treeSectors(_, ApiUrls, $http, errors, $q, status) {
   };
 
   service.bootstrap = function() {
+    $log.debug('treeSectors: bootstrapping');
     if(_.isEmpty(tree)) {
       return _getFromBackend();
     } else {
@@ -130,8 +135,8 @@ function treeSectors(_, ApiUrls, $http, errors, $q, status) {
   return service;
 }
 
-mySector.$inject = ['_', '$q', 'ApiUrls', '$http', 'errors', 'status', 'mainWebSocket', 'myCwp'];
-function mySector(_, $q, ApiUrls, $http, errors, status, mainWebSocket, myCwp) {
+mySector.$inject = ['_', '$q', '$log', 'ApiUrls', '$http', 'errors', 'status', 'mainWebSocket', 'myCwp'];
+function mySector(_, $q, $log, ApiUrls, $http, errors, status, mainWebSocket, myCwp) {
   var mySectors = {};
   var loadingPromise;
   var service = {};
@@ -191,18 +196,18 @@ function mySector(_, $q, ApiUrls, $http, errors, status, mainWebSocket, myCwp) {
         return $http.get(endpoints.getMine + cwp.id);
       })
       .then(function(res) {
-        console.log('Loaded mySector data from backend');
+        $log.debug('mySector: Loaded mySector data');
         loadingPromise = undefined;
         _setFromData(res.data);
-        console.log(mySectors);
+        status.recover('core.mySector');
         return mySectors;
       })
       .catch(function(err) {
-        console.log(err);
+        $log.debug('mySector: Loading mySector data from backend failed');
+        $log.debug(err);
         loadingPromise = undefined;
-        console.log('Catching error');
-        var e = errors.add('core.sectors', 'critical', 'Could not load our sectors from backend', err);
-        status.escalate('core.sectors', 'critical', 'Could not load our sectors from backend', e);
+        var e = errors.add('core.mySector', 'critical', 'Could not load our sectors from backend', err);
+        status.escalate('core.mySector', 'critical', 'Could not load our sectors from backend', e);
         return $q.reject(err);
       });
 
@@ -215,6 +220,7 @@ function mySector(_, $q, ApiUrls, $http, errors, status, mainWebSocket, myCwp) {
   };
 
   service.bootstrap = function() {
+    $log.debug('mySector: Bootstrapping');
     return _getFromBackend();
   };
 

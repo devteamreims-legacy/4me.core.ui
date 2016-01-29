@@ -76,6 +76,7 @@ function myCwp(_, $q, $log, ApiUrls, $http, errors, cwpInterceptor, status, main
         $log.debug('myCwp: Loaded CWP data from backend');
         loadingPromise = undefined;
         _setFromData(myCwp, res.data);
+        status.recover('core.cwp');
         return myCwp;
       })
       .catch(function(err) {

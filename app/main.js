@@ -18,6 +18,7 @@ var m = angular
       'ui.router',
       '4me.core.partials',
       '4me.core.config',
+      '4me.core.router',
       '4me.core.errors',
       '4me.core.organs',
       '4me.core.cwp',
