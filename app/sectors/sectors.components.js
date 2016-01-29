@@ -18,7 +18,7 @@ sectorsComponents.component('mySectors', {
   restrict: 'E',
   controller: mySectorsController,
   controllerAs: 'mySectors',
-  template: '{{mySectors.sectors | toSector}}'
+  template: '{{mySectors.properties.sectors | toSector}}'
 });
 
 sectorsComponents.filter('toSector', arrayToSectorString);
@@ -26,11 +26,8 @@ sectorsComponents.filter('toSector', arrayToSectorString);
 mySectorsController.$inject = ['mySector'];
 function mySectorsController(mySectorService) {
   var mySectors = this;
-  mySectors.sectors = [];
-  mySectorService.bootstrap()
-  .then(function(s) {
-    mySectors.sectors = s.sectors;
-  });
+  mySectors.properties = mySectorService.get();
+  mySectorService.bootstrap();
 }
 
 // Transform an array of sectors into a proper sector string

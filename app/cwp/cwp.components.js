@@ -17,17 +17,19 @@ cwpComponents.component('myCwp', {
   restrict: 'E',
   controller: myCwpController,
   controllerAs: 'myCwp',
-  template: '{{myCwp.cwp.name}}'
+  template: '{{myCwp.getCwpName()}}'
 });
 
-myCwpController.$inject = ['myCwp'];
-function myCwpController(myCwpService) {
+myCwpController.$inject = ['_', 'myCwp'];
+function myCwpController(_, myCwpService) {
   var myCwp = this;
-  myCwp.cwp = {};
-  myCwpService.bootstrap()
-  .then(function() {
-    myCwp.cwp = myCwpService.get();
-  });
+  myCwp.cwp = myCwpService.get();
+  
+  myCwpService.bootstrap();
+
+  myCwp.getCwpName = function() {
+    return myCwp.cwp.name;
+  }
 }
 
 
