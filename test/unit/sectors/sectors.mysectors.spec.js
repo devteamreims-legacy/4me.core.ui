@@ -69,6 +69,24 @@ describe('4me.core.sectors.services', function() {
       $httpBackend.flush();
     });
 
+    it('should be able to be bootstrapped only once', function(done) {
+      $httpBackend
+        .expect('GET', endpoints.getMine)
+        .respond(resultsFromBackend.getMine);
+
+      mySector.bootstrap()
+        .then(function(sectors) {
+          mySector.bootstrap()
+            .should.be.fulfilled
+            .and.eventually.eql(sectors)
+            .and.notify(done);
+        });
+
+      $httpBackend.flush();
+      $httpBackend.verifyNoOutstandingExpectation();
+      $httpBackend.verifyNoOutstandingRequest();
+    });
+
     describe('get', function() {
       // Prepare our backend
       beforeEach(function() {

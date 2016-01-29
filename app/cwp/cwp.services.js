@@ -27,6 +27,7 @@ function myCwp(_, $q, $log, ApiUrls, $http, errors, cwpInterceptor, status, main
   var loadingPromise;
   var service = {};
   var endpoints = {};
+  var bootstrapped = false;
 
   // This belongs in a separate service
   function _prepareUrl() {
@@ -75,6 +76,7 @@ function myCwp(_, $q, $log, ApiUrls, $http, errors, cwpInterceptor, status, main
       .then(function(res) {
         $log.debug('myCwp: Loaded CWP data from backend');
         loadingPromise = undefined;
+        bootstrapped = true;
         _setFromData(myCwp, res.data);
         status.recover('core.cwp');
         return myCwp;
@@ -97,8 +99,12 @@ function myCwp(_, $q, $log, ApiUrls, $http, errors, cwpInterceptor, status, main
   };
 
   service.bootstrap = function() {
-    $log.debug('myCwp: Bootstrapping');
-    return _getFromBackend();
+    if(bootstrapped === true) {
+      return $q.resolve(myCwp);
+    } else {
+      $log.debug('myCwp: Bootstrapping');
+      return _getFromBackend();
+    }
   };
 
   service.refresh = function() {

@@ -56,6 +56,22 @@ describe('4me.core.cwp.services', function() {
       $httpBackend.flush();
     });
 
+    it('should be able to be bootstrapped only once', function(done) {
+      backendResponse = $httpBackend
+        .expect('GET', ApiUrls.mapping.rootPath + ApiUrls.mapping.cwp.getMine)
+        .respond(resultsFromBackend.getMine);
+
+      myCwp.bootstrap()
+        .then(function(cwps) {
+          myCwp.bootstrap()
+            .should.be.fulfilled
+            .and.eventually.eql(cwps)
+            .and.notify(done);
+        });
+
+      $httpBackend.flush();
+    });
+
     describe('get', function() {
       // Prepare our backend
       beforeEach(function() {

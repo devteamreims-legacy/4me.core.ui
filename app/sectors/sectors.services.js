@@ -141,6 +141,7 @@ function mySector(_, $q, $log, ApiUrls, $http, errors, status, mainWebSocket, my
   var loadingPromise;
   var service = {};
   var endpoints = {};
+  var bootstrapped = false;
 
   mainWebSocket.on('mapping:refresh', function(data) {
     console.log('Got refresh signal from socket');
@@ -199,6 +200,7 @@ function mySector(_, $q, $log, ApiUrls, $http, errors, status, mainWebSocket, my
         $log.debug('mySector: Loaded mySector data');
         loadingPromise = undefined;
         _setFromData(res.data);
+        bootstrapped = true;
         status.recover('core.mySector');
         return mySectors;
       })
@@ -220,8 +222,12 @@ function mySector(_, $q, $log, ApiUrls, $http, errors, status, mainWebSocket, my
   };
 
   service.bootstrap = function() {
-    $log.debug('mySector: Bootstrapping');
-    return _getFromBackend();
+    if(bootstrapped === true) {
+      return $q.resolve(mySectors);
+    } else {
+      $log.debug('mySector: Bootstrapping');
+      return _getFromBackend();
+    }
   };
 
   service.refresh = function() {
