@@ -12,7 +12,8 @@
 angular.module('4me.core.config', [
   'ngMaterial',
   '4me.core.cwp.interceptor',
-  'ui.router'
+  'ui.router',
+  '4me.core.bootstrap'
 ])
   // Object to map microservices URLs
   .constant('ApiUrls', {
@@ -82,8 +83,16 @@ function addDefaultStates($stateProvider, $urlRouterProvider) {
   .state('bootstrap-error', {
     url: '/',
     templateUrl: "views/bootstrap/error.html"
+  });
+
+  $stateProvider
+  .state('bootstrapped', {
+    abstract: true,
+    template: '<div ui-view=""></div>',
+    resolve: ['bootstrapper', function(bootstrapper) { return bootstrapper.bootstrap(); }]
   })
   .state('dashboard', {
+    parent: 'bootstrapped',
     url: '/dashboard',
     templateUrl: "views/dashboard/index.html"
   })

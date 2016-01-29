@@ -21,8 +21,8 @@ var cwpServices = angular.module('4me.core.cwp.services', [
 cwpServices.factory('myCwp', myCwp);
 
 // Pull our CWP from the backend
-myCwp.$inject = ['_', '$q', 'ApiUrls', '$http', 'errors', 'cwpInterceptor', 'status', 'mainWebSocket', '$cookies'];
-function myCwp(_, $q, ApiUrls, $http, errors, cwpInterceptor, status, mainWebSocket, $cookies) {
+myCwp.$inject = ['_', '$q', '$log', 'ApiUrls', '$http', 'errors', 'cwpInterceptor', 'status', 'mainWebSocket', '$cookies'];
+function myCwp(_, $q, $log, ApiUrls, $http, errors, cwpInterceptor, status, mainWebSocket, $cookies) {
   var myCwp = {};
   var loadingPromise;
   var service = {};
@@ -67,21 +67,21 @@ function myCwp(_, $q, ApiUrls, $http, errors, cwpInterceptor, status, mainWebSoc
       // Already loading from backend, return promise
       return loadingPromise;
     } else {
+      $log.debug('myCwp: Getting data from backend');
       loadingPromise = $http({
         method: 'GET',
         url: endpoints.getMine
       })
       .then(function(res) {
-        console.log('Loaded CWP data from backend');
+        $log.debug('myCwp: Loaded CWP data from backend');
         loadingPromise = undefined;
         _setFromData(myCwp, res.data);
-        console.log(myCwp);
         return myCwp;
       })
       .catch(function(err) {
         console.log(err);
         loadingPromise = undefined;
-        console.log('Catching error');
+        $log.debug('myCwp: Error loading data from backend');
         var e = errors.add('core.cwp', 'critical', 'Could not load our CWP from backend', err);
         status.escalate('core.cwp', 'critical', 'Could not load our CWP from backend', e);
         return $q.reject(err);
@@ -96,6 +96,7 @@ function myCwp(_, $q, ApiUrls, $http, errors, cwpInterceptor, status, mainWebSoc
   };
 
   service.bootstrap = function() {
+    $log.debug('myCwp: Bootstrapping');
     return _getFromBackend();
   };
 
