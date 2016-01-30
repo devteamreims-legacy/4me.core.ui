@@ -53,7 +53,7 @@ function mainWebSocket(_, socketFactory, ApiUrls, errors, status, $timeout) {
     console.log('connecting ...');
     // Wait 1 second before claiming victory
     connectedPromise = $timeout(function() {
-      console.log('Connected !');
+      console.log('mainWebSocket: Connected !');
       // Recover status
       status.recover('socket');
       // Set flag to 'connected'
