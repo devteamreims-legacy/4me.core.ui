@@ -21,6 +21,7 @@ sectorsComponents.component('mySectors', {
   template: '{{mySectors.properties.sectors | toSector}}'
 });
 
+// See here for async filter http://stackoverflow.com/questions/19046641/angularjs-asynchronously-initialize-filter
 sectorsComponents.filter('toSector', arrayToSectorString);
 
 mySectorsController.$inject = ['mySector'];
