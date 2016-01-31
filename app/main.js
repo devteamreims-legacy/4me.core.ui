@@ -16,6 +16,7 @@ var m = angular
       'ngSanitize',
       'ngMaterial',
       'ui.router',
+      'angularMoment',
       '4me.core.partials',
       '4me.core.config',
       '4me.core.router',
