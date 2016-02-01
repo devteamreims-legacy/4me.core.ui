@@ -135,8 +135,8 @@ function treeSectors(_, $log, ApiUrls, $http, errors, $q, status) {
   return service;
 }
 
-mySector.$inject = ['_', '$q', '$log', 'ApiUrls', '$http', 'errors', 'status', 'mainWebSocket', 'myCwp'];
-function mySector(_, $q, $log, ApiUrls, $http, errors, status, mainWebSocket, myCwp) {
+mySector.$inject = ['_', '$q', '$log', 'ApiUrls', '$http', 'errors', 'status', 'mainWebSocket', 'myCwp', '$rootScope'];
+function mySector(_, $q, $log, ApiUrls, $http, errors, status, mainWebSocket, myCwp, $rootScope) {
   var mySectors = {};
   var loadingPromise;
   var service = {};
@@ -144,7 +144,8 @@ function mySector(_, $q, $log, ApiUrls, $http, errors, status, mainWebSocket, my
   var bootstrapped = false;
 
   mainWebSocket.on('mapping:refresh', function(data) {
-    console.log('Got refresh signal from socket');
+    $log.debug('Got refresh signal from socket');
+    $rootScope.$emit('fme:new-sectors');
     _getFromBackend();
     return;
   });

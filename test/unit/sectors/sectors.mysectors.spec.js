@@ -121,6 +121,17 @@ describe('4me.core.sectors.services', function() {
           });
           $httpBackend.flush();
         });
+
+        it('should emit event when getting data from socket', function() {
+          var spy = sinon.spy($rootScope, '$emit');
+          $httpBackend.expectGET(endpoints.getMine);
+          mainWebSocket.receive('mapping:refresh', {
+            cwpId: 34,
+            sectors: ['UR']
+          });
+          $httpBackend.flush();
+          spy.should.have.been.calledWith('fme:new-sectors');
+        });
       });
     });
 
