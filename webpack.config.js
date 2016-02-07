@@ -6,6 +6,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var config = {
     context: __dirname + '/app',
     entry: './main.js',
+    devtool: 'inline-source-map',
     output: {
         path: outputPath,
         filename: 'scripts/bundle.js'

@@ -3,7 +3,11 @@ var chaiAsPromised = require('chai-as-promised');
 var sinonChai = require('sinon-chai');
 var Promise = require('bluebird');
 
-require('angular-mocks');
+var app = require('../../dist/scripts/bundle.js');
+
+var angularMocks = require('angular-mocks');
+console.log('CACABOUDIN');
+console.log(angularMocks);
 
 chai.use(chaiAsPromised);
 chai.use(sinonChai);
@@ -13,6 +17,5 @@ var sinonAsPromised = require('sinon-as-promised')(Promise);
 
 global.sinon = sinon;
 global.expect = chai.expect;
-global.sinonAsPromised = sinonAsPromised;
 global.Promise = Promise;
 chai.should();

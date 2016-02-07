@@ -1,10 +1,22 @@
 // Karma configuration
 // Generated on Wed Nov 18 2015 14:41:54 GMT+0100 (CET)
 
-module.exports = function(config) {
-  var wiredep = require('wiredep');
-  var bowerFiles = wiredep({devDependancies: true})['js'];
+var webpackConf = require('../webpack.config.js');
 
+
+webpackConf.module.noParse = [
+    /node_modules\/sinon\//
+  ];
+
+webpackConf.resolve = {
+    alias: {
+      sinon: 'sinon/pkg/sinon.js'
+    }
+  };
+
+console.log(webpackConf);
+
+module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -13,21 +25,16 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['browserify', 'source-map-support', 'mocha'],
+    frameworks: ['mocha'],
 
 
     // list of files / patterns to load in the browser
-    files: bowerFiles.concat([
+    files: [
       'test/function-bind-polyfill.js', // Workaround for PhantomJS 1.9
       'test/unit/setup.js',
-      'app/**/*.js',
-      'organs/**/*.js',
-      'dist/scripts/template*.js',
       'test/unit/**/*.js',
-      // Fuck Socket.io
-      'bower_components/socket.io-client/socket.io.js',
-      'bower_components/angular-socket.io-mock/angular-socket.io-mock.js'
-    ]),
+      'organs/**/test/**/*.js'
+    ],
 
 
     // list of files to exclude
@@ -38,7 +45,7 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'test/unit/setup.js': ['browserify']
+      'test/unit/setup.js': ['webpack', 'sourcemap']
     },
 
 
@@ -67,7 +74,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
 
 
     // Continuous Integration mode
@@ -78,10 +85,18 @@ module.exports = function(config) {
     // how many browser should be started simultanous
     concurrency: Infinity,
 
-    // Include source maps
-    browserify: {
-      debug: true // include inline source maps
-    }
+
+    // Plugins
+    plugins: [
+      require('karma-webpack'),
+      require('karma-phantomjs-launcher'),
+      require('karma-mocha'),
+      require('karma-sourcemap-loader')
+    ],
+
+    // Webpack configuration
+
+    webpack: webpackConf
 
   })
 }
