@@ -8,16 +8,38 @@
  *
  * Main module of the application.
  */
+var angular = require('angular');
+
+// Load dependencies
+require('angular-animate');
+require('angular-ui-router');
+require('angular-cookies');
+require('angular-material');
+require('angular-moment');
+
+require('./config.js');
+require('./organs.js');
+require('./router.js');
+
+require('./bootstrap');
+require('./errors');
+require('./cwp');
+require('./notifications');
+require('./organs');
+require('./sectors');
+require('./socket');
+require('./status');
+
+require('./index.html');
+
 var m = angular
   .module('4me.core', [
       'ngAnimate',
       'ngCookies',
-      'ngMessages',
-      'ngSanitize',
       'ngMaterial',
       'ui.router',
       'angularMoment',
-      '4me.core.partials',
+//      '4me.core.partials',
       '4me.core.config',
       '4me.core.router',
       '4me.core.errors',
