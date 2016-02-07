@@ -9,6 +9,11 @@
  *
  * Meta module to include socket.io communication
  */
+
+var io = require('socket.io-client');
+
+require('angular-socket-io');
+
 angular.module('4me.core.socket', [
   '4me.core.lodash',
   '4me.core.config',

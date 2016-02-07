@@ -1,5 +1,6 @@
 var path = require('path');
 var outputPath = 'dist';
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
 var config = {
@@ -10,11 +11,27 @@ var config = {
         filename: 'scripts/bundle.js'
     },
     module: {
-        loaders: [{
+        loaders: [
+          {
             test: /\.html$/,
-            loader: 'html'
-        }]
+            loader: 'raw'
+          }, {
+            test: /\.css$/,
+            loader: 'style!css'
+          }, {
+            test: /\.svg$/,
+            loader: 'raw'
+          }
+        ]
     }
 };
+
+config.plugins = [];
+config.plugins.push(
+    new HtmlWebpackPlugin({
+        template: 'index.html',
+        inject: 'body'
+    })
+);
 
 module.exports = config;

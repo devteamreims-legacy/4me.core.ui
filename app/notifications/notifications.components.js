@@ -8,6 +8,12 @@
  * # Notification components
  * Notification components
  */
+
+require('./button/');
+
+var templates = {};
+templates.fmeNotificationList = require('./fmeNotificationList.tpl.html');
+
 var notificationComponents = angular.module('4me.core.notifications.components', [
   '4me.core.lodash',
   '4me.core.organs',
@@ -19,7 +25,7 @@ notificationComponents.component('fmeNotificationList', {
   restrict: 'E',
   controller: fmeNotificationListController,
   controllerAs: 'fmeNotificationList',
-  templateUrl: 'views/notifications/fmeNotificationList.tpl.html'
+  template: templates.fmeNotificationList
 });
 
 

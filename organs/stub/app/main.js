@@ -9,6 +9,8 @@
  * Stub organ, using 4me.core.ui hooks
  * Register our organ into the main app here
  */
+var angular = require('angular');
+
 var m = angular
   .module('4me.ui.stub', [
       'ui.router',
@@ -31,11 +33,14 @@ var m = angular
 m.config(stubConfig);
 m.run(stubRegistration);
 
+var templates = {};
+templates.root = require('./index.tpl.html');
+
 stubConfig.$inject = ['$stateProvider'];
 function stubConfig($stateProvider) {
   $stateProvider.state('stub', {
     url: '/stub',
-    templateUrl: 'views/stub/app/index.tpl.html',
+    template: templates.root,
     controller: stubController,
     controllerAs: 'stub'
   });

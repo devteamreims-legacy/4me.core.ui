@@ -16,6 +16,9 @@ var notificationButton = angular.module('4me.core.notifications.button', [
 ]);
 
 
+var templates = {};
+templates.fmeNotificationButton = require('./button.tpl.html');
+templates.fmeNotificationIcon = require('./icon.tpl.html');
 
 notificationButton.component('fmeNotificationButton', {
   restrict: 'E',
@@ -25,7 +28,7 @@ notificationButton.component('fmeNotificationButton', {
   },
   controller: fmeNotificationButtonController,
   controllerAs: 'fmeNotificationButton',
-  templateUrl: 'views/notifications/button/button.tpl.html'
+  template: templates.fmeNotificationButton
 });
 
 notificationButton.component('fmeNotificationIcon', {
@@ -36,7 +39,7 @@ notificationButton.component('fmeNotificationIcon', {
   },
   controller: fmeNotificationIconController,
   controllerAs: 'fmeNotificationIcon',
-  templateUrl: 'views/notifications/button/icon.tpl.html'
+  template: templates.fmeNotificationIcon
 });
 
 
@@ -95,6 +98,8 @@ function fmeNotificationIconController(notifications, mainOrganService) {
   };
 }
 
+templates.fmeNotificationDialog = require('../fmeNotificationDialog.tpl.html');
+
 fmeNotificationButtonController.$inject = ['$mdDialog'];
 function fmeNotificationButtonController($mdDialog) {
   var fmeNotificationButton = this;
@@ -103,8 +108,9 @@ function fmeNotificationButtonController($mdDialog) {
     if(fmeNotificationButton.noDialog !== undefined) {
       return;
     }
+
     $mdDialog.show({
-      templateUrl: 'views/notifications/fmeNotificationDialog.tpl.html',
+      template: templates.fmeNotificationDialog,
       parent: angular.element(document.body),
       targetEvent: ev,
       clickOutsideToClose: true

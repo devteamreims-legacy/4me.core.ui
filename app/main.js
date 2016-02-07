@@ -17,6 +17,10 @@ require('angular-cookies');
 require('angular-material');
 require('angular-moment');
 
+// Material design css
+require('angular-material/angular-material.css');
+require('raw!./icons/mdi.svg');
+
 require('./config.js');
 require('./organs.js');
 require('./router.js');
@@ -30,7 +34,8 @@ require('./sectors');
 require('./socket');
 require('./status');
 
-require('./index.html');
+
+
 
 var m = angular
   .module('4me.core', [
@@ -52,6 +57,8 @@ var m = angular
   ]);
 
 
+
+
 /**
  * @ngdoc overview
  * @name 4me.core.lodash
@@ -60,8 +67,9 @@ var m = angular
  *
  * Inject plain lodash lib into our application
  */
+var _ = require('lodash');
 angular.module('4me.core.lodash', [])
   // Inject Lodash dependancy
-  .constant('_', window._);
+  .constant('_', _);
 
 }());

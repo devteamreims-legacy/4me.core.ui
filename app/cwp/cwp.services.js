@@ -8,6 +8,10 @@
  * # CWP Services
  * CWP Services
  */
+
+require('angular-cookies');
+require('./cwp.interceptor.js');
+
 var cwpServices = angular.module('4me.core.cwp.services', [
   'ngCookies',
   '4me.core.lodash',

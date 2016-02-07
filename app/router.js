@@ -9,6 +9,8 @@
  * Configuration module of the router
  */
 
+require('./bootstrap/');
+
 angular.module('4me.core.router', [
   'ui.router',
   '4me.core.bootstrap'
@@ -20,11 +22,16 @@ addDefaultStates.$inject = ['$stateProvider', '$urlRouterProvider'];
 function addDefaultStates($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("/");
   
-
+  var templates = {};
+  templates.bootstrapError = require('./bootstrap/error.html');
+  templates.dashboard = require('./dashboard/index.html');
+  templates.errors = require('./errors/index.html');
+  templates.notifications = require('./notifications/index.html');
+  
   $stateProvider
   .state('bootstrap-error', {
     url: '/bootstrap-error',
-    templateUrl: "views/bootstrap/error.html"
+    template: templates.bootstrapError
   });
 
   $stateProvider
@@ -37,15 +44,15 @@ function addDefaultStates($stateProvider, $urlRouterProvider) {
   .state('dashboard', {
     parent: 'bootstrapped',
     url: '/',
-    templateUrl: "views/dashboard/index.html"
+    template: templates.dashboard
   })
   .state('errors', {
     url: '/errors',
-    templateUrl: "views/errors/index.html"
+    template: templates.errors
   })
   .state('notifications', {
     url: '/notifications',
-    templateUrl: "views/notifications/index.html"
+    templates: templates.notifications
   });
 }
 

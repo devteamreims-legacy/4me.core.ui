@@ -9,6 +9,8 @@
  * This http interceptor adds a custom header containing our cwp id
  */
 
+require('./cwp.services.js');
+
 angular.module('4me.core.cwp.interceptor', [
   '4me.core.cwp.services'
 ])

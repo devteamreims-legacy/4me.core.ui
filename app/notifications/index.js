@@ -9,6 +9,10 @@
  *
  * Meta module to include notification components/services
  */
+
+require('./notifications.components.js');
+require('./notifications.services.js');
+
 angular.module('4me.core.notifications', [
   '4me.core.notifications.services',
   '4me.core.notifications.components'

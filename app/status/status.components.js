@@ -14,11 +14,15 @@ var statusComponents = angular.module('4me.core.status.components', [
   'angularMoment'
 ]);
 
+var templates = {};
+templates.fmeStatusButton = require('./fmeStatusButton.tpl.html');
+templates.fmeStatusIcon = require('./fmeStatusIcon.tpl.html');
+
 statusComponents.component('fmeStatusButton', {
   restrict: 'E',
   controller: fmeStatusButtonController,
   controllerAs: 'fmeStatusButton',
-  templateUrl: 'views/status/fmeStatusButton.tpl.html'
+  template: templates.fmeStatusButton
 });
 
 statusComponents.component('fmeStatusIcon', {
@@ -28,7 +32,7 @@ statusComponents.component('fmeStatusIcon', {
   },
   controller: fmeStatusIconController,
   controllerAs: 'fmeStatusIcon',
-  templateUrl: 'views/status/fmeStatusIcon.tpl.html'
+  template: templates.fmeStatusIcon
 });
 
 fmeStatusButtonController.$inject = ['status', '$state'];

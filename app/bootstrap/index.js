@@ -9,6 +9,10 @@
  *
  * Meta module to include bootstrap
  */
+
+require('../sectors/sectors.services.js');
+require('../cwp/cwp.services.js');
+
 var bootstrapModule = angular.module('4me.core.bootstrap', [
   'ui.router',
   '4me.core.sectors.services',

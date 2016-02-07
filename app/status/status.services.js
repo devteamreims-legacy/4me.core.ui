@@ -9,6 +9,8 @@
  * Status Services
  */
 
+require('../organs/');
+
 var statusServices = angular.module('4me.core.status.services', [
   '4me.core.lodash',
   '4me.core.config',

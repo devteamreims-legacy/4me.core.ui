@@ -9,6 +9,9 @@
  * Configuration module of the application
  */
 
+require('angular-material');
+require('./cwp/cwp.interceptor.js');
+
 angular.module('4me.core.config', [
   'ngMaterial',
   '4me.core.cwp.interceptor'
@@ -28,6 +31,7 @@ angular.module('4me.core.config', [
     socket: 'http://localhost:3000'
   })
   .config(mdiToAngularMaterial)
+  .run(populateMdiCache)
   .config(applyThemes)
   .config(addCwpInterceptor)
   .config(setCookieDefaults);
@@ -35,9 +39,16 @@ angular.module('4me.core.config', [
 
 
 
+var mdiIcons = require('./icons/mdi.svg');
+
+populateMdiCache.$inject = ['$templateCache'];
+function populateMdiCache($templateCache) {
+  $templateCache.put('icons/mdi.svg', mdiIcons);
+}
+
 mdiToAngularMaterial.$inject = ['$mdIconProvider'];
 function mdiToAngularMaterial($mdIconProvider) {
-  $mdIconProvider.defaultIconSet('fonts/mdi.svg');
+  $mdIconProvider.defaultIconSet('icons/mdi.svg');
 }
 
 applyThemes.$inject = ['$mdThemingProvider'];

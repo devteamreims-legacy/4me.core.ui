@@ -9,6 +9,10 @@
  *
  * Meta module to include status components/services
  */
+
+require('./status.services.js');
+require('./status.components.js');
+
 angular.module('4me.core.status', [
   'ui.router',
   '4me.core.status.services',
@@ -16,12 +20,13 @@ angular.module('4me.core.status', [
 ])
 .config(addRoutes);
 
+var template = require('./index.html');
 
 addRoutes.$inject = ['$stateProvider'];
 function addRoutes($stateProvider) {
   $stateProvider.state('status', {
     url: '/status',
-    templateUrl: 'views/status/index.html',
+    template: template,
     controller: statusController,
     controllerAs: 'statuses'
   });

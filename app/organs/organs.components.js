@@ -10,6 +10,10 @@
  * Components related to organs
  *
  */
+
+var template = {};
+template.organNavigation = require('./navigation.tpl.html');
+
 angular.module('4me.core.organs.components', [
   '4me.core.organs.services'
 ])
@@ -17,7 +21,7 @@ angular.module('4me.core.organs.components', [
   restrict: 'E',
   controller: organNavigationController,
   controllerAs: 'organNavigation',
-  templateUrl: 'views/organs/navigation.tpl.html'
+  template: template.organNavigation
 });
 
 organNavigationController.$inject = ['_', 'mainOrganService'];
