@@ -8,6 +8,7 @@
  *
  * Main module of the application.
  */
+
 var m = angular
   .module('4me.core', [
       'ngAnimate',
