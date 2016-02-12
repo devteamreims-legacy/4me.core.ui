@@ -102,7 +102,7 @@ function fmeNotificationButtonController($mdDialog) {
     }
     $mdDialog.show({
       templateUrl: 'views/notifications/fmeNotificationDialog.tpl.html',
-      parent: angular.element(document.body),
+      parent: angular.element(document).find('body'),
       targetEvent: ev,
       clickOutsideToClose: true
     });

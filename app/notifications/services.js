@@ -14,8 +14,8 @@ angular.module('4me.core.notifications.services', [
 ])
 .factory('notifications', notifications);
 
-notifications.$inject = ['$q'];
-function notifications($q) {
+notifications.$inject = [];
+function notifications() {
   /** Notification object prototype :
    * {
    *   when: Date.now() // Timestamp of the notification

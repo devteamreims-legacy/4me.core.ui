@@ -58,7 +58,7 @@ function fmeErrorButtonController(errors, $mdDialog) {
   fmeErrorButton.showDialog = function(ev) {
     $mdDialog.show({
       templateUrl: 'views/errors/fmeErrorDialog.tpl.html',
-      parent: angular.element(document.body),
+      parent: angular.element(document).find('body'),
       targetEvent: ev,
       clickOutsideToClose: true
     });

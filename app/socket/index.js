@@ -16,8 +16,8 @@ angular.module('4me.core.socket', [
 ])
 .factory('mainWebSocket', mainWebSocket);
 
-mainWebSocket.$inject = ['socketFactory', 'ApiUrls', 'errors', 'status', '$timeout'];
-function mainWebSocket(socketFactory, ApiUrls, errors, status, $timeout) {
+mainWebSocket.$inject = ['socketFactory', 'ApiUrls', 'status', '$timeout'];
+function mainWebSocket(socketFactory, ApiUrls, status, $timeout) {
   var reconnectTimeout = 5000;
   var maxReconnectTimeout = 300000;
   var connected = false;

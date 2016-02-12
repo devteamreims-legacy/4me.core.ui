@@ -15,8 +15,8 @@ angular.module('4me.core.organs.services', [
 .factory('mainOrganService', mainOrganService);
 
 
-mainOrganService.$inject = ['$state'];
-function mainOrganService($state) {
+mainOrganService.$inject = [];
+function mainOrganService() {
   var service = {};
   var organs = [];
 

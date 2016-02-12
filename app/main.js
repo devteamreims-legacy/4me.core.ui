@@ -45,26 +45,6 @@ var m = angular
       '4me.core.router'
   ]);
 
-m.config(addSourceMapSupport);
-
-addSourceMapSupport.$inject = ['$provide'];
-function addSourceMapSupport($provide) {
-
-  // Fix sourcemaps
-  // @url https://github.com/angular/angular.js/issues/5217#issuecomment-50993513
-  $provide.decorator('$exceptionHandler', sourcemap);
-  
-  sourcemap.$inject = ['$delegate'];
-  function sourcemap($delegate) {
-    return function(exception, cause) {
-      $delegate(exception, cause);
-      setTimeout(function() {
-        console.error(exception.stack);
-      });
-    };
-  }
-}
-
 
 /**
  * @ngdoc overview

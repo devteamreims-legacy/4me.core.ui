@@ -80,6 +80,8 @@ function addCwpInterceptor($httpProvider) {
 
 setCookieDefaults.$inject = ['$cookiesProvider'];
 function setCookieDefaults($cookiesProvider) {
-  // What the hell is this ?!
+  // See here : https://docs.angularjs.org/api/ngCookies/provider/$cookiesProvider
+  // Nothing yet
+  $cookiesProvider;
   return;
 }

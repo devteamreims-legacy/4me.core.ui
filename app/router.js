@@ -49,7 +49,7 @@ function addDefaultStates($stateProvider, $urlRouterProvider) {
 
 stateErrorCatcher.$inject = ['$log', '$rootScope', '$state'];
 function stateErrorCatcher($log, $rootScope, $state) {
-  $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, err) {
+  let handler = $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, err) {
     $log.debug('Cannont navigate to ' + toState.url + ' : Async dependencies not resolved');
     $state.go('bootstrap-error');
     throw err;
