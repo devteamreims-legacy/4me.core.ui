@@ -144,7 +144,6 @@ gulp.task('build-bower-css', function() {
 
 gulp.task('lint', function() {
     return gulp.src(config.jsFolder)
-        .pipe(debug())
         .pipe(eslint())
         .pipe(eslint.format());
 });
