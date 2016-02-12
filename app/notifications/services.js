@@ -1,5 +1,4 @@
-(function() {
-'use strict';
+import _ from 'lodash';
 
 /**
  * @ngdoc overview
@@ -11,13 +10,12 @@
  */
 
 angular.module('4me.core.notifications.services', [
-  '4me.core.config',
-  '4me.core.lodash'
+  '4me.core.config'
 ])
 .factory('notifications', notifications);
 
-notifications.$inject = ['_', '$q'];
-function notifications(_, $q) {
+notifications.$inject = ['$q'];
+function notifications($q) {
   /** Notification object prototype :
    * {
    *   when: Date.now() // Timestamp of the notification
@@ -110,5 +108,3 @@ function notifications(_, $q) {
   return service;
 
 }
-
-}());

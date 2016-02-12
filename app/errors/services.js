@@ -8,13 +8,12 @@
  */
 
 angular.module('4me.core.errors.services', [
-  '4me.core.config',
-  '4me.core.lodash'
+  '4me.core.config'
 ])
 .factory('errors', errors);
 
-errors.$inject = ['_', '$q'];
-function errors(_, $q) {
+errors.$inject = ['$q'];
+function errors($q) {
   // Array to hold our errors
   /** Error object prototype :
    * {

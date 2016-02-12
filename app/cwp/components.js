@@ -6,7 +6,6 @@
  * CWP Components
  */
 var cwpComponents = angular.module('4me.core.cwp.components', [
-  '4me.core.lodash',
   '4me.core.cwp.services'
 ]);
 
@@ -17,8 +16,8 @@ cwpComponents.component('myCwp', {
   template: '{{myCwp.getCwpName()}}'
 });
 
-myCwpController.$inject = ['_', 'myCwp'];
-function myCwpController(_, myCwpService) {
+myCwpController.$inject = ['myCwp'];
+function myCwpController(myCwpService) {
   var myCwp = this;
   myCwp.cwp = myCwpService.get();
   

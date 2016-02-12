@@ -246,7 +246,7 @@ gulp.task('build-fonts', function() {
         })
         .concat(config.sourceIconsFolder)
     )
-        .pipe(debug())
+        //.pipe(debug())
         .pipe(gulp.dest(config.destFolder + '/fonts/'))
         .pipe(connect.reload());
 });

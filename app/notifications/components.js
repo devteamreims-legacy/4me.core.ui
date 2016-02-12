@@ -8,7 +8,6 @@ import button from './button/';
  * Notification components
  */
 var notificationComponents = angular.module('4me.core.notifications.components', [
-  '4me.core.lodash',
   '4me.core.organs',
   '4me.core.notifications',
   '4me.core.notifications.button'

@@ -1,4 +1,5 @@
 import status from '../status/';
+import _ from 'lodash';
 
 /**
  * @ngdoc overview
@@ -17,8 +18,8 @@ var sectorsServices = angular.module('4me.core.sectors.services', [
 sectorsServices.factory('treeSectors', treeSectors);
 sectorsServices.factory('mySector', mySector);
 
-treeSectors.$inject = ['_', '$log', 'ApiUrls', '$http', 'errors', '$q', 'status'];
-function treeSectors(_, $log, ApiUrls, $http, errors, $q, status) {
+treeSectors.$inject = ['$log', 'ApiUrls', '$http', 'errors', '$q', 'status'];
+function treeSectors($log, ApiUrls, $http, errors, $q, status) {
   var service = {};
   var loadingPromise;
   var tree = [];
@@ -133,8 +134,8 @@ function treeSectors(_, $log, ApiUrls, $http, errors, $q, status) {
   return service;
 }
 
-mySector.$inject = ['_', '$q', '$log', 'ApiUrls', '$http', 'errors', 'status', 'mainWebSocket', 'myCwp', '$rootScope'];
-function mySector(_, $q, $log, ApiUrls, $http, errors, status, mainWebSocket, myCwp, $rootScope) {
+mySector.$inject = ['$q', '$log', 'ApiUrls', '$http', 'errors', 'status', 'mainWebSocket', 'myCwp', '$rootScope'];
+function mySector($q, $log, ApiUrls, $http, errors, status, mainWebSocket, myCwp, $rootScope) {
   var mySectors = {};
   var loadingPromise;
   var service = {};

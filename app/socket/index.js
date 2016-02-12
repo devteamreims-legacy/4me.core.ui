@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 /**
  * @ngdoc overview
  * @name 4me.core.socket
@@ -7,7 +9,6 @@
  * Meta module to include socket.io communication
  */
 angular.module('4me.core.socket', [
-  '4me.core.lodash',
   '4me.core.config',
   '4me.core.errors',
   '4me.core.status',
@@ -15,8 +16,8 @@ angular.module('4me.core.socket', [
 ])
 .factory('mainWebSocket', mainWebSocket);
 
-mainWebSocket.$inject = ['_', 'socketFactory', 'ApiUrls', 'errors', 'status', '$timeout'];
-function mainWebSocket(_, socketFactory, ApiUrls, errors, status, $timeout) {
+mainWebSocket.$inject = ['socketFactory', 'ApiUrls', 'errors', 'status', '$timeout'];
+function mainWebSocket(socketFactory, ApiUrls, errors, status, $timeout) {
   var reconnectTimeout = 5000;
   var maxReconnectTimeout = 300000;
   var connected = false;

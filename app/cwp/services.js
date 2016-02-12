@@ -1,5 +1,4 @@
-(function() {
-'use strict';
+import _ from 'lodash';
 
 /**
  * @ngdoc overview
@@ -10,7 +9,6 @@
  */
 var cwpServices = angular.module('4me.core.cwp.services', [
   'ngCookies',
-  '4me.core.lodash',
   '4me.core.config',
   '4me.core.cwp.interceptor',
   '4me.core.errors',
@@ -21,8 +19,8 @@ var cwpServices = angular.module('4me.core.cwp.services', [
 cwpServices.factory('myCwp', myCwp);
 
 // Pull our CWP from the backend
-myCwp.$inject = ['_', '$q', '$log', 'ApiUrls', '$http', 'errors', 'cwpInterceptor', 'status', 'mainWebSocket', '$cookies'];
-function myCwp(_, $q, $log, ApiUrls, $http, errors, cwpInterceptor, status, mainWebSocket, $cookies) {
+myCwp.$inject = ['$q', '$log', 'ApiUrls', '$http', 'errors', 'cwpInterceptor', 'status', '$cookies'];
+function myCwp($q, $log, ApiUrls, $http, errors, cwpInterceptor, status, $cookies) {
   var myCwp = {};
   var loadingPromise;
   var service = {};
@@ -113,6 +111,3 @@ function myCwp(_, $q, $log, ApiUrls, $http, errors, cwpInterceptor, status, main
 
   return service;
 }
-
-
-}());

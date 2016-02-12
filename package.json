@@ -1,7 +1,9 @@
 {
   "name": "4me-cds-client",
   "version": "0.0.5",
-  "dependencies": {},
+  "dependencies": {
+    "lodash": "^4.3.0"
+  },
   "repository": {},
   "devDependencies": {
     "angular-mocks": "^1.5.0",

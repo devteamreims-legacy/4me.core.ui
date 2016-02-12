@@ -6,7 +6,6 @@
  * Status components
  */
 var statusComponents = angular.module('4me.core.status.components', [
-  '4me.core.lodash',
   'angularMoment'
 ]);
 

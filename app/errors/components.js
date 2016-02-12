@@ -6,7 +6,6 @@
  * Errors components
  */
 var errorComponents = angular.module('4me.core.errors.components', [
-  '4me.core.lodash',
   '4me.core.errors'
 ]);
 errorComponents.component('fmeErrorButton', {

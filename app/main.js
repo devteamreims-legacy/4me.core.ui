@@ -11,6 +11,8 @@ import sectors from './sectors/';
 import socket from './socket/';
 import status from './status/';
 
+import _ from 'lodash';
+
 /**
  * @ngdoc overview
  * @name 4me.core
@@ -74,5 +76,5 @@ function addSourceMapSupport($provide) {
  */
 angular.module('4me.core.lodash', [])
   // Inject Lodash dependancy
-  .constant('_', window._);
+  .constant('_', _);
 

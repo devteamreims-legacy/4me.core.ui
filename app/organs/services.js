@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 /**
  * @ngdoc overview
  * @name 4me.core.organs.services
@@ -8,14 +10,13 @@
  *
  */
 angular.module('4me.core.organs.services', [
-  '4me.core.lodash',
   'ui.router'
 ])
 .factory('mainOrganService', mainOrganService);
 
 
-mainOrganService.$inject = ['_', '$state'];
-function mainOrganService(_, $state) {
+mainOrganService.$inject = ['$state'];
+function mainOrganService($state) {
   var service = {};
   var organs = [];
 

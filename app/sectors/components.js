@@ -6,7 +6,6 @@
  * CWP Components
  */
 var sectorsComponents = angular.module('4me.core.sectors.components', [
-  '4me.core.lodash',
   '4me.core.sectors.services'
 ]);
 

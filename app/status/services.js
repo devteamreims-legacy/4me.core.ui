@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 /**
  * @ngdoc overview
  * @name 4me.core.status.services
@@ -7,7 +9,6 @@
  */
 
 var statusServices = angular.module('4me.core.status.services', [
-  '4me.core.lodash',
   '4me.core.config',
   '4me.core.notifications.services',
   '4me.core.organs',
@@ -18,14 +19,14 @@ var statusServices = angular.module('4me.core.status.services', [
 statusServices.factory('statusFactory', statusFactoryFactory);
 statusServices.factory('status', coreStatusFactory);
 
-statusFactoryFactory.$inject = ['_'];
-function statusFactoryFactory(_) {
+statusFactoryFactory.$inject = [];
+function statusFactoryFactory() {
   var statuses = [];
   var service = {};
 
 
   // Service constructor
-  function factory(_, namespace) {
+  function factory(namespace) {
     var service = {};
 
     var _normalStatus = {
@@ -114,7 +115,7 @@ function statusFactoryFactory(_) {
   return service;
 }
 
-coreStatusFactory.$inject = ['_', 'statusFactory'];
-function coreStatusFactory(_, statusFactory) {
+coreStatusFactory.$inject = ['statusFactory'];
+function coreStatusFactory(statusFactory) {
   return statusFactory.get('core');
 }
