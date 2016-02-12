@@ -80,6 +80,9 @@ module.exports = function(config) {
 
     // Include source maps
     browserify: {
+      transform: [
+        ['babelify', {presets: ['es2015']}]
+      ],
       debug: true // include inline source maps
     }
 
