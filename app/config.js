@@ -80,5 +80,6 @@ function addCwpInterceptor($httpProvider) {
 
 setCookieDefaults.$inject = ['$cookiesProvider'];
 function setCookieDefaults($cookiesProvider) {
+  // What the hell is this ?!
   return;
 }

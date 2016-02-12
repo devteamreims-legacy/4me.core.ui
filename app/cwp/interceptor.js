@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * @ngdoc function
  * @name 4me.core.cwp.interceptor
@@ -11,6 +9,7 @@
 angular.module('4me.core.cwp.interceptor', [])
   .factory('cwpInterceptor', cwpInterceptor);
 
+cwpInterceptor.$inject = [];
 function cwpInterceptor() {
   var service = {};
 
