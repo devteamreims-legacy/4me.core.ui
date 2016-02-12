@@ -3,7 +3,7 @@ var gulp = require('gulp'),
     del = require('del'),
     sass = require('gulp-sass'),
     debug = require('gulp-debug'),
-    jshint = require('gulp-jshint'),
+    eslint = require('gulp-eslint'),
     sourcemaps = require('gulp-sourcemaps'),
 //    spritesmith = require('gulp.spritesmith'),
     browserify = require('browserify'),
@@ -138,15 +138,15 @@ gulp.task('build-bower-css', function() {
 
 /////////////////////////////////////////////////////////////////////////////////////
 //
-// runs jshint
+// runs linter
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-gulp.task('jshint', function() {
-    gulp.src(config.jsFolder)
-        //.pipe(debug())
-        .pipe(jshint())
-        .pipe(jshint.reporter('default'));
+gulp.task('lint', function() {
+    return gulp.src(config.jsFolder)
+        .pipe(debug())
+        .pipe(eslint())
+        .pipe(eslint.format());
 });
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -162,7 +162,7 @@ gulp.task('build-template-cache', function() {
         concat = require("gulp-concat");
 
     return gulp.src(config.viewsFolder)
-        .pipe(debug())
+        //.pipe(debug())
         .pipe(ngHtml2Js({
             moduleName: "4me.core.partials",
             prefix: "views/"
@@ -203,7 +203,7 @@ gulp.task('build-js', function() {
         .pipe(buffer())
         .pipe(cachebust.resources())
         .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(uglify())
+        //.pipe(uglify())
         .on('error', gutil.log)
         .pipe(sourcemaps.write(config.mapsFolder))
         .pipe(gulp.dest(config.destFolder + '/scripts/'))
@@ -223,9 +223,11 @@ gulp.task('build-bower-js', function() {
         })
         .concat(config.bowerFolder + '/socket.io-client/socket.io.js')
     )
-        .pipe(debug())
+        //.pipe(debug())
+        .pipe(sourcemaps.init())
         .pipe(concat('vendor.js'))
         .pipe(cachebust.resources())
+        .pipe(sourcemaps.write(config.mapsFolder))
         .pipe(gulp.dest(config.destFolder + '/scripts/'))
         .pipe(connect.reload());
 });
@@ -345,7 +347,7 @@ gulp.task('build', function(cb) {
         [
             'build-css', 'build-bower-css',
             'build-fonts',
-            'build-template-cache', 'jshint',
+            'build-template-cache', 'lint',
             'build-js', 'build-bower-js'
         ],
         'build-index',

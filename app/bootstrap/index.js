@@ -1,6 +1,3 @@
-import sectorsServices from '../sectors/services';
-import cwpServices from '../cwp/services';
-
 /**
  * @ngdoc overview
  * @name 4me.core.bootstrap

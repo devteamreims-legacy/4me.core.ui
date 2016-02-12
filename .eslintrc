@@ -1,0 +1,12 @@
+{
+  "parser": "babel-eslint",
+  "extends": "angular",
+  "rules": {
+    "angular/definedundefined": 0,
+    "angular/module-getter": 0,
+    "angular/module-setter": 0,
+    "angular/log": 0,
+    "angular/di-unused": 2
+
+  }
+}
