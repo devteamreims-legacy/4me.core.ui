@@ -106,7 +106,7 @@ function statusFactoryFactory() {
     }
     var s = _.find(statuses, {name: namespace});
     if(s === undefined) {
-      s = factory(_, namespace);
+      s = factory(namespace);
       statuses.push(s);
     }
     return s;

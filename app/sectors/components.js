@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 /**
  * @ngdoc function
  * @name 4me.core.cwp.directives
@@ -28,8 +30,8 @@ function mySectorsController(mySectorService) {
 }
 
 // Transform an array of sectors into a proper sector string
-arrayToSectorString.$inject = ['_', 'treeSectors'];
-function arrayToSectorString(_, treeSectors) {
+arrayToSectorString.$inject = ['treeSectors'];
+function arrayToSectorString(treeSectors) {
   return function(input) {
     if(!input || !_.isArray(input)) {
       return input;

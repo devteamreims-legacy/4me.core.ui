@@ -17,8 +17,8 @@ angular.module('4me.core.organs.components', [
   templateUrl: 'views/organs/navigation.tpl.html'
 });
 
-organNavigationController.$inject = ['_', 'mainOrganService'];
-function organNavigationController(_, mainOrganService) {
+organNavigationController.$inject = ['mainOrganService'];
+function organNavigationController(mainOrganService) {
   var organNavigation = this;
   organNavigation.organs = mainOrganService.getAll();
 }

@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 /**
  * @ngdoc overview
  * @name 4me.ui.stub
@@ -73,8 +75,8 @@ function stubRegistration(mainOrganService, $state, $injector, notifications) {
 
 m.factory('stub.errors', stubErrors);
 
-stubErrors.$inject = ['_', 'errors'];
-function stubErrors(_, errors) {
+stubErrors.$inject = ['errors'];
+function stubErrors(errors) {
   var service = {};
 
   service.add = function(type, message, reason) {
@@ -86,8 +88,8 @@ function stubErrors(_, errors) {
 
 m.factory('stub.notifications', stubNotifications);
 
-stubNotifications.$inject = ['_', 'notifications'];
-function stubNotifications(_, notifications) {
+stubNotifications.$inject = ['notifications'];
+function stubNotifications(notifications) {
   var service = {};
 
   service.add = function(priority, title, props) {
