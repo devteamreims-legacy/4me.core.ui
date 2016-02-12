@@ -1,6 +1,3 @@
-(function() {
-'use strict';
-
 /**
  * @ngdoc function
  * @name 4me.core.notifications.button
@@ -111,5 +108,3 @@ function fmeNotificationButtonController($mdDialog) {
     });
   };
 }
-
-}());

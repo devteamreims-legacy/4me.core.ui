@@ -1,6 +1,3 @@
-(function() {
-'use strict';
-
 /**
  * @ngdoc overview
  * @name 4me.core.organs.components
@@ -25,7 +22,3 @@ function organNavigationController(_, mainOrganService) {
   var organNavigation = this;
   organNavigation.organs = mainOrganService.getAll();
 }
-
-
-
-}());

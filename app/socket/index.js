@@ -1,6 +1,3 @@
-(function() {
-'use strict';
-
 /**
  * @ngdoc overview
  * @name 4me.core.socket
@@ -81,5 +78,3 @@ function mainWebSocket(_, socketFactory, ApiUrls, errors, status, $timeout) {
 
   return mySocket;
 }
-
-}());

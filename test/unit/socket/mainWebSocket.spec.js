@@ -1,5 +1,5 @@
 describe('4me.core.socket', function() {
-  beforeEach(module('4me.core.socket'));
+  beforeEach(angular.mock.module('4me.core.socket'));
 
   describe('mainWebSocket', function() {
     var mainWebSocket;

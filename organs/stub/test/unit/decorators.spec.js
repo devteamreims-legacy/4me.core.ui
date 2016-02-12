@@ -1,5 +1,5 @@
 describe('4me.ui.stub', function() {
-  beforeEach(module('4me.ui.stub'));
+  beforeEach(angular.mock.module('4me.ui.stub'));
 
   var coreNotifications;
   var coreErrors;

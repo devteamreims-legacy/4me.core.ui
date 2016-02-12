@@ -1,6 +1,3 @@
-(function() {
-'use strict';
-
 /**
  * @ngdoc overview
  * @name 4me.core.organs.services
@@ -63,6 +60,3 @@ function mainOrganService(_, $state) {
 
   return service;
 }
-
-
-}());

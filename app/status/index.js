@@ -1,5 +1,5 @@
-(function() {
-'use strict';
+import services from './services';
+import components from './components';
 
 /**
  * @ngdoc overview
@@ -57,8 +57,3 @@ function statusController(_, status, organs) {
     });
   };
 }
-
-
-
-
-}());

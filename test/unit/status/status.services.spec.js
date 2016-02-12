@@ -1,5 +1,5 @@
 describe('4me.core.status.services', function() {
-  beforeEach(module('4me.core.status.services'));
+  beforeEach(angular.mock.module('4me.core.status.services'));
 
   describe('statusFactory', function() {
     var statusFactory;

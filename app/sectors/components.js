@@ -1,6 +1,3 @@
-(function() {
-'use strict';
-
 /**
  * @ngdoc function
  * @name 4me.core.cwp.directives
@@ -45,5 +42,3 @@ function arrayToSectorString(_, treeSectors) {
     return s.name;
   };
 }
-
-}());

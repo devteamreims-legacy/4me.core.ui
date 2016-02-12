@@ -1,5 +1,5 @@
 describe('4me.core.notifications', function() {
-  beforeEach(module('4me.core.notifications.services'));
+  beforeEach(angular.mock.module('4me.core.notifications.services'));
 
   var notifications;
   var $q;

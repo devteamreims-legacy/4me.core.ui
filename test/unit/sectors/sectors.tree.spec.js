@@ -1,5 +1,5 @@
 describe('4me.core.sectors.services', function() {
-  beforeEach(module('4me.core.sectors.services'));
+  beforeEach(angular.mock.module('4me.core.sectors.services'));
 
   describe('treeSectors', function() {
     var treeSectors;

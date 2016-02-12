@@ -1,6 +1,3 @@
-(function() {
-'use strict';
-
 /**
  * @ngdoc overview
  * @name 4me.core.errors.services
@@ -62,5 +59,3 @@ function errors(_, $q) {
   return service;
 
 }
-
-}());

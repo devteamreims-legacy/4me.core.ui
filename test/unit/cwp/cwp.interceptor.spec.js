@@ -1,13 +1,13 @@
 describe('4me.core.cwp.interceptor', function() {
 
   var $httpProvider;
-  beforeEach(module('4me.core.cwp.interceptor',
+  beforeEach(angular.mock.module('4me.core.cwp.interceptor',
     ['$httpProvider', function(_$httpProvider_) {
       $httpProvider = _$httpProvider_;
     }])
   );
 
-  beforeEach(module('4me.core.config'));
+  beforeEach(angular.mock.module('4me.core.config'));
 
   var cwpInterceptor;
   var $httpBackend;

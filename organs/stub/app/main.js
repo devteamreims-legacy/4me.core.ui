@@ -1,5 +1,3 @@
-(function() {
-'use strict';
 /**
  * @ngdoc overview
  * @name 4me.ui.stub
@@ -41,7 +39,7 @@ function stubConfig($stateProvider) {
   });
 };
 
-stubRegistration = ['mainOrganService', '$state', '$injector', 'stub.notifications'];
+stubRegistration.$inject = ['mainOrganService', '$state', '$injector', 'stub.notifications'];
 function stubRegistration(mainOrganService, $state, $injector, notifications) {
 
   console.log('Notifications');
@@ -133,5 +131,3 @@ function stubController(errors, notifications, $state) {
     notifications.add(priority || 'info', 'Test notification ' + randomString, {message: 'Test message', navigateTo: navigateTo});
   };
 }
-
-}());

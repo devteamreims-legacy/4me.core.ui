@@ -1,5 +1,5 @@
-(function() {
-'use strict';
+import services from './services';
+import components from './components';
 
 /**
  * @ngdoc overview
@@ -14,5 +14,3 @@ angular.module('4me.core.organs', [
   '4me.core.organs.services',
   '4me.core.organs.components'
 ]);
-
-}());

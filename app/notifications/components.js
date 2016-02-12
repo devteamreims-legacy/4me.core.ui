@@ -1,5 +1,4 @@
-(function() {
-'use strict';
+import button from './button/';
 
 /**
  * @ngdoc function
@@ -62,5 +61,3 @@ function fmeNotificationListController(notifications, $mdDialog) {
     notifications.add('core', 'warning');
   };
 }
-
-}());

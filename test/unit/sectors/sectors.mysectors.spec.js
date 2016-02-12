@@ -1,5 +1,5 @@
 describe('4me.core.sectors.services', function() {
-  beforeEach(module('4me.core.sectors.services'));
+  beforeEach(angular.mock.module('4me.core.sectors.services'));
 
   describe('mySector', function() {
     var mySector;
@@ -13,6 +13,8 @@ describe('4me.core.sectors.services', function() {
     var backendResponse;
     var myCwp;
     var endpoints = {};
+    var cwpInterceptor;
+    var $cookies;
 
     var resultsFromBackend = {
       getMine: {

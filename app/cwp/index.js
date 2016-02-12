@@ -1,5 +1,6 @@
-(function() {
-'use strict';
+import services from './services';
+import components from './components';
+import interceptor from './interceptor';
 
 /**
  * @ngdoc overview
@@ -15,4 +16,3 @@ angular.module('4me.core.cwp', [
   '4me.core.cwp.interceptor'
 ]);
 
-}());

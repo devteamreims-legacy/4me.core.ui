@@ -1,5 +1,5 @@
 describe('4me.core.cwp.services', function() {
-  beforeEach(module('4me.core.cwp.services'));
+  beforeEach(angular.mock.module('4me.core.cwp.services'));
 
   describe('myCwp', function() {
     var myCwp;
@@ -12,6 +12,7 @@ describe('4me.core.cwp.services', function() {
     var cwpInterceptor;
     var mainWebSocket;
     var backendResponse;
+    var $cookies;
 
     var resultsFromBackend = {
       getMine: {

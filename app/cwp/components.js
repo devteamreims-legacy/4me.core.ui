@@ -1,6 +1,3 @@
-(function() {
-'use strict';
-
 /**
  * @ngdoc function
  * @name 4me.core.cwp.directives
@@ -31,7 +28,3 @@ function myCwpController(_, myCwpService) {
     return myCwp.cwp.name;
   }
 }
-
-
-
-}());

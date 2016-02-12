@@ -1,5 +1,5 @@
 describe('4me.core.errors', function() {
-  beforeEach(module('4me.core.errors.services'));
+  beforeEach(angular.mock.module('4me.core.errors.services'));
 
   var errors;
   var $q;

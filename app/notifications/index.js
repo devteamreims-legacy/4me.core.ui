@@ -1,6 +1,5 @@
-(function() {
-'use strict';
-
+import services from './services';
+import components from './components';
 /**
  * @ngdoc overview
  * @name 4me.core.notifications
@@ -13,5 +12,3 @@ angular.module('4me.core.notifications', [
   '4me.core.notifications.services',
   '4me.core.notifications.components'
 ]);
-
-}());

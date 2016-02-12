@@ -1,4 +1,3 @@
-(function() {
 'use strict';
 
 /**
@@ -9,9 +8,7 @@
  * This http interceptor adds a custom header containing our cwp id
  */
 
-angular.module('4me.core.cwp.interceptor', [
-  '4me.core.cwp.services'
-])
+angular.module('4me.core.cwp.interceptor', [])
   .factory('cwpInterceptor', cwpInterceptor);
 
 function cwpInterceptor() {
@@ -33,4 +30,3 @@ function cwpInterceptor() {
   return service;
 }
 
-}());

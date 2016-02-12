@@ -1,4 +1,5 @@
-(function() {
+import cwpInterceptor from './cwp/interceptor.js';
+
 'use strict';
 /**
  * @ngdoc overview
@@ -11,6 +12,7 @@
 
 angular.module('4me.core.config', [
   'ngMaterial',
+  'ngCookies',
   '4me.core.cwp.interceptor'
 ])
   // Object to map microservices URLs
@@ -80,5 +82,3 @@ setCookieDefaults.$inject = ['$cookiesProvider'];
 function setCookieDefaults($cookiesProvider) {
   return;
 }
-
-}());

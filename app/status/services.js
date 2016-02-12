@@ -1,6 +1,3 @@
-(function() {
-'use strict';
-
 /**
  * @ngdoc overview
  * @name 4me.core.status.services
@@ -121,7 +118,3 @@ coreStatusFactory.$inject = ['_', 'statusFactory'];
 function coreStatusFactory(_, statusFactory) {
   return statusFactory.get('core');
 }
-
-
-
-}());

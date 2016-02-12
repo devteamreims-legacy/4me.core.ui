@@ -1,6 +1,3 @@
-(function() {
-'use strict';
-
 /**
  * @ngdoc function
  * @name 4me.core.errors.components
@@ -68,5 +65,3 @@ function fmeErrorButtonController(errors, $mdDialog) {
     });
   }
 }
-
-}());

@@ -1,5 +1,5 @@
-(function() {
-'use strict';
+import sectorsServices from '../sectors/services';
+import cwpServices from '../cwp/services';
 
 /**
  * @ngdoc overview
@@ -36,5 +36,3 @@ function bootstrapper($q, $log, treeSectors, myCwp, mySector) {
   return service;
 }
 
-
-}());

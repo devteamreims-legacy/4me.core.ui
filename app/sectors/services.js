@@ -1,5 +1,4 @@
-(function() {
-'use strict';
+import status from '../status/';
 
 /**
  * @ngdoc overview
@@ -9,7 +8,6 @@
  * Sectors Services
  */
 var sectorsServices = angular.module('4me.core.sectors.services', [
-  '4me.core.lodash',
   '4me.core.config',
   '4me.core.status',
   '4me.core.errors',
@@ -237,5 +235,3 @@ function mySector(_, $q, $log, ApiUrls, $http, errors, status, mainWebSocket, my
 
   return service;
 }
-
-}());

@@ -1,5 +1,5 @@
 describe('4me.core.organs.services', function() {
-  beforeEach(module('4me.core.organs.services'));
+  beforeEach(angular.mock.module('4me.core.organs.services'));
 
   describe('mainOrganService', function() {
     var mainOrganService;

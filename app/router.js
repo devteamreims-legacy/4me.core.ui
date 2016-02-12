@@ -1,5 +1,3 @@
-(function() {
-'use strict';
 /**
  * @ngdoc overview
  * @name 4me.core.router
@@ -56,5 +54,3 @@ function stateErrorCatcher($log, $rootScope, $state) {
     $state.go('bootstrap-error');
   });
 }
-
-}());

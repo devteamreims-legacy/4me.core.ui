@@ -14,11 +14,12 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     replace = require('gulp-replace'),
     mainBowerFiles = require('main-bower-files'),
+    debowerify = require('debowerify'),
     wiredep = require('wiredep').stream,
-    ngAnnotate = require('browserify-ngannotate'),
     runSequence = require('run-sequence'),
     connect = require('gulp-connect'),
     CacheBuster = require('gulp-cachebust'),
+    babel = require('gulp-babel'),
     karma = require('karma').server;
 
 var cachebust = new CacheBuster();
@@ -181,19 +182,23 @@ gulp.task('build-template-cache', function() {
 
 gulp.task('build-js', function() {
 
-    return gulp.src(config.jsFolder)
+/*    return gulp.src(config.jsFolder)
         .pipe(concat('bundle.js'))
         .pipe(cachebust.resources())
         .pipe(gulp.dest(config.destFolder + '/scripts/'));
-
+*/
     var b = browserify({
-        entries: 'app/scripts/main.js',
+        entries: 'app/main.js',
         debug: true,
-        paths: [config.jsFolder],
-        transform: [ngAnnotate]
+        paths: config.jsFolder,
+        transform: [
+            ['babelify', {presets: ['es2015']}],
+            debowerify
+        ]
     });
 
-    return b.bundle()
+    return b
+        .bundle()
         .pipe(source('bundle.js'))
         .pipe(buffer())
         .pipe(cachebust.resources())
@@ -322,11 +327,6 @@ gulp.task('test:unit:coverage', function(done) {
     karma.start({
         configFile: __dirname + '/test/karma.conf.js',
         singleRun: true,
-        preprocessors: {
-            'test/unit/setup.js': ['browserify'],
-            'app/**/*.js': ['coverage'],
-            'organs/**/app/**/*.js': ['coverage']
-        },
         reporters: ['progress', 'coverage'],
         browsers: ['PhantomJS']
     }, done);
