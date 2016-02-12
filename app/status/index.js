@@ -1,6 +1,8 @@
 import services from './services';
 import components from './components';
 
+import _ from 'lodash';
+
 /**
  * @ngdoc overview
  * @name 4me.core.status
@@ -27,8 +29,8 @@ function addRoutes($stateProvider) {
   });
 };
 
-statusController.$inject = ['_', 'status', 'mainOrganService'];
-function statusController(_, status, organs) {
+statusController.$inject = ['status', 'mainOrganService'];
+function statusController(status, organs) {
   var statuses = this;
   statuses.statuses = [];
   statuses.statuses.push({
