@@ -5,10 +5,7 @@
     class="fme-organs-navigation"
     ng-class="{active: o.isActive()}"
   >
-    <md-icon
-      class="md-avatar"
-      md-svg-icon="arrow-right"
-    ></md-icon>
+    <fme-status-icon props="{status: o.getStatusService().get().status, mdAvatar: true}"></fme-status-icon>
     <p>{{o.name | uppercase}}</p>
     <fme-notification-icon
       class="md-secondary"

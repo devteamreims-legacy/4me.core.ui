@@ -78,6 +78,8 @@ fmeStatusIconController.$inject = [];
 function fmeStatusIconController() {
   var fmeStatusIcon = this;
 
+  console.log(fmeStatusIcon.props);
+
   fmeStatusIcon.getIconName = function() {
     switch (fmeStatusIcon.props.status) {
       case 'normal':
