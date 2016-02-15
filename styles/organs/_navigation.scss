@@ -1,0 +1,8 @@
+.fme-organs-navigation.active {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+// Angular material workaround : text is not rendered according to theme
+.fme-organs-navigation {
+  color: white;
+}

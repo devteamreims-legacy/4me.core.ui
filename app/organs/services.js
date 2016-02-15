@@ -43,9 +43,17 @@ function mainOrganService() {
     o.name = organ.name;
     o.getNotificationService = organ.getNotificationService;
     o.getStatusService = organ.getStatusService;
-    o.navigateTo = function() {
+    o.navigateTo = () => {
       console.log('Navigating to organ : ' + organ.name);
       organ.navigateTo();
+    };
+
+    o.isActive = () => {
+      if(_.isFunction(organ.isActive)) {
+        return organ.isActive();
+      } else {
+        return false;
+      }
     };
 
     organs.push(o);

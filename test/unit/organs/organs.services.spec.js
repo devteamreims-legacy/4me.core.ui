@@ -30,7 +30,7 @@ describe('4me.core.organs.services', function() {
 
     it('should allow a valid organ to register', function() {
       var r = mainOrganService.register(stubOrgan);
-      r.should.have.keys('name', 'navigateTo', 'getNotificationService', 'getStatusService');
+      r.should.have.keys('name', 'navigateTo', 'getNotificationService', 'getStatusService', 'isActive');
     });
 
     it('should not allow two organs with the same name', function() {

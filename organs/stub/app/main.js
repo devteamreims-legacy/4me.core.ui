@@ -48,6 +48,7 @@ function stubRegistration(mainOrganService, $state, $injector, notifications) {
   console.log(notifications);
   var r = mainOrganService.register({
     name: 'stub',
+    isActive: () => $state.includes('stub'),
     navigateTo: function() {
       $state.go('stub');
       this.getNotificationService().markAllAsRead();
