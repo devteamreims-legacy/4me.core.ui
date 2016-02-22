@@ -47,11 +47,8 @@ function applyThemes($mdThemingProvider) {
   // We should define a dark theme here, but this is not working consistently with ngMaterial
   $mdThemingProvider.theme('default')
     .primaryPalette('indigo')
-    .accentPalette('pink', {
-      'default': '600'
-    })
-    .warnPalette('deep-orange', {
-      'default': '500'
+    .accentPalette('deep-purple', {
+      'default': '400'
     })
     .dark()
     ;
