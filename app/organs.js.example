@@ -1,5 +1,7 @@
-(function() {
-'use strict';
+import spvrMappingOrgan from '../organs/spvr.mapping';
+import stubOrgan from '../organs/stub';
+
+
 /**
  * @ngdoc overview
  * @name 4me.core.loadOrgans
@@ -15,4 +17,3 @@ var m = angular
       '4me.ui.spvr.mapping'
   ]);
 
-}());
