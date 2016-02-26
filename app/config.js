@@ -17,16 +17,16 @@ angular.module('4me.core.config', [
   // Object to map microservices URLs
   .constant('ApiUrls', {
     mapping: {
-      rootPath: 'http://' + window.location.hostname + ':3000', // Root path
+      rootPath: 'http://' + window.location.hostname + ':3100', // Root path
       // Api end points relative to the root path
       cwp: {getMine: '/cwp/getMine'},
       sectors: {getMine: '/mapping/cwp/'} // + cwpId
     },
     sectors: {
-      rootPath: 'http://' + window.location.hostname + ':3000',
+      rootPath: 'http://' + window.location.hostname + ':3100',
       tree: '/sectors/'
     },
-    socket: 'http://' + window.location.hostname + ':3000'
+    socket: 'http://' + window.location.hostname + ':3100'
   })
   .config(mdiToAngularMaterial)
   .config(applyThemes)
