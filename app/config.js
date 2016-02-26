@@ -1,6 +1,5 @@
 import cwpInterceptor from './cwp/interceptor.js';
 
-'use strict';
 /**
  * @ngdoc overview
  * @name 4me.core.config
@@ -18,16 +17,16 @@ angular.module('4me.core.config', [
   // Object to map microservices URLs
   .constant('ApiUrls', {
     mapping: {
-      rootPath: 'http://localhost:3000', // Root path
+      rootPath: 'http://' + window.location.hostname + ':3000', // Root path
       // Api end points relative to the root path
       cwp: {getMine: '/cwp/getMine'},
       sectors: {getMine: '/mapping/cwp/'} // + cwpId
     },
     sectors: {
-      rootPath: 'http://localhost:3000',
+      rootPath: 'http://' + window.location.hostname + ':3000',
       tree: '/sectors/'
     },
-    socket: 'http://localhost:3000'
+    socket: 'http://' + window.location.hostname + ':3000'
   })
   .config(mdiToAngularMaterial)
   .config(applyThemes)
