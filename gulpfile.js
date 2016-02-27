@@ -220,7 +220,6 @@ gulp.task('build-bower-js', function() {
         mainBowerFiles({
             filter: /.*\.js$/
         })
-        .concat(config.bowerFolder + '/socket.io-client/socket.io.js')
     )
         //.pipe(debug())
         .pipe(sourcemaps.init())

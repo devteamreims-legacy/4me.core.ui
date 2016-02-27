@@ -1,5 +1,8 @@
 import _ from 'lodash';
 
+import io from 'socket.io-client';
+
+
 /**
  * @ngdoc overview
  * @name 4me.core.socket
