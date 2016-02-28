@@ -144,7 +144,6 @@ function mySector($q, $log, ApiUrls, $http, errors, status, mainWebSocket, myCwp
 
   mainWebSocket.on('mapping:refresh', function(data) {
     $log.debug('Got refresh signal from socket');
-    $rootScope.$emit('fme:new-sectors');
     _getFromBackend();
     return;
   });
@@ -201,6 +200,7 @@ function mySector($q, $log, ApiUrls, $http, errors, status, mainWebSocket, myCwp
         loadingPromise = undefined;
         _setFromData(res.data);
         bootstrapped = true;
+        $rootScope.$emit('fme:new-sectors');
         status.recover('core.mySector');
         return mySectors;
       })
