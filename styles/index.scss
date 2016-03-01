@@ -1,2 +1,8 @@
 @import "common.materialcolors";
 @import "organs/navigation";
+
+
+// Global zoom, adapt ui to viewing distance
+body {
+  //zoom: 1.25;
+}
