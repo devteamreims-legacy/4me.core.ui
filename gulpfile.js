@@ -14,6 +14,7 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     replace = require('gulp-replace'),
     mainBowerFiles = require('main-bower-files'),
+    babelify = require('babelify'),
     debowerify = require('debowerify'),
     wiredep = require('wiredep').stream,
     runSequence = require('run-sequence'),
@@ -190,13 +191,16 @@ gulp.task('build-js', function() {
         entries: 'app/main.js',
         debug: true,
         paths: config.jsFolder,
-        transform: [
-            ['babelify', {presets: ['es2015']}],
-            debowerify
-        ]
     });
 
     return b
+        .transform(
+          babelify.configure({
+            presets: ['es2015'],
+            ignore: /bower_components/,
+          })
+        )
+        .transform(debowerify)
         .bundle()
         .pipe(source('bundle.js'))
         .pipe(buffer())
